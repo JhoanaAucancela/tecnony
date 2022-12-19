@@ -116,7 +116,7 @@ export default function ServicesNavigation(){
              }}
         >
             <Drawer.Screen
-                name=" sas"
+                name="TabBar"
                 component={TabBar}
                 
             />

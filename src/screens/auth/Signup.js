@@ -200,7 +200,8 @@ const Signup = ({ navigation }) => {
                 type="outline"
                 onPress={handleSubmit(_signup)}
             />
-            
+
+                    <Text>  </Text>           
         </ScrollView>
             <View style={{ alignItems: 'center' }}>
                 <Text
@@ -210,6 +211,10 @@ const Signup = ({ navigation }) => {
                     ¿Ya tienes una cuenta?
                 </Text>
             </View>
+
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
         
         </View>
     );
