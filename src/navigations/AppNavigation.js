@@ -8,7 +8,7 @@ import InviteNavigation from "./InviteNavigations";
 const AppNavigation = ({ userToken }) => {
     return (
         <NavigationContainer>
-              {userToken == null ? <InviteNavigation /> : <InviteNavigation />}
+              {userToken == null ? <InviteNavigation /> : <ServicesNavigation />}
         </NavigationContainer>
     )
 }
