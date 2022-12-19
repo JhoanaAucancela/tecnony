@@ -5,8 +5,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useAuth, USER_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 
-
-
 import { logout } from "../services/AuthService";
 import Toast from "react-native-root-toast";
 
@@ -36,7 +34,22 @@ export default function Profile(props){
         <View >
             {user &&
                 <View>
+                    <View style={{ flexDirection: "row" }}>
                     <Text style={styles.titleX}>Mi Perfil</Text>
+                        <Text
+                            onPress={() => _logout()}
+                            style={styles.buttonlogout}
+                        >Cerrar sesión
+                            <Icon
+                                    name="exit-outline"
+                                    color='black'
+                                    type = "ionicon" 
+                                />
+                            
+                        </Text>
+                    </View>
+                    
+                    
                     <View style={{ alignItems: 'center', marginTop:'5%' }}>
                         <Avatar
                             roundeds
@@ -70,17 +83,10 @@ export default function Profile(props){
                         <Text style={styles.title}>Dirección:</Text>
                         <Text style={styles.text}>      {user.address}</Text>
 
-
                         <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', marginTop:'5%' }}>
-                            <Text
-                                onPress={() => _logout()}
-                                style={styles.button}
-                            >
-                            Cerrar sesión
-                            </Text>
 
                             <Text
-                                onPress={() => _logout()}
+                                onPress={() => props.navigation.navigate("EditProfile")}
                                 style={styles.button}
                             >
                             Editar Perfil
@@ -103,12 +109,21 @@ const styles =  EStyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
+    buttonlogout: {
+        fontFamily: '$400Regular',
+        color:'$black',
+        textDecorationLine: "underline",
+        marginLeft:'40%',
+        marginTop:'5%'
+        
+    },
+
     button: {
         backgroundColor:'#3F88C5', 
         padding:'3%', 
         paddingLeft:'7%',
         paddingRight:'7%',
-        with:20,
         textAlign: 'center', 
         borderRadius: 15, 
         color:"$white", 
