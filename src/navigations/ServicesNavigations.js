@@ -11,6 +11,8 @@ import * as Application from 'expo-application';
 import ServicesStack from "./stacks/ServicesStack";
 import ProfileStack from "./stacks/ProfileStack";
 import HomeStack from "./stacks/HomeStack";
+import MyServicesStack from "./stacks/MyServicesStack"
+
 
 
 const BottomTabs = createBottomTabNavigator();
@@ -63,6 +65,21 @@ const TabBar = ({ appName }) => {
             />
 
             <BottomTabs.Screen 
+                name="MyServices"
+                component={MyServicesStack}
+                options={{ 
+                    title: "",
+                    headerTitle: appName,
+                    headerTitleAlign: "center",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: styles.header.color,
+                    headerTitleStyle: {
+                        fontFamily: styles.header.fontFamily,
+                    }
+                 }}
+            />
+
+            <BottomTabs.Screen 
                 name="Account"
                 component={ProfileStack}
                 options={{ 
@@ -96,6 +113,10 @@ const showIcon = (route, focused) => {
 
         case "Services": {
             icon = "construct";
+            break;
+        }
+        case "MyServices": {
+            icon = "basket";
             break;
         }
         case "Account": {

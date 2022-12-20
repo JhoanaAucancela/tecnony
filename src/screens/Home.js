@@ -2,13 +2,13 @@ import React, {useState, useEffect} from "react";
 import { View, Text} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Button, Image, Icon } from "react-native-elements"
-import Services from "../screens/Services"
 
 import * as SecureStore from "expo-secure-store";
 import { useAuth, USER_KEY } from "../providers/AuthProvider";
 
 
-const Home = () => {
+
+export default function Home(props) {
 
     const [user, setUser] =useState([]);
 
@@ -32,56 +32,55 @@ const Home = () => {
             
             
             <View style = {{ flexDirection: "row", height:'80%'}}>
-                <View style ={styles.box}>
-                    <Text style = {styles.text}>Mi cuenta</Text>
+                <View    style ={styles.box}>
+                    <Text style = {styles.text} onPress={() => props.navigation.navigate("Profile")}>Mi cuenta</Text>
                     <Icon
                         name="person-outline"
                         type="ionicon"
                         size= {30}
                         color= "white"
                         style={{ marginTop: 2, marginRight: 10 }}
-                        onPress={() => navigation.navigate("Home")}
-                        
+                        onPress={() => props.navigation.navigate("Profile")}
                     />
 
                 </View>
                 <Text>      </Text>
                 <View style ={styles.box}>
-                    <Text style = {styles.text}>Servicios</Text>
+                    <Text style = {styles.text} onPress={() => props.navigation.navigate("Services")}>Servicios</Text>
                     <Icon
                         name="construct"
                         type="ionicon"
                         size= {30}
                         color= "white"
                         style={{ marginTop: 2, marginRight: 10 }}
-                        onPress={() => navigation.navigate("Services")}
+                        onPress={() => props.navigation.navigate("Services")}
                     />
                 </View>
             </View>
 
             <View style = {{ flexDirection: "row", height:'80%', marginTop:'-120%'}}>
                 <View style ={styles.box}>
-                    <Text style = {styles.text}>Mis servicios</Text>
+                    <Text style = {styles.text} onPress={() => props.navigation.navigate("Myservices")}>Mis servicios</Text>
                     <Icon
                         name="basket"
                         type="ionicon"
                         size= {30}
                         color= "white"
                         style={{ marginTop: 2, marginRight: 10 }}
-                        onPress={() => navigation.navigate("Home")}
+                        onPress={() => props.navigation.navigate("Myservices")}
                     />
 
                 </View>
                 <Text>      </Text>
                 <View style ={styles.box}>
-                    <Text style = {styles.text}>Comentarios</Text>
+                    <Text style = {styles.text} onPress={() => props.navigation.navigate("Opinions")}>Comentarios</Text>
                     <Icon
                         name="chatbubbles"
                         type="ionicon"
                         size= {30}
                         color= "white"
                         style={{ marginTop: 2, marginRight: 10 }}
-                        onPress={() => navigation.navigate("Home")}
+                        onPress={() => props.navigation.navigate("Opinions")}
                     />
                 </View>
             </View>
@@ -89,7 +88,6 @@ const Home = () => {
     );
 };
 
-export default Home;
 
 const styles =  EStyleSheet.create({
     container: {

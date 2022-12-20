@@ -104,7 +104,7 @@ export default function DrawerContent(props){
                         <DrawerItem
                             label="Mis servicios"
                             labelStyle= {styles.label}
-                            onPress={() => props.navigation.navigate("Services")}
+                            onPress={() => props.navigation.navigate("MyServices")}
                             icon={({ color, size }) => (
                                 <Icon
                                     name="basket"
