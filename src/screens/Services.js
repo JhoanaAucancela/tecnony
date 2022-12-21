@@ -3,165 +3,70 @@ import { View, Text, ScrollView} from 'react-native';
 import { Avatar, Icon } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { fetchServices } from '../services/ServicesService';
-import { Card, Image } from 'react-native-elements';
+import { Card, Image, Button} from 'react-native-elements';
+
+import axios from "axios";
+
+const baseURL = "http://192.168.3.122:8000/api/v1/view-service";
 
 const Services = () => {
-    const  [services, setServices] = useState([]);
-    useEffect (()=>{
-       (async () => {
-            const _services = await fetchServices();
-            setServices(_services.data);
-       })();
-    }, []);
 
+    const [post, setPost] = React.useState(null);
+
+    React.useEffect(() => {
+        axios.get({baseURL}).then((response) => {
+        setPost(response.data.data.service);
+        });
+    }, []);
     
+      if (!post) return <Text>"No post!"</Text>
+    
+      
     return(
         <View style={styles.container}>
             <Text style={styles.titleX}>Servicios</Text>
             <ScrollView>
-
                    
-                    <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                        <Card.Title>Mrs.</Card.Title>
-                        <View style={{ flexDirection: "row"}}>
-                            <View style={{ width:'40%'}}>
-                                <Image
-                                    source={{ uri: 'https://picsum.photos/id/1/200/300' }}
-                                    style={{ width: 100, height: 150 }}
-                                />
+                    { post.map((p,i) => {
+                        return(
+                            <View key={i}>
+                                <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                                    <Card.Title>{p.name}</Card.Title>
+                                    <View style={{ flexDirection: "row"}}>
+                                        <View style={{ width:'40%'}}>
+                                            <Image
+                                                source={{ uri: p.image }}
+                                                style={{ width: 100, height: 150 }}
+                                            />
+                                        </View>
+                                        <View style={{ width:'60%'}}>
+                                            <Text style={styles.descripcion}>Descripción: </Text>
+                                            <Text style={styles.descripciontext}>{p.description}</Text>
+                                            
+                                            <Text style={styles.descripcion}>Precio: </Text>
+                                            <Text style={styles.descripciontext}>{p.price}</Text>
+                                            <Text>   </Text>
+                                            <Text style={styles.button}> 
+                                            <Icon
+                                                name="cart"
+                                                color='white'
+                                                type = "ionicon" 
+                                            />
+                                            </Text>
+                                        </View>
+                                    </View>  
+                                </Card>
                             </View>
-                            <View style={{ width:'60%'}}>
-                                <Text style={styles.descripcion}>Descripción: </Text>
-                                <Text style={styles.descripciontext}>In mollitia nihil quis. A ad sint repudiandae corrupti ipsam labore. Magni eos ipsum quaerat sequi iure quasi. Dolores sint voluptatibus aut quis earum aperiam quidem. Quibusdam sed et iusto ea.</Text>
-                                
-                                <Text style={styles.descripcion}>Precio: </Text>
-                                <Text style={styles.descripciontext}>28.42</Text>
-                                <Text>   </Text>
-                                <Text style={styles.button}> 
-                                <Icon
-                                    name="cart"
-                                    color='white'
-                                    type = "ionicon" 
-                                />
-                                </Text>
-                            </View>
-                        </View>  
-                    </Card>
+                        )
+                    })}
+                   
+                   
+                    
 
 
-                    <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                        <Card.Title>Mrs.</Card.Title>
-                        <View style={{ flexDirection: "row"}}>
-                            <View style={{ width:'40%'}}>
-                                <Image
-                                    source={{ uri: 'https://picsum.photos/id/2/200/300' }}
-                                    style={{ width: 100, height: 150 }}
-                                />
-                            </View>
-                            <View style={{ width:'60%'}}>
-                                <Text style={styles.descripcion}>Descripción: </Text>
-                                <Text style={styles.descripciontext}>Consequatur autem ullam incidunt quia culpa. Quia ea dolores est temporibus nostrum quas sit. Harum culpa cumque eaque similique quisquam deserunt et laboriosam.</Text>
-                                
-                                <Text style={styles.descripcion}>Precio: </Text>
-                                <Text style={styles.descripciontext}>45.47</Text>
-                                <Text>   </Text>
-                                <Text style={styles.button}> 
-                                <Icon
-                                    name="cart"
-                                    color='white'
-                                    type = "ionicon" 
-                                />
-                                </Text>
-                            </View>
-                        </View>  
-                    </Card>
 
 
-                    <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                        <Card.Title>Mrs.</Card.Title>
-                        <View style={{ flexDirection: "row"}}>
-                            <View style={{ width:'40%'}}>
-                                <Image
-                                    source={{ uri: 'https://picsum.photos/id/4/200/300' }}
-                                    style={{ width: 100, height: 150 }}
-                                />
-                            </View>
-                            <View style={{ width:'60%'}}>
-                                <Text style={styles.descripcion}>Descripción: </Text>
-                                <Text style={styles.descripciontext}>Aut sit molestias non in pariatur id cum. Neque aut rerum qui velit facere. Impedit distinctio possimus saepe. Error non ipsa eligendi deleniti est quo.</Text>
-                                
-                                <Text style={styles.descripcion}>Precio: </Text>
-                                <Text style={styles.descripciontext}>48.17</Text>
-                                <Text>   </Text>
-                                <Text style={styles.button}> 
-                                <Icon
-                                    name="cart"
-                                    color='white'
-                                    type = "ionicon" 
-                                />
-                                </Text>
-                            </View>
-                        </View>  
-                    </Card>
 
-
-                    <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                        <Card.Title>Dr.</Card.Title>
-                        <View style={{ flexDirection: "row"}}>
-                            <View style={{ width:'40%'}}>
-                                <Image
-                                    source={{ uri: 'https://picsum.photos/id/5/200/300' }}
-                                    style={{ width: 100, height: 150 }}
-                                />
-                            </View>
-                            <View style={{ width:'60%'}}>
-                                <Text style={styles.descripcion}>Descripción: </Text>
-                                <Text style={styles.descripciontext}>Aut sit molestias non in pariatur id cum. Neque aut rerum qui velit facere. Impedit distinctio possimus saepe. Error non ipsa eligendi deleniti est quo.</Text>
-                                
-                                <Text style={styles.descripcion}>Precio: </Text>
-                                <Text style={styles.descripciontext}>48.17</Text>
-                                <Text>   </Text>
-                                <Text style={styles.button}> 
-                                <Icon
-                                    name="cart"
-                                    color='white'
-                                    type = "ionicon" 
-                                />
-                                </Text>
-                            </View>
-                        </View>  
-                    </Card>
-
-                    <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                        <Card.Title>Dr.</Card.Title>
-                        <View style={{ flexDirection: "row"}}>
-                            <View style={{ width:'40%'}}>
-                                <Image
-                                    source={{ uri: 'https://picsum.photos/id/6/200/300' }}
-                                    style={{ width: 100, height: 150 }}
-                                />
-                            </View>
-                            <View style={{ width:'60%'}}>
-                                <Text style={styles.descripcion}>Descripción: </Text>
-                                <Text style={styles.descripciontext}>Itaque inventore quod ducimus omnis in. Non tempora quod cum laboriosam enim id. Tempore non officia aut nam aliquid explicabo dolor perspiciatis. Est perspiciatis excepturi omnis debitis quae.</Text>
-                                
-                                <Text style={styles.descripcion}>Precio: </Text>
-                                <Text style={styles.descripciontext}>48.17</Text>
-                                <Text>   </Text>
-                                <Text style={styles.button}> 
-                                <Icon
-                                    name="cart"
-                                    color='white'
-                                    type = "ionicon" 
-                                />
-                                </Text>
-                            </View>
-                        </View>  
-                    </Card>
-                    <Text>  </Text>
-                    <Text>  </Text>
-                    <Text>  </Text>
-                    <Text>  </Text>
             </ScrollView>
         </View>  
     );

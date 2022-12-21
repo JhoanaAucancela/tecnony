@@ -17,6 +17,13 @@ const EditProfile = () => {
            setUser(JSON.parse(_user)); 
         })();
     }, []);
+/*
+    const [message, setMessage] = useState('');
+    const handleChange = (event) => {
+      setMessage(event.target.value);
+    };*/
+
+    
 
     return(
         <View style={styles.container}>
@@ -43,7 +50,7 @@ const EditProfile = () => {
 
                         <ScrollView style={{ width: '90%', }}>
                             <Text style={styles.title}>Nombre de usuario:</Text>
-                            <Input style={styles.input} value={user.username} ></Input>
+                            <Input style={styles.input} value={user.username}></Input>
 
                             <Text style={styles.title}>Cédula:</Text>
                             <Input style={styles.input} value={user.cedula}></Input>
