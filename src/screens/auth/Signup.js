@@ -25,7 +25,6 @@ const Signup = ({ navigation }) => {
             Toast.show(
                 message,
                 {
-
                 }
             )
         } catch (e) {
@@ -184,7 +183,7 @@ const Signup = ({ navigation }) => {
 
             <Text style={styles.text}>Confirmar Contraseña</Text>
             <PasswordInput 
-                name="passwordConfirmation"
+                name="password_confirmation"
                 control={control}
                 errors={errors}
                 errorValidationStyle={styles.errorValidation}

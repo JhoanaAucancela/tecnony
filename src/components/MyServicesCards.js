@@ -1,30 +1,14 @@
-import React from 'react';
-import { View, Text} from 'react-native';
+import React from "react";
+import { View } from "react-native";
+import { Card, Image } from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 
-import axios from "axios";
-const baseURL = "http://192.168.0.104:8000/api/v1/hiring/show";
-
-const MyServices = () => {
-
-    const [post, setPost] = React.useState(null);
-
-    React.useEffect(() => {
-        axios.get(`${baseURL}`).then((response) => {
-        setPost(response.data.data.service);
-        });
-    }, []);
-    
-      if (!post) return <Text>No fue posible obtener los servicios</Text>
-
+const MyServicesCards = (Myservices = []) => {
     return(
-        <View style={styles.container}>
-        <View>
-            <Text style= {styles.text}>My Services</Text>
-
+        <View >
             {
-                psot.map((item, index) => (
+                Myservices.map((item, index) => (
                     <View key={index} >
                            
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
@@ -48,22 +32,53 @@ const MyServices = () => {
                     </View>
                 ))
             }
+            
         </View>
-    </View>  
-    );
-};
+    )
+}
 
-export default MyServices;
+export default MyServicesCards;
 
 const styles =  EStyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'$authBg',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor:'$white',
+        alignItems:'center',
+
     },
-    text: {
-        color: '$primary',
-        fontWeight: '$fontWeight600', 
-     },
+    services:{
+        flexDirection: 'row',
+        marginBottom: 6,
+    },
+    image: {
+        width: 30,
+        height: 30,
+        marginRight: 10,
+    },
+    name: {
+        fontSize: 16,
+        marginTop: 5,
+    },
+    descripcion:{
+        fontFamily:'$700Bold',
+    },
+
+    descripciontext:{
+        fontFamily:'$400Regular',
+    },
+    titleX:{
+        fontFamily: '$700Bold',
+        fontSize: 24,
+        color:'$primary',
+    },
+    button: {
+        backgroundColor:'#3F88C5', 
+        padding:'3%', 
+        paddingLeft:'7%',
+        paddingRight:'7%',
+        textAlign: 'center', 
+        borderRadius: 15, 
+        color:"$white", 
+        fontWeight: 'bold'
+    },
 });

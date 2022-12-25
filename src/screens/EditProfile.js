@@ -15,14 +15,11 @@ const EditProfile = () => {
         (async () => {
            const _user = await SecureStore.getItemAsync(USER_KEY);
            setUser(JSON.parse(_user)); 
+           NameForm()
         })();
     }, []);
-/*
-    const [message, setMessage] = useState('');
-    const handleChange = (event) => {
-      setMessage(event.target.value);
-    };*/
 
+    
     
 
     return(
@@ -50,7 +47,7 @@ const EditProfile = () => {
 
                         <ScrollView style={{ width: '90%', }}>
                             <Text style={styles.title}>Nombre de usuario:</Text>
-                            <Input style={styles.input} value={user.username}></Input>
+                            <Input style={styles.input} value={user.username} ></Input>
 
                             <Text style={styles.title}>Cédula:</Text>
                             <Input style={styles.input} value={user.cedula}></Input>

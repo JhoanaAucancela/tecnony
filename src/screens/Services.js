@@ -2,19 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView} from 'react-native';
 import { Avatar, Icon } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { fetchServices } from '../services/ServicesService';
+//import { fetchServices } from '../services/ServicesService';
 import { Card, Image, Button} from 'react-native-elements';
 
-import axios from "axios";
 
-const baseURL = "http://192.168.3.122:8000/api/v1/view-service";
+//import ServicesCards from '../components/ServicesCards';
+import axios from "axios";
+const baseURL = "http://192.168.0.105:8000/api/v1/view-service";
+
 
 const Services = () => {
 
-    const [post, setPost] = React.useState(null);
+    const [post, setPost] = React.useState([]);
 
     React.useEffect(() => {
-        axios.get({baseURL}).then((response) => {
+        axios.get(`${baseURL}/1`).then((response) => {
         setPost(response.data.data.service);
         });
     }, []);
@@ -25,49 +27,32 @@ const Services = () => {
     return(
         <View style={styles.container}>
             <Text style={styles.titleX}>Servicios</Text>
-            <ScrollView>
-                   
-                    { post.map((p,i) => {
-                        return(
-                            <View key={i}>
-                                <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                                    <Card.Title>{p.name}</Card.Title>
-                                    <View style={{ flexDirection: "row"}}>
-                                        <View style={{ width:'40%'}}>
-                                            <Image
-                                                source={{ uri: p.image }}
-                                                style={{ width: 100, height: 150 }}
-                                            />
-                                        </View>
-                                        <View style={{ width:'60%'}}>
-                                            <Text style={styles.descripcion}>Descripción: </Text>
-                                            <Text style={styles.descripciontext}>{p.description}</Text>
-                                            
-                                            <Text style={styles.descripcion}>Precio: </Text>
-                                            <Text style={styles.descripciontext}>{p.price}</Text>
-                                            <Text>   </Text>
-                                            <Text style={styles.button}> 
-                                            <Icon
-                                                name="cart"
-                                                color='white'
-                                                type = "ionicon" 
-                                            />
-                                            </Text>
-                                        </View>
-                                    </View>  
-                                </Card>
+            <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                        <Card.Title>{post.name}</Card.Title>
+                        <View style={{ flexDirection: "row"}}>
+                            <View style={{ width:'40%'}}>
+                                <Image
+                                    source={{ uri: post.image }}
+                                    style={{ width: 100, height: 150 }}
+                                />
                             </View>
-                        )
-                    })}
-                   
-                   
-                    
-
-
-
-
-
-            </ScrollView>
+                            <View style={{ width:'60%'}}>
+                                <Text style={styles.descripcion}>Descripción: </Text>
+                                <Text style={styles.descripciontext}>{post.description}</Text>
+                                
+                                <Text style={styles.descripcion}>Precio: </Text>
+                                <Text style={styles.descripciontext}>{post.price}</Text>
+                                <Text>   </Text>
+                                <Text style={styles.button}> 
+                                <Icon
+                                    name="cart"
+                                    color='white'
+                                    type = "ionicon" 
+                                />
+                                </Text>
+                            </View>
+                        </View>  
+                    </Card>
         </View>  
     );
 };
