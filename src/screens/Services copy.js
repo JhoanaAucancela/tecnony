@@ -6,7 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Button} from 'react-native-elements';
 
 
-//import ServicesCards from '../components/ServicesCards';
+
 import axios from "axios";
 const baseURL = "http://192.168.0.105:8000/api/v1/view-service";
 

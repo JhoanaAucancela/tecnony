@@ -4,9 +4,7 @@ import EStyleSheet from "react-native-extended-stylesheet";
 import * as Application from 'expo-application';
 import Login from "../../screens/auth/Login";
 import Signup from "../../screens/auth/Signup";
-import Information_1 from "../../screens/Information_1";
-import Information_2 from "../../screens/Information_2";
-import Information_3 from "../../screens/Information_3";
+import ForgotPassword from "../../screens/ForgotPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,9 +28,15 @@ const AuthStack = ({ appName }) => {
         >
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Signup" component={Signup} />
-            <Stack.Screen name="Information_1" component={Information_1} />
-            <Stack.Screen name="Information_2" component={Information_2} />
-            <Stack.Screen name="Information_3" component={Information_3} />
+            <Stack.Screen 
+                name="ForgotPassword" 
+                component={ForgotPassword}
+                options={{ 
+                    headerBackTitle: "",
+                    title: "",
+                    headerShown: false,
+                 }}
+            />
             
         </Stack.Navigator>
     );

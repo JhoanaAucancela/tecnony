@@ -24,14 +24,14 @@ const ServicesCards = ({servicios = []}) => {
                                 <View style={{ width:'60%'}}>
                                     <Text style ={styles.descripcion}>Categoria: </Text>
                                     <Text style={styles.descripciontext}>{item.categories}</Text>
-                                    
+
                                     <Text style={styles.descripcion}>Descripción: </Text>
                                     <Text style={styles.descripciontext}>{item.description}</Text>
                                     
                                     <Text style={styles.descripcion}>Precio: </Text>
                                     <Text style={styles.descripciontext}>{item.price}</Text>
                                     <Text>   </Text>
-                                    <Text style={styles.button}> 
+                                    <Text style={styles.button} onPress={() => props.navigation.navigate("ViewServices")}> 
                                     <Icon
                                         name="cart"
                                         color='white'

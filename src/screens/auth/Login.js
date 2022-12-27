@@ -77,7 +77,7 @@ const Login = ({ navigation }) => {
                 />
 
                 <Text
-                    onPress={() => navigation.navigate("Signup")}
+                    onPress={() => navigation.navigate("ForgotPassword")}
                     style={styles.linkRigth}
                 >
                     Olvide mi contraseña
