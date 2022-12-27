@@ -1,58 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView} from 'react-native';
-import { Avatar, Icon } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
-//import { fetchServices } from '../services/ServicesService';
-import { Card, Image, Button} from 'react-native-elements';
 
 
-//import ServicesCards from '../components/ServicesCards';
+import ServicesCards from '../components/ServicesCards';
 import axios from "axios";
-const baseURL = "http://192.168.0.105:8000/api/v1/view-service";
+
+
+const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
+
 
 
 const Services = () => {
 
-    const [post, setPost] = React.useState([]);
+    const [characters, setCharacters] = useState([]);
 
-    React.useEffect(() => {
-        axios.get(`${baseURL}/1`).then((response) => {
-        setPost(response.data.data.service);
-        });
-    }, []);
-    
-      if (!post) return <Text>"No post!"</Text>
-    
+    const fetchCharacters = (url) => {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => setCharacters(data.data.services))
+        .catch(error => console.log(error))
+    };
+
+    useEffect(() => {
+        fetchCharacters(baseURL);
+    }, [])
       
     return(
         <View style={styles.container}>
             <Text style={styles.titleX}>Servicios</Text>
-            <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                        <Card.Title>{post.name}</Card.Title>
-                        <View style={{ flexDirection: "row"}}>
-                            <View style={{ width:'40%'}}>
-                                <Image
-                                    source={{ uri: post.image }}
-                                    style={{ width: 100, height: 150 }}
-                                />
-                            </View>
-                            <View style={{ width:'60%'}}>
-                                <Text style={styles.descripcion}>Descripción: </Text>
-                                <Text style={styles.descripciontext}>{post.description}</Text>
-                                
-                                <Text style={styles.descripcion}>Precio: </Text>
-                                <Text style={styles.descripciontext}>{post.price}</Text>
-                                <Text>   </Text>
-                                <Text style={styles.button}> 
-                                <Icon
-                                    name="cart"
-                                    color='white'
-                                    type = "ionicon" 
-                                />
-                                </Text>
-                            </View>
-                        </View>  
-                    </Card>
+            <ScrollView>
+                <ServicesCards servicios={characters}/>
+                <Text> </Text>
+                <Text> </Text>
+                <Text> </Text>
+
+            </ScrollView>
         </View>  
     );
 };

@@ -5,9 +5,8 @@ import * as SecureStore from "expo-secure-store";
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 
 const axiosInstance = axios.create({
-    baseURL: "http://192.168.0.105:8000/api/v1/",
-    //baseURL: "http://192.168.3.113:8000/api/",
-    //baseURL: Application.extra.api_url + "/",
+    baseURL: "https://tecnony-v1.herokuapp.com/api/v1/",
+
     //baseURL: Constants.expoConfig.extra.api_url
     timeout: 50000,
     headers: {

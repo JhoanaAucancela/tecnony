@@ -17,7 +17,6 @@ const Signup = ({ navigation }) => {
     const { control, handleSubmit, formState: { errors }} = useForm();
 
     const _signup = async (data) => {
-        //TODO registrar usuarios
         try {
             setLoading(true);
             const message = await signup(data);

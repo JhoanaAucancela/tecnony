@@ -1,18 +1,19 @@
 import React from "react";
-import { View } from "react-native";
-import { Card, Image } from 'react-native-elements';
+import { View, Text } from "react-native";
+import { Card, Image, Icon } from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 
-const ServicesCards = (servic = []) => {
+const ServicesCards = ({servicios = []}) => {
     return(
         <View >
             {
-                servic.map((item, index) => (
+                servicios.map((item, index) => (
                     <View key={index} >
                 
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title>{item.name}</Card.Title>
+                            <Card.Divider />
                             <View style={{ flexDirection: "row"}}>
                                 <View style={{ width:'40%'}}>
                                     <Image
@@ -21,6 +22,9 @@ const ServicesCards = (servic = []) => {
                                     />
                                 </View>
                                 <View style={{ width:'60%'}}>
+                                    <Text style ={styles.descripcion}>Categoria: </Text>
+                                    <Text style={styles.descripciontext}>{item.categories}</Text>
+                                    
                                     <Text style={styles.descripcion}>Descripción: </Text>
                                     <Text style={styles.descripciontext}>{item.description}</Text>
                                     
