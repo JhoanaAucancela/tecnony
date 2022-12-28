@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { View, Text} from 'react-native';
+import { View, Text, ScrollView} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Button, Image, Icon } from "react-native-elements"
 
@@ -21,12 +21,14 @@ export default function Home(props) {
 
     return(
         <View style={styles.container} >
-
+            
+            
             {user &&
-                <View style={{ marginTop:'30%', alignItems:'center'}}>
+                <View style={{ marginTop:'20%', alignItems:'center'}}>
                     <Text style={styles.titleX}>Menú</Text>
                     <Text style={styles.subtitle}>¡ Hola {user.username} !</Text>
                     <Text>      </Text>
+                    
                 </View>
             }
             
@@ -83,7 +85,12 @@ export default function Home(props) {
                         onPress={() => props.navigation.navigate("Opinions")}
                     />
                 </View>
+                <Text>  </Text>
             </View>
+
+            
+            
+            
     </View>  
     );
 };

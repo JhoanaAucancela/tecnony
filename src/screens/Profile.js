@@ -32,7 +32,7 @@ export default function Profile(props){
     }
 
     return(
-        <View >
+        <View style={styles.container}>
             {user &&
                 <View>
                     <View style={{ flexDirection: "row" }}>
@@ -108,7 +108,6 @@ const styles =  EStyleSheet.create({
         flex: 1,
         backgroundColor:'$authBg',
         alignItems: 'center',
-        justifyContent: 'center',
     },
 
     buttonlogout: {

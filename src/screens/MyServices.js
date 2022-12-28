@@ -3,11 +3,10 @@ import { View, Text, ScrollView} from 'react-native';
 import { Card, Image, Icon } from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { useAuth, USER_KEY, USER_TOKEN_KEY } from "../providers/AuthProvider";
+import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
-const apiURL = "https://tecnony-v1.herokuapp.com/api/v1/hiring/show";
 
 const MyServices = () => {
 
@@ -39,9 +38,78 @@ const MyServices = () => {
     
 
     if(!characters) return <Text>{error}</Text>
+    if(characters.length === 0) return (
+        <View style={styles.container1}>
+            <View style={{marginTop:"5%"}}>
+                <Image 
+                        style = {{ width:250, height:50,  }}
+                        source = {require("../../assets/logo.png")}
+                />
+            </View>
+            <Text style= {styles.titleX}>No registras ningun servicio contratado previamente</Text>
+            <Text style= {styles.subtitle}>No te quedes con las ganas de probar nuestros servicios!</Text>
+            
+            <View style = {{  width:'100%', height:'20%'}}>
+            <ScrollView horizontal={true}>
+
+                <View style ={styles.box}>
+                    <Text style = {styles.text} >Mis servicios</Text>
+                    <Icon
+                        name="basket"
+                        type="ionicon"
+                        size= {30}
+                        color= "white"
+                        style={{ marginTop: 2, marginRight: 10 }}
+                        
+                />
+                </View>
+                <View style ={styles.box}>
+                    <Text style = {styles.text} >Mis servicios</Text>
+                    <Icon
+                        name="basket"
+                        type="ionicon"
+                        size= {30}
+                        color= "white"
+                        style={{ marginTop: 2, marginRight: 10 }}
+                        
+                />
+                </View>
+                <View style ={styles.box}>
+                    <Text style = {styles.text} >Mis servicios</Text>
+                    <Icon
+                        name="basket"
+                        type="ionicon"
+                        size= {30}
+                        color= "white"
+                        style={{ marginTop: 2, marginRight: 10 }}
+                        
+                />
+                </View>
+
+                <View style ={styles.box}>
+                    <Text style = {styles.text} >Mis servicios</Text>
+                    <Icon
+                        name="basket"
+                        type="ionicon"
+                        size= {30}
+                        color= "white"
+                        style={{ marginTop: 2, marginRight: 10 }}
+                        
+                />
+                </View>
+
+                <Text> </Text>
+                <Text> </Text>
+                <Text> </Text>
+                <Text> </Text>
 
 
+            </ScrollView>
+            </View>
 
+        </View>
+    )
+        
     return(
 
         
@@ -99,6 +167,12 @@ const styles =  EStyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    container1: {
+        flex: 1,
+        backgroundColor:'$authBg',
+        alignItems: 'center',
+       
+    },
     text: {
         color: '$primary',
         fontWeight: '$fontWeight600', 
@@ -125,10 +199,25 @@ const styles =  EStyleSheet.create({
         fontFamily: '$700Bold',
         fontSize: 24,
         color:'$primary',
+        textAlign:'center'
     },
     title:{
         fontFamily: '$700Bold',
         fontSize: 16,
         color:'$primary',
+    },
+    subtitle:{
+        fontFamily: '$700Bold',
+        fontSize: 14,
+        color:'black',
+    },
+    box: { 
+        backgroundColor:'#3F88C5', 
+        width:'35%', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        borderRadius: 15,
+        borderWidth: 2, 
+        borderColor:'$authBg',
     },
 });

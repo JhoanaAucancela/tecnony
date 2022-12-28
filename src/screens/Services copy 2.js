@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { Card, Image, Icon, Input } from 'react-native-elements';
-
+import { Card, Image, Icon } from 'react-native-elements';
+//import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import Auxialiar from './auxiliar';
@@ -14,9 +14,8 @@ const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
 export default function Services (props) {
 
-    const [characters, setCharacters] = useState([]); //Hooks servicios
-    const [loading, setLoading] = useState(false); // Hooks Activity Loaders
-    const [search, setSearch] = useState(""); //Hooks Busqueda
+    const [characters, setCharacters] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const fetchCharacters = (url) => {
         try{
@@ -48,29 +47,14 @@ export default function Services (props) {
         
     }
 
-  
-    
     return(
         <View style={styles.container}>
             {loading == true ? <ActivityLoader /> : null}
             <Text style={styles.titleX}>Servicios</Text>
             
-            <Input 
-                type = "search"
-                value = {search}
-                onChangeText={(value) => setSearch(value)}
-                //onChangeText = {(e) => setSearch(e.target.value)}
-                style={styles.input}
-                placeholder="Search"
-                placeholderTextColor="black"
-                leftIcon={
-                    <Icon name="search" type='ionicon' size={24} color="black" />
-                }
-                        
-            />
             <ScrollView>
             {
-                characters.filter((item) => item.name.toLowerCase().includes(search.toLowerCase())).map((item, index) => (
+                characters.map((item, index) => (
                     <View key={index} >
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>{item.name}</Card.Title>
@@ -170,16 +154,5 @@ const styles =  EStyleSheet.create({
         borderRadius: 15, 
         color:"$white", 
         fontWeight: 'bold'
-    },
-    input: {
-        fontFamily: '$400Regular',
-        color:'$black',
-        fontWeight:'bold,',
-        padding: 10,
-        width: '100%',
-        marginTop: 10,
-        borderRadius: 15,
-        backgroundColor:'#F5F9FF',
-        borderColor: 'transparent',
     },
 });
