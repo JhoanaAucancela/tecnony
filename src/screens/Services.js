@@ -93,10 +93,11 @@ export default function Services (props) {
                                     <Text style={styles.descripciontext}>{item.price}</Text>
                                     <Text>   </Text>
                              
+                                   
                                     <Text style={styles.button} onPress={() => verServicios((item.id))}>
                                     <Icon
                                         onPress={() => verServicios((item.id)) }
-                                        name="cart"
+                                        name="arrow-forward"
                                         color='white'
                                         type = "ionicon" 
                                     />
@@ -164,8 +165,7 @@ const styles =  EStyleSheet.create({
     button: {
         backgroundColor:'#3F88C5', 
         padding:'3%', 
-        paddingLeft:'7%',
-        paddingRight:'7%',
+       
         textAlign: 'center', 
         borderRadius: 15, 
         color:"$white", 
