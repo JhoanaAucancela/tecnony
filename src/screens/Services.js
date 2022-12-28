@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Icon } from 'react-native-elements';
+//import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
+import { ErrorText, ActivityLoader } from "../components/Shared";
 import Auxialiar from './auxiliar';
-import ViewServices from './ViewServices';
+
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
@@ -13,30 +15,45 @@ const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 export default function Services (props) {
 
     const [characters, setCharacters] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const fetchCharacters = (url) => {
-        
-    fetch(url)
-        .then(response => response.json())
-        .then(data => setCharacters(data.data.services))
-        .catch(error => console.log(error))
-    };
+        try{
+            fetch(url)
+            .then(response => response.json())
+            .then(data => setCharacters(data.data.services))
+            .catch(error => console.log(error))
+        }catch(e){
+            setError(e.message);
+            
+        }finally{
+            setLoading(false);
+        }
+            
+        };
 
     useEffect(() => {
+        setLoading(true);
         fetchCharacters(baseURL);
     }, []) 
 
+    if (!characters) return
+
     const verServicios = (num) => {
         const serviceURL = `${baseURL}/${num}`;
-        alert(serviceURL);
-        //<Auxialiar num = {serviceURL} />
-        
+        //ViewServices((serviceURL))
+        //<Auxialiar url = {serviceURL} />
+        props.navigation.navigate("ViewServices")
+        //Auxialiar((serviceURL))
+       //alert(serviceURL)
         
     }
-      
+
     return(
         <View style={styles.container}>
+            {loading == true ? <ActivityLoader /> : null}
             <Text style={styles.titleX}>Servicios</Text>
+            
             <ScrollView>
             {
                 characters.map((item, index) => (
@@ -70,6 +87,8 @@ export default function Services (props) {
                                         type = "ionicon" 
                                     />
                                     </Text>
+
+                                  
                                 </View>
                             </View>  
                         </Card>
@@ -81,7 +100,10 @@ export default function Services (props) {
                 <Text> </Text>
 
             </ScrollView>
-        </View>  
+
+            
+        </View> 
+
     );
 };
 

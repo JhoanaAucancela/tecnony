@@ -1,24 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text} from 'react-native';
 import { Button, Image } from "react-native-elements";
 import { EmailInput } from "../components/inputs";
 import { set, useForm } from "react-hook-form";
-
+import Toast from "react-native-root-toast";
 import styles from "../styles/auth";
-
-
+import { ErrorText, ActivityLoader } from "../components/Shared";
+import { forgotPassword } from "../services/AuthService";
 
 const ForgotPassword = ({ navigation }) => {
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
-    const [error, setError] = React.useState(null);
 
 
     const _forget = async (data) => {
         try{
-            
-
+            setLoading(true);
+            const message = await forgotPassword(data);
+            await navigation.navigate("Login");
+            Toast.show(
+                message,
+                {
+                }
+            )
         }catch (e){
-            
+            setError(e.message);
+        }finally{
+            setLoading(false);
         }
     }
 
@@ -31,15 +40,18 @@ const ForgotPassword = ({ navigation }) => {
                 source = {require("../../assets/logo.png")}
             />
             </View>
+            {loading == true ? <ActivityLoader /> : null}
             <View style={{width: '100%', padding:'2%', paddingLeft:'3%'}}>
                 <Text h2 style={styles.title}>Recuperar Cuenta</Text>
                 <Text style={styles.subtitle}>Ingresa el correo electronico que usas en Tecnony</Text>
-                <Text> </Text> 
+                <Text> </Text>
+                <ErrorText error={error} />
                 <Text style={styles.text}>Correo Electronico</Text>
                 <EmailInput 
                     name="email"
                     control={ control }
                     errors={ errors }
+                    placeholder="E-mail"
                     errorValidationStyle={styles.errorValidation}
                     inputStyle={ styles.input }
                 />

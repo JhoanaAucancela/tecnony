@@ -11,13 +11,14 @@ export async function login (data) {
     let res = await axios.post("loginCli",data);
        await setItemAsync(USER_TOKEN_KEY, res.data.data.access_token);
        await setItemAsync(USER_KEY, JSON.stringify(res.data.data.user));
- 
        return res.data;
        //return "login exitoso";
     }catch (e){
         throw errorHandler(e);
     }
 }
+
+
 
 export async function signup (data) {
     try{
@@ -39,4 +40,17 @@ export async function logout () {
     }catch(e){
         throw errorHandler(e);
     }
+}
+
+export async function forgotPassword (data) {
+    try{
+        let res = await axios.post("forgot-password",data);
+       // await setItemAsync(USER_TOKEN_KEY, res.data.data.token);
+       return res.data.message;
+       
+    }catch (e){
+        throw errorHandler(e);
+    }
+
+
 }

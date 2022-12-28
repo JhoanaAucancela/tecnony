@@ -5,26 +5,25 @@ import axios from "axios";
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
-export default function Auxialiar(props){
-  
+const Auxialiar = (urlServices) =>{
    const [post, setPost] = React.useState([]);
-
-   const url = `${props.num}`
-
+/*
    React.useEffect(() => {
-       axios.get(`${url}`).then((response) => {
+       axios.get(`${baseURL}/1`).then((response) => {
        setPost(response.data.data.service);
        });
    }, []);
    
      if (!post) return <Text>"No post!"</Text>
  
-   
+ */
  return(
   
-  alert((post.name))
-
+  alert((urlServices))
+  //alert("LLamada de services a Auxiliar")
   
   )
+
 }
 
+export default Auxialiar;

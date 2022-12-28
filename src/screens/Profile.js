@@ -9,6 +9,7 @@ import { logout } from "../services/AuthService";
 import Toast from "react-native-root-toast";
 
 export default function Profile(props){
+    
     const [user, setUser] =useState([]);
 
     useEffect(() => {

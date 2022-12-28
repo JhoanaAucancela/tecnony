@@ -9,8 +9,9 @@ import { ErrorText, ActivityLoader } from "../components/Shared";
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
-export default function ViewServices(props) {
-/*
+
+export default function ViewServices() {
+
     const [post, setPost] = React.useState([]);
     const [tecnico, setTecnico] = React.useState([]);
 
@@ -35,11 +36,9 @@ export default function ViewServices(props) {
           fetchTecnico(`${baseURL}/1`);
       }, []) 
   
-      */
 
     return(
-        alert(props.num)
-/*
+
         <View style={styles.container}>
            
             <View style={{ alignItems: 'center' }}>
@@ -98,7 +97,6 @@ export default function ViewServices(props) {
     </View>
     
         
-*/
     );
 };
 

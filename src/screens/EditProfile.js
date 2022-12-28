@@ -3,18 +3,22 @@ import { ScrollView, View, Text} from 'react-native';
 import { Avatar, Icon, Input } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { useAuth, USER_KEY } from "../providers/AuthProvider";
+import { useAuth, USER_KEY, USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 
 
 const EditProfile = () => {
 
     const [user, setUser] = useState([]);
+    const [token, setToken] = useState([]);
+
 
     useEffect(() => {
         (async () => {
            const _user = await SecureStore.getItemAsync(USER_KEY);
-           setUser(JSON.parse(_user)); 
+           const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
+           setUser(JSON.parse(_user));
+           setToken(_token);
            NameForm()
         })();
     }, []);
@@ -23,8 +27,10 @@ const EditProfile = () => {
     
 
     return(
+        
         <View style={styles.container}>
-
+            <Text>{token}</Text>
+            
             <ScrollView>
                 <View style={{ alignItems: 'center', marginTop:'5%' }}>
                     <View>
