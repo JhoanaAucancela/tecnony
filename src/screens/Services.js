@@ -61,7 +61,7 @@ export default function Services (props) {
                 onChangeText={(value) => setSearch(value)}
                 //onChangeText = {(e) => setSearch(e.target.value)}
                 style={styles.input}
-                placeholder="Search"
+                placeholder="Ej. Reparaciones"
                 placeholderTextColor="black"
                 leftIcon={
                     <Icon name="search" type='ionicon' size={24} color="black" />

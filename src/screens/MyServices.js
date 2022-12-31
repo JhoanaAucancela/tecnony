@@ -38,77 +38,7 @@ const MyServices = () => {
     
 
     if(!characters) return <Text>{error}</Text>
-    if(characters.length === 0) return (
-        <View style={styles.container1}>
-            <View style={{marginTop:"5%"}}>
-                <Image 
-                        style = {{ width:250, height:50,  }}
-                        source = {require("../../assets/logo.png")}
-                />
-            </View>
-            <Text style= {styles.titleX}>No registras ningun servicio contratado previamente</Text>
-            <Text style= {styles.subtitle}>No te quedes con las ganas de probar nuestros servicios!</Text>
-            
-            <View style = {{  width:'100%', height:'20%'}}>
-            <ScrollView horizontal={true}>
-
-                <View style ={styles.box}>
-                    <Text style = {styles.text} >Mis servicios</Text>
-                    <Icon
-                        name="basket"
-                        type="ionicon"
-                        size= {30}
-                        color= "white"
-                        style={{ marginTop: 2, marginRight: 10 }}
-                        
-                />
-                </View>
-                <View style ={styles.box}>
-                    <Text style = {styles.text} >Mis servicios</Text>
-                    <Icon
-                        name="basket"
-                        type="ionicon"
-                        size= {30}
-                        color= "white"
-                        style={{ marginTop: 2, marginRight: 10 }}
-                        
-                />
-                </View>
-                <View style ={styles.box}>
-                    <Text style = {styles.text} >Mis servicios</Text>
-                    <Icon
-                        name="basket"
-                        type="ionicon"
-                        size= {30}
-                        color= "white"
-                        style={{ marginTop: 2, marginRight: 10 }}
-                        
-                />
-                </View>
-
-                <View style ={styles.box}>
-                    <Text style = {styles.text} >Mis servicios</Text>
-                    <Icon
-                        name="basket"
-                        type="ionicon"
-                        size= {30}
-                        color= "white"
-                        style={{ marginTop: 2, marginRight: 10 }}
-                        
-                />
-                </View>
-
-                <Text> </Text>
-                <Text> </Text>
-                <Text> </Text>
-                <Text> </Text>
-
-
-            </ScrollView>
-            </View>
-
-        </View>
-    )
+    //if(characters.length === 0) 
         
     return(
 
