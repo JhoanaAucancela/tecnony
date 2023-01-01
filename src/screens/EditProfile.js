@@ -42,15 +42,15 @@ const EditProfile = () => {
         };
 
         const [form, setForm] = useState({
-            usernombre: String,
-            nombre: String,
-            apellido: String,
-            cedula: String,
-            email: String,
-            birthdate:     user.birthdate ?? "",
-            telefono:     user.home_phone ?? "",
-            celular:     user.personal_phone ?? "",
-            direccion: String
+            usernombre: "",
+            nombre: "",
+            apellido: "",
+            cedula: "",
+            email: "",
+            birthdate: "",
+            telefono: "",
+            celular: "",
+            direccion: ""
         })
     
        
@@ -69,6 +69,7 @@ const EditProfile = () => {
         })();
 
         setForm({
+            ...form,
             usernombre:     user.username ?? "",
             nombre:     user.first_name ?? "",
             apellido:     user.last_name ?? "",
@@ -105,7 +106,8 @@ const EditProfile = () => {
 
     return(
         <View style={styles.container}>   
-
+            <Text>{token}</Text>
+            <Text>{user.username}</Text>
             <ScrollView>
                 <View style={{ alignItems: 'center', marginTop:'5%' }}>
                     <View>

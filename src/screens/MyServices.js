@@ -16,23 +16,38 @@ const MyServices = () => {
     const [characters, setCharacters] = React.useState([])
     const [error, setError] = React.useState([])
 
-    const [token, setToken] = React.useState([]);
+    //const [token, setToken] = React.useState([]);
+
+    const fetchMyServices = (url, config) => {
+        try{
+            fetch(url,config)
+            .then(response => response.json())
+            .then(data => setCharacters(data.data.service_requests))
+            .catch(error => console.log(error))
+        }catch(e){
+            setError(e.message);
+            
+        }finally{
+            setLoading(false);
+        }
+            
+    };
 
     React.useEffect(() => {
         (async () => {
            const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
-           setToken(_token);
-        })();
-
-        const config = {
+           const config = {
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${_token}`
             }
         };
+      //     setToken(_token);
+           fetchMyServices(url, config);
+        })();
 
-        axios.get(url, config)
-        .then(data => setCharacters(data.data.data.service_requests))
-        .catch(err => setError(err))
+        
+
+        
     }, []);
 
     
