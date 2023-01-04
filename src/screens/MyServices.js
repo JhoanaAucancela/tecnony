@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView, Modal} from 'react-native';
 import { Card, Image, Icon, Input, Button } from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -7,6 +7,7 @@ import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 import Toast from "react-native-root-toast";
+import FormModal from '../components/FormModal';
 
 const MyServices = () => {
 
@@ -20,7 +21,7 @@ const MyServices = () => {
     const [token, setToken] = React.useState("");
 
     //MODAL
-    
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     const fetchMyServices = (url, config) => {
         try{
@@ -34,8 +35,22 @@ const MyServices = () => {
         }
             
     };
-
-
+/*
+    function FormModal({isFormModalOpen, setFormModalOpen}){
+        return (
+            <>
+                <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
+                <View style = {styles.modalContainerStyle}>
+                    <View style = {styles.modalStyle}>
+                        <Text>hello</Text>
+                        <Text style={styles.button} onPress={() => setIsModalOpen(!setIsModalOpen)}>Close and Save</Text>
+                    </View>
+                </View>
+            </Modal>
+            </>
+        );
+    }
+*/
     const fetchCancel = (url,config) =>{
         try{
             fetch(url,config)
@@ -97,8 +112,12 @@ const MyServices = () => {
                     <Text style={styles.BtnCancel} onPress={() => fetchCancel((urlCancel, configBtn))}
                     >Cancelar</Text>
                     <Text> </Text>
-                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
+                    <Text style={styles.button} onPress={() => setIsModalOpen(!isModalOpen)}
                     >Editar</Text>
+                    <FormModal 
+                        isModalOpen={isModalOpen} 
+                        setIsModalOpen={setIsModalOpen} 
+                    />
                     <Text> </Text>
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}
                     >Ver más</Text>
@@ -120,8 +139,12 @@ const MyServices = () => {
                     <Text style={styles.BtnRehabilitar} onPress={() => fetchCancel((urlCancel, configBtn))} //onPress={() => alert("rea")}
                     >Rehabilitar</Text>
                     <Text> </Text>
-                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
+                    <Text style={styles.button} onPress={() => setIsModalOpen(!isModalOpen)}
                     >Editar</Text>
+                    <FormModal 
+                        isModalOpen={isModalOpen} 
+                        setIsModalOpen={setIsModalOpen} 
+                    />
                     <Text> </Text>
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}
                     >Ver más</Text>
@@ -154,6 +177,8 @@ const MyServices = () => {
 
         
         <View style={styles.container}>
+            
+
             <Text style= {styles.titleX}>Servicios Contratados</Text>
             <Input 
                 type = "search"
@@ -296,4 +321,27 @@ const styles =  EStyleSheet.create({
         fontFamily: '$400Regular',
         color:"$white",
     },
+    /*Estilo Modal*/
+    modalContainerStyle: {
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
+
+    modalStyle: {
+        backgroundColor:'white',
+        alignItems:'center',
+        margin: 20,
+        borderRadius: 16,
+        paddingHorizontal: 30,
+        paddingVertical: 20,
+        shadowColor: '#000',
+        shadowOffset:{
+            width: 0,
+            height:2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+
 });
