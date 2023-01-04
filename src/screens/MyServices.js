@@ -106,7 +106,6 @@ const MyServices = () => {
         }
 
         if(std === 0){
-            
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.BtnCancel} onPress={() => fetchCancel((urlCancel, configBtn))}
@@ -117,6 +116,7 @@ const MyServices = () => {
                     <FormModal 
                         isModalOpen={isModalOpen} 
                         setIsModalOpen={setIsModalOpen} 
+                        ID={ID}
                     />
                     <Text> </Text>
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}
@@ -143,7 +143,8 @@ const MyServices = () => {
                     >Editar</Text>
                     <FormModal 
                         isModalOpen={isModalOpen} 
-                        setIsModalOpen={setIsModalOpen} 
+                        setIsModalOpen={setIsModalOpen}
+                        ID={ID}
                     />
                     <Text> </Text>
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}

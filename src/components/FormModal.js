@@ -5,20 +5,36 @@ import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { useForm } from "react-hook-form";
 import { TextInput } from "../components/inputs";
-//import { contractService } from "../services/AuthService";
+import { updateService } from "../services/AuthService";
 import styles from "../styles/auth";
 
-export default function FormModal({isModalOpen, setIsModalOpen}){
+
+export default function FormModal({isModalOpen, setIsModalOpen, ID}){
     
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
 
+    const _updateService = async (data) => {
+        try {
+            setLoading(true);
+            const message = await updateService(data, ID);
+            Toast.show(
+                message,
+                {
+                }
+            )
+        } catch (e) {
+            setError(e.message);
+        }finally{
+            setLoading(false);
+        }
+    }
+
     const modalContainerStyle ={
         flex: 1,
         justifyContent: 'flex-end',
     }
-
     const modalStyle = {
         backgroundColor:'white',
         //alignItems:'center',
@@ -51,7 +67,9 @@ export default function FormModal({isModalOpen, setIsModalOpen}){
         <>
             <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
                 <View style = {modalContainerStyle}>
+                    
                     <ScrollView style = {modalStyle}>
+                    <Text>{ID}</Text>
                         <Text h2 style={ styles.title }>Formulario</Text>
                         <Text style={styles.subtitle}>Solicitud de contratación del servicio.</Text>
                         {loading == true ? <ActivityLoader /> : null}
@@ -120,7 +138,9 @@ export default function FormModal({isModalOpen, setIsModalOpen}){
                             errorValidationStyle = {styles.errorValidation}
                             inputStyle={styles.input}
                         />
-                        <Text style={btnStyle} onPress={() => setIsModalOpen(!setIsModalOpen)}>Close and Save</Text>
+                        
+                        <Text style={btnStyle} onPress={handleSubmit(_updateService)}>Save</Text>
+                        <Text style={btnStyle} onPress={() => setIsModalOpen(!setIsModalOpen) }>Exit</Text>
                     </ScrollView>
                 </View>
             </Modal>
