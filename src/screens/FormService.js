@@ -18,7 +18,7 @@ const FormService = () => {
     const _contractService = async (data) => {
         try {
             setLoading(true);
-            const message = await contractService(data, 3);
+            const message = await contractService(data, 8);
             Toast.show(
                 message,
                 {

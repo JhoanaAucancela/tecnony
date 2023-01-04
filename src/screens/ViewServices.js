@@ -32,8 +32,8 @@ export default function ViewServices(props) {
       };
   
       React.useEffect(() => {
-          fetchCharacters(`${baseURL}/3`);
-          fetchTecnico(`${baseURL}/3`);
+          fetchCharacters(`${baseURL}/8`);
+          fetchTecnico(`${baseURL}/8`);
       }, []) 
   
 

@@ -70,3 +70,12 @@ export async function contractService (data, id) {
         throw errorHandler(e);
     }
 }
+
+export async function updateService (data, id) {
+    try{
+        let res = await axios.post(`hiring/update/${id}`,data);
+        return res.data.message;
+    }catch(e){
+        throw errorHandler(e);
+    }
+}

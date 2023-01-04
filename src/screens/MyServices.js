@@ -19,7 +19,8 @@ const MyServices = () => {
     const [message, setMessage] = React.useState([]);
     const [token, setToken] = React.useState("");
 
-
+    //MODAL
+    
 
     const fetchMyServices = (url, config) => {
         try{
@@ -41,17 +42,10 @@ const MyServices = () => {
             .then(response => response.json())
             .then(data => setMessage(data.message))
             .catch(error => console.log(error))
-            Toast.show(
-                message,
-                {
-                }
-            )
         }catch(e){
             setError(e.message);
-            
         }
     };
-
 
     React.useEffect(() => {
         (async () => {
@@ -89,7 +83,7 @@ const MyServices = () => {
 
     const Btn = (std, ID) => {
 
-        const urlBtn = `https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/${ID}`;
+        const urlCancel = `https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/${ID}`;
         const configBtn = {
             headers:{
                 Authorization: `Bearer ${token}`
@@ -100,19 +94,35 @@ const MyServices = () => {
             
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.BtnCancel} onPress={() => fetchCancel((urlBtn, configBtn))}
+                    <Text style={styles.BtnCancel} onPress={() => fetchCancel((urlCancel, configBtn))}
                     >Cancelar</Text>
+                    <Text> </Text>
+                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
+                    >Editar</Text>
+                    <Text> </Text>
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}
                     >Ver más</Text>
+                    <Text> </Text>
+                </View>
+            )
+        }
+        else if(std === 1){
+
+            return (
+                <View style = {{ flexDirection: "row", alignItems: 'center' }}>
+                    <Text style={styles.BtnCancel}>La solicitud ha sido rechazada</Text>
                 </View>
             )
         }
         else if(std === 2){
-
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.BtnRehabilitar} //onPress={() => verServicios((item.id))}
+                    <Text style={styles.BtnRehabilitar} onPress={() => fetchCancel((urlCancel, configBtn))} //onPress={() => alert("rea")}
                     >Rehabilitar</Text>
+                    <Text> </Text>
+                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
+                    >Editar</Text>
+                    <Text> </Text>
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}
                     >Ver más</Text>
                 </View>
@@ -175,12 +185,11 @@ const MyServices = () => {
                                     <Text style ={styles.descripcion}>Modelo: </Text>
                                     <Text style={styles.descripciontext}>{item.model}</Text>
 
-                                    <Text style={styles.descripcion}>Descripción: </Text>
+                                    <Text style={styles.descripcion}>Problema: </Text>
                                     <Text style={styles.descripciontext}>{item.description_problem}</Text>
                                     
                                     <Text style={styles.descripcion}>Fecha: </Text>
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
-                                    <Text>   </Text>
                                     <Text>{item.id}</Text>
                                     <View style = {{ alignItems: "center" }}>
                                         {Btn(item.state, item.id)} 
