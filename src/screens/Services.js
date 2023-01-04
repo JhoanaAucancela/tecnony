@@ -62,7 +62,7 @@ export default function Services (props) {
                 //onChangeText = {(e) => setSearch(e.target.value)}
                 style={styles.input}
                 placeholder="Ej. Reparaciones"
-                placeholderTextColor="black"
+                placeholderTextColor="gray"
                 leftIcon={
                     <Icon name="search" type='ionicon' size={24} color="black" />
                 }
@@ -83,6 +83,7 @@ export default function Services (props) {
                                     />
                                 </View>
                                 <View style={{ width:'60%'}}>
+                                    
                                     <Text style ={styles.descripcion}>Categoria: </Text>
                                     <Text style={styles.descripciontext}>{item.categories}</Text>
 

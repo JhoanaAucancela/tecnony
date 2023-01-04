@@ -19,7 +19,7 @@ export default function TextInput({ name, required = true, minLength, maxLength,
                         value={value} 
                         style={inputStyle}
                         placeholder={placeholder}
-                        placeholderTextColor="black"
+                        placeholderTextColor="gray"
                         leftIcon={
                             <Icon name={iconName} type='ionicon' size={24} color="black" />
                         }
