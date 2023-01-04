@@ -9,6 +9,7 @@ const AppNavigation = ({ userToken }) => {
     return (
         <NavigationContainer>
               {userToken == null ? <InviteNavigation /> : <ServicesNavigation />}
+              
         </NavigationContainer>
     )
 }

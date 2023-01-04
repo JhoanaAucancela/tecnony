@@ -10,7 +10,7 @@ import { ErrorText, ActivityLoader } from "../components/Shared";
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
 
-export default function ViewServices() {
+export default function ViewServices(props) {
 
     const [post, setPost] = React.useState([]);
     const [tecnico, setTecnico] = React.useState([]);
@@ -32,8 +32,8 @@ export default function ViewServices() {
       };
   
       React.useEffect(() => {
-          fetchCharacters(`${baseURL}/1`);
-          fetchTecnico(`${baseURL}/1`);
+          fetchCharacters(`${baseURL}/3`);
+          fetchTecnico(`${baseURL}/3`);
       }, []) 
   
 
@@ -45,21 +45,21 @@ export default function ViewServices() {
                 <Text style= {styles.titleX}>{post.name}</Text>
                 <View style= {styles.lineStyle}></View>
             </View>
-            
-            <View style={{ flexDirection: "row", marginLeft: '4%', marginRight:'4%' }}>
-                <View style={{ width:'40%'}}>
+
+            <Card containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                     <Image
                         source={{ uri: post.image }}
-                        style={{ width: '90%', height: 170 }}
+                        style={{ width: '100%', height: 170, borderRadius: 15 }}
                     />
-                </View>
-
-                <View style={{ width:'60%'}}>
+            <Card.Divider/>
+                
                     <Text style ={styles.descripcion}>Categoria: <Text style ={styles.descripciontext}>{post.categories}</Text></Text>
                     <Text style ={styles.descripcion}>Descripción: <Text style ={styles.descripciontext}>{post.description}</Text></Text>
                     <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>{post.price}</Text></Text>
-                </View>
-            </View>
+              
+            </Card>
+            
+           
             <Text> </Text>
             <Text style = {styles.text}>Técnico</Text>
             <View style = {{ alignItems: 'center' }}>  
@@ -84,10 +84,10 @@ export default function ViewServices() {
             
             <View style={{ alignItems: 'center', padding:'5%' }}>
                 
-                <Text style={styles.button} //</View>onPress={() => verServicios()}
+                <Text style={styles.button} onPress={() => props.navigation.navigate("FormService")}
                 >
                     <Icon
-                        //onPress={() => verServicios() }
+                        onPress={() => props.navigation.navigate("FormService") }
                         name="cart"
                         color='white'
                         type = "ionicon" 

@@ -146,28 +146,32 @@ export default function DrawerContent(props){
 const styles = EStyleSheet.create({
     drawerContent: {
         flex: 1,
+        backgroundColor:'$primary',
         
-    },
-    userInfo:{
-        marginTop:'-100%'
+
         
     },
     userInfo:{
         paddingLeft: 20,
-        marginTop:'15%'
-        
+        marginTop:'15%',
+        backgroundColor:'$primary',
+        borderRadius: 15, 
     },
+
     title:{
-        
         fontWeight: "bold",
         fontFamily: '$700Bold',
+        color:'white',
     },
     subtitle:{
         lineHeight: 14,
         fontFamily: '$700Bold',
+        padding: '2%',
+        color:'white',
+
     },
     drawerItem:{
-        marginTop:'-100%'
+        marginTop:'-60%'
 
     },
     label: {

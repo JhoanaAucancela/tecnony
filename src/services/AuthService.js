@@ -60,6 +60,13 @@ export async function forgotPassword (data) {
     }catch (e){
         throw errorHandler(e);
     }
+}
 
-
+export async function contractService (data, id) {
+    try{
+        let res = await axios.post(`hiring/${id}`,data);
+        return res.data.message;
+    }catch(e){
+        throw errorHandler(e);
+    }
 }

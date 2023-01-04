@@ -27,7 +27,7 @@ export default function DrawerContent(props){
                         <DrawerItem
                             label="Home"
                             labelStyle= {styles.label}
-                            onPress={() => props.navigation.navigate("Services")}
+                            onPress={() => props.navigation.navigate("ServicesInvitados")}
                             icon={({ color, size }) => (
                                 <Icon
                                     name="home"

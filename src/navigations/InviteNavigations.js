@@ -6,7 +6,7 @@ import DrawerContentInvite from "../components/DrawerContentInvite";
 import { Icon } from "react-native-elements";
 import EStyleSheet from "react-native-extended-stylesheet";
 
-import ServicesStack from "./stacks/ServicesStack";
+import ServicesInvitadoStack from "./stacks/ServicesInvitadoStack";
 import LoginStack from "./stacks/LoginStack";
 import SignupStack from "./stacks/SignupStack";
 
@@ -16,7 +16,7 @@ const Drawer = createDrawerNavigator();
 const TabBar = ({ appName }) => {
     return(
         <BottomTabs.Navigator
-            initialRouteName="Services"
+            initialRouteName="ServicesInvitadoStack"
             screenOptions={({ route, navigation }) => ({
                 tabBarIcon: ({focused}) => showIcon( route, focused ),
                
@@ -30,8 +30,8 @@ const TabBar = ({ appName }) => {
             })}
         >
             <BottomTabs.Screen 
-                name="Services"
-                component={ServicesStack}
+                name="ServicesInvitadoStack"
+                component={ServicesInvitadoStack}
                 options={{ 
                     title: "",
                     headerTitle: appName,

@@ -17,6 +17,7 @@ const AuthProvider = () => {
             let userToken;
             try{
                 userToken = await getItemAsync(USER_TOKEN_KEY);
+                //userToken = "179|sdIDn2iE829KctWWsglnUI2BSbOsfSn42ZRSiGqe";
             } catch (e) {
                 alert("El token no se ha podido restaurar, cierre la APP");
             }

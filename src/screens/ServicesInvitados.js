@@ -12,7 +12,7 @@ const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
 
 
-export default function Services (props) {
+export default function ServicesInvitados (props) {
 
     const [characters, setCharacters] = useState([]); //Hooks servicios
     const [loading, setLoading] = useState(false); // Hooks Activity Loaders
@@ -39,12 +39,8 @@ export default function Services (props) {
     }, []) 
 
     const verServicios = (num) => {
-        const serviceURL = `${baseURL}/${num}`;
-        //ViewServices((serviceURL))
-        //<Auxialiar url = {serviceURL} />
-        props.navigation.navigate("ViewServices")
-        //Auxialiar((serviceURL))
-       //alert(serviceURL)
+        alert("Para contratar este servicio debes iniciar sesión")
+        props.navigation.navigate("LoginServ")
         
     }
 
@@ -93,7 +89,7 @@ export default function Services (props) {
                                     <Text style={styles.descripciontext}>{item.price}</Text>
                                     <Text>   </Text>
                              
-                                   <Text>{item.id}</Text>
+                                   
                                     <Text style={styles.button} onPress={() => verServicios((item.id))}>
                                     <Icon
                                         onPress={() => verServicios((item.id)) }
