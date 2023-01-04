@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, Text, ScrollView} from 'react-native';
-import { Card, Image, Icon } from 'react-native-elements';
+import { Card, Image, Icon, Input } from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
@@ -13,10 +13,10 @@ const MyServices = () => {
     
   const url = "https://tecnony-v1.herokuapp.com/api/v1/hiring/show";
     
-    const [characters, setCharacters] = React.useState([])
-    const [error, setError] = React.useState([])
+    const [characters, setCharacters] = React.useState([]);
+    const [error, setError] = React.useState([]);
+    const [search, setSearch] = React.useState(""); //Hooks Busqueda
 
-    //const [token, setToken] = React.useState([]);
 
     const fetchMyServices = (url, config) => {
         try{
@@ -52,7 +52,7 @@ const MyServices = () => {
 
     
 
-    if(!characters) return <Text>{error}</Text>
+    //if(!characters) return <Text>{error}</Text>
     //if(characters.length === 0) 
         
     return(
@@ -60,13 +60,28 @@ const MyServices = () => {
         
         <View style={styles.container}>
             <Text style= {styles.titleX}>Servicios Contratados</Text>
-           
+            <Input 
+                type = "search"
+                value = {search}
+                onChangeText={(value) => setSearch(value)}
+                style={styles.input}
+                placeholder="Ej. Computadora"
+                placeholderTextColor="black"
+                leftIcon={
+                    <Icon name="search" type='ionicon' size={24} color="black" />
+                }
+                        
+            />
             <ScrollView>
             {
-                characters.map((item, index) => (
+                characters.filter((item) => item.device.toLowerCase().includes(search.toLowerCase())).map((item, index) => (
                     <View key={index} >
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>{item.device}</Card.Title>
+                            <Image
+                                source = {require("../../assets/device.png")}
+                                style={{ width: '100%', height: 170, borderRadius: 15 }}
+                            />
                             <Card.Divider />
                             <View style={{ flexDirection: "row"}}>
                                 <View style={{ width:'100%'}}>
@@ -79,7 +94,7 @@ const MyServices = () => {
                                     <Text style={styles.descripcion}>Fecha: </Text>
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
                                     <Text>   </Text>
-                             
+                                    <Text>{item.id}</Text>                             
                                     <View style = {{ alignItems: "center" }}>
                                         <Text style={styles.button} //onPress={() => verServicios((item.id))}
                                         >Ver más</Text>
