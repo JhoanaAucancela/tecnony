@@ -57,7 +57,7 @@ export default function ServicesInvitados (props) {
                 onChangeText={(value) => setSearch(value)}
                 //onChangeText = {(e) => setSearch(e.target.value)}
                 style={styles.input}
-                placeholder="Ej. Reparaciones"
+                placeholder="Buscar"
                 placeholderTextColor="black"
                 leftIcon={
                     <Icon name="search" type='ionicon' size={24} color="black" />

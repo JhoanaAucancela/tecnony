@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text, Modal, View, Button, ScrollView} from 'react-native';
-
+import { Icon } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { useForm } from "react-hook-form";
@@ -69,7 +69,15 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                 <View style = {modalContainerStyle}>
                     
                     <ScrollView style = {modalStyle}>
-                    <Text>{ID}</Text>
+
+                    <Icon
+                        name="close"
+                        type="ionicon"
+                        size= {30}
+                        color= "black"
+                        style={{ marginTop: 2, marginRight: 100 }}
+                        onPress={() => setIsModalOpen(!setIsModalOpen)}
+                    />
                         <Text h2 style={ styles.title }>Formulario</Text>
                         <Text style={styles.subtitle}>Solicitud de contratación del servicio.</Text>
                         {loading == true ? <ActivityLoader /> : null}
@@ -140,7 +148,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         />
                         
                         <Text style={btnStyle} onPress={handleSubmit(_updateService)}>Save</Text>
-                        <Text style={btnStyle} onPress={() => setIsModalOpen(!setIsModalOpen) }>Exit</Text>
+                        
                     </ScrollView>
                 </View>
             </Modal>

@@ -100,7 +100,7 @@ const Signup = ({ navigation }) => {
             <TextInput
                 name="personal_phone"
                 minLength={2}
-                maxLength={30}
+                maxLength={10}
                 iconName="phone-portrait-outline"
                 placeholder="Cell Phone"
                 control={control}
@@ -125,8 +125,8 @@ const Signup = ({ navigation }) => {
             <Text style={styles.text}>Cédula</Text>
             <TextInput
                 name="cedula"
-                minLength={2}
-                maxLength={30}
+                minLength={10}
+                maxLength={10}
                 iconName="card-outline"
                 placeholder="cedula"
                 control={control}
@@ -161,7 +161,7 @@ const Signup = ({ navigation }) => {
             <TextInput
                 name="home_phone"
                 minLength={2}
-                maxLength={30}
+                maxLength={9}
                 iconName="call-outline"
                 placeholder="Phone"
                 control={control}

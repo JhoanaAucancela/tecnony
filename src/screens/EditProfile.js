@@ -18,6 +18,7 @@ const EditProfile = () => {
     
 
     const [user, setUser] = useState([]); 
+    const [active, setActive] = useState(false); 
     const [token, setToken] = useState([]);
     const [error, setError] = React.useState([]);
 
@@ -35,7 +36,7 @@ const EditProfile = () => {
         }catch(e){
             setError(e.message);
             
-        }finally{
+        }finally{ 
             setLoading(false);
         }
             
@@ -64,7 +65,7 @@ const EditProfile = () => {
             }; 
             setToken(_token);
             fetchUser(url, config);
-
+            setActive(true)
             
         })();
 
@@ -80,7 +81,8 @@ const EditProfile = () => {
             celular:     user.personal_phone ?? "",
             direccion:     user.address ?? ""
         })
-
+        
+        
     }, []);
 
 
@@ -106,8 +108,7 @@ const EditProfile = () => {
 
     return(
         <View style={styles.container}>   
-            <Text>{token}</Text>
-            <Text>{user.username}</Text>
+            
             <ScrollView>
                 <View style={{ alignItems: 'center', marginTop:'5%' }}>
                     <View>

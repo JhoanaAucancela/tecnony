@@ -139,21 +139,12 @@ const MyServices = () => {
                     <Text style={styles.BtnRehabilitar} onPress={() => fetchCancel((urlCancel, configBtn))} //onPress={() => alert("rea")}
                     >Rehabilitar</Text>
                     <Text> </Text>
-                    <Text style={styles.button} onPress={() => setIsModalOpen(!isModalOpen)}
-                    >Editar</Text>
-                    <FormModal 
-                        isModalOpen={isModalOpen} 
-                        setIsModalOpen={setIsModalOpen}
-                        ID={ID}
-                    />
-                    <Text> </Text>
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}
                     >Ver más</Text>
                 </View>
             )
         }
         else if(std === 4){
-
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}
