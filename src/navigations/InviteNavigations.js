@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import DrawerContentInvite from "../components/DrawerContentInvite";
 
@@ -9,72 +10,93 @@ import EStyleSheet from "react-native-extended-stylesheet";
 import ServicesInvitadoStack from "./stacks/ServicesInvitadoStack";
 import LoginStack from "./stacks/LoginStack";
 import SignupStack from "./stacks/SignupStack";
+import ForgotPasswordStack from "./stacks/ForgotPasswordStack";
 
-const BottomTabs = createBottomTabNavigator();
+
+//const BottomTabs = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const TabBar = ({ appName }) => {
-    return(
-        <BottomTabs.Navigator
+    return (
+        <Stack.Navigator
             initialRouteName="ServicesInvitadoStack"
-            screenOptions={({ route, navigation }) => ({
-                tabBarIcon: ({focused}) => showIcon( route, focused ),
-               
-                tabBarStyle: {
-                    alignItems: "center",
-                    backgroundColor: styles.tabStyles.backgroundColor,
-                    paddingTop: 5,
-                    position: "absolute",
-                    
+            screenOptions={{ 
+                headerBackTitle: "",
+                headerShown: true,
+                headerTitle: appName,
+                headerStyle: styles.headerStyle,
+                headerShadowVisible: false,
+                alignItems: "center",
+                headerTintColor: styles.header.color,
+                headerTitleStyle: {
+                    fontFamily: styles.header.fontFamily,
+                    fontWeight: styles.header.fontWeight,
                 }
-            })}
+             }}
         >
-            <BottomTabs.Screen 
-                name="ServicesInvitadoStack"
-                component={ServicesInvitadoStack}
+            <Stack.Screen name="ServicesInvitadoStack" component={ServicesInvitadoStack} 
+                options={{ 
+                    headerBackTitle: "",
+                    title: "",
+                    headerShown: false,
+                 }}
+            />
+            <Stack.Screen name="Login" component={LoginStack} 
+                options={{ 
+                    headerBackTitle: "",
+                    title: "",
+                    headerShown: false,
+                 }}
+            />
+            <Stack.Screen name="Signup" component={SignupStack} 
+                options={{ 
+                    headerBackTitle: "",
+                    title: "",
+                    headerShown: false,
+                 }}
+            />
+             <Stack.Screen name="ForgotPassword" component={ForgotPasswordStack} 
+                options={{ 
+                    headerBackTitle: "",
+                    title: "",
+                    headerShown: false,
+                 }}
+             />
+            
+            
+            
+
+            
+        </Stack.Navigator>
+    );
+}
+
+
+export default function ServicesNavigation(){
+    return (
+        <Drawer.Navigator
+            drawerContent={(props) => <DrawerContentInvite {...props} />}
+            screenOptions={{ 
+                headerShown:true,
+             }}
+        >
+            <Drawer.Screen
+                name="TabBar"
+                component={TabBar}
                 options={{ 
                     title: "",
-                    headerTitle: appName,
+                    headerTitle: "Tecnony",
                     headerTitleAlign: "center",
                     headerStyle: styles.headerStyle,
                     headerTintColor: styles.header.color,
                     headerTitleStyle: {
                         fontFamily: styles.header.fontFamily,
-                        
                     }
                  }}
             />
 
-            <BottomTabs.Screen 
-                name="Login"
-                component={LoginStack}
-                options={{ 
-                    title: "",
-                    headerTitle: appName,
-                    headerTitleAlign: "center",
-                    headerStyle: styles.headerStyle,
-                    headerTintColor: styles.header.color,
-                    headerTitleStyle: {
-                        fontFamily: styles.header.fontFamily,
-                    }
-                 }}
-            />
-
-            <BottomTabs.Screen 
-                name="Signup"
-                component={SignupStack}
-                options={{ 
-                    title: "",
-                    headerTitle: appName,
-                    headerTitleAlign: "center",
-                    headerStyle: styles.headerStyle,
-                    headerTintColor: styles.header.color,
-                    headerTitleStyle: {
-                        fontFamily: styles.header.fontFamily,
-                    }
-                 }}
-            />
-        </BottomTabs.Navigator>
+        </Drawer.Navigator>
     );
 }
 
@@ -83,47 +105,8 @@ TabBar.defaultProps = {
     //appName: Application.name,
 }
 
-const showIcon = (route, focused) => {
-    let icon = "";
-
-    switch (route.name){
-        case "Services": {
-            icon = "home";
-            break;
-        }
-
-        case "Login": {
-            icon = "person";
-            break;
-        }
-        case "Signup": {
-            icon = "person-add";
-            break;
-        }
-    }
-    return <Icon name={icon} type="ionicon" color={focused ? "white" : "black"} style= {{ marginTop: 2 }} />
-}
 
 
-
-export default function ServicesNavigation(){
-    return (
-        <Drawer.Navigator
-            
-            drawerContent={(props) => <DrawerContentInvite {...props} />}
-            screenOptions={{ 
-                headerShown:false,
-             }}
-        >
-            <Drawer.Screen
-                name="TabBar"
-                component={TabBar}
-                
-            />
-
-        </Drawer.Navigator>
-    );
-}
 
 const styles =  EStyleSheet.create({
     tabStyles: {

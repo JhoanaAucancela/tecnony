@@ -15,7 +15,7 @@ const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 export default function ServicesInvitados (props) {
 
     const [characters, setCharacters] = useState([]); //Hooks servicios
-    const [loading, setLoading] = useState(false); // Hooks Activity Loaders
+    const [loading, setLoading] = useState(true); // Hooks Activity Loaders
     const [search, setSearch] = useState(""); //Hooks Busqueda
 
     const fetchCharacters = (url) => {
@@ -34,36 +34,35 @@ export default function ServicesInvitados (props) {
         };
 
     useEffect(() => {
-        setLoading(true);
         fetchCharacters(baseURL);
     }, []) 
 
-    const verServicios = (num) => {
+    const verServicios = () => {
         alert("Para contratar este servicio debes iniciar sesión")
         props.navigation.navigate("LoginServ")
         
     }
 
-  
-    
+    if(!characters) setLoading(true)
+
     return(
         <View style={styles.container}>
-            {loading == true ? <ActivityLoader /> : null}
-            <Text style={styles.titleX}>Servicios</Text>
             
+            <Text style={styles.titleX}>Servicios</Text>
             <Input 
                 type = "search"
                 value = {search}
                 onChangeText={(value) => setSearch(value)}
-                //onChangeText = {(e) => setSearch(e.target.value)}
                 style={styles.input}
                 placeholder="Buscar"
-                placeholderTextColor="black"
+                placeholderTextColor="gray"
                 leftIcon={
                     <Icon name="search" type='ionicon' size={24} color="black" />
                 }
                         
             />
+
+            {loading == true ? <ActivityLoader /> : null}
             <ScrollView>
             {
                 characters.filter((item) => item.name.toLowerCase().includes(search.toLowerCase())).map((item, index) => (
@@ -90,9 +89,9 @@ export default function ServicesInvitados (props) {
                                     <Text>   </Text>
                              
                                    
-                                    <Text style={styles.button} onPress={() => verServicios((item.id))}>
+                                    <Text style={styles.button} onPress={() => verServicios()}>
                                     <Icon
-                                        onPress={() => verServicios((item.id)) }
+                                        onPress={() => verServicios() }
                                         name="cart"
                                         color='white'
                                         type = "ionicon" 

@@ -211,8 +211,7 @@ const Signup = ({ navigation }) => {
             </View>
 
                     <Text>  </Text>
-                    <Text>  </Text>
-                    <Text>  </Text>
+                    
         
         </View>
     );

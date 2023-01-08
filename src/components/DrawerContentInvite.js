@@ -17,8 +17,11 @@ export default function DrawerContent(props){
                             
                             <Image 
                                 style = {{ width:160, height:90 }}
-                                source = {require("../../assets/logo_retra.png")}
+                                source = {require("../../assets/logo_white.png")}
                             />
+                            <Text>  </Text>
+                            <Text>  </Text>
+                            <Text>  </Text>
 
             
                         </View>
@@ -88,6 +91,7 @@ export default function DrawerContent(props){
 const styles = EStyleSheet.create({
     drawerContent: {
         flex: 1,
+        backgroundColor:'$primary',
         
     },
     userInfo:{
@@ -109,7 +113,7 @@ const styles = EStyleSheet.create({
         fontFamily: '$700Bold',
     },
     drawerItem:{
-        marginTop:'-100%'
+        marginTop:'-60%'
 
     },
     label: {
