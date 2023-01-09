@@ -6,7 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useAuth, USER_KEY, USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
-
+import { EmailInput, PasswordInput, TextInput, DateInput, TextInputValue } from "../components/inputs";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
@@ -53,7 +53,8 @@ const EditProfile = () => {
             celular: "",
             direccion: ""
         })
-    
+
+
        
     useEffect(() => {
         (async () => {
@@ -65,22 +66,22 @@ const EditProfile = () => {
             }; 
             setToken(_token);
             fetchUser(url, config);
-            setActive(true)
-            
+            setActive(true);
+            setForm({
+                ...form,
+                usernombre:     user.username,
+                nombre:     user.first_name,
+                apellido:     user.last_name,
+                cedula:     user.cedula,
+                email:     user.email,
+                birthdate:     user.birthdate,
+                telefono:     user.home_phone,
+                celular:     user.personal_phone,
+                direccion:     user.address
+            })
         })();
 
-        setForm({
-            ...form,
-            usernombre:     user.username ?? "",
-            nombre:     user.first_name ?? "",
-            apellido:     user.last_name ?? "",
-            cedula:     user.cedula ?? "",
-            email:     user.email ?? "",
-            birthdate:     user.birthdate ?? "",
-            telefono:     user.home_phone ?? "",
-            celular:     user.personal_phone ?? "",
-            direccion:     user.address ?? ""
-        })
+        
         
         
     }, []);
@@ -132,32 +133,90 @@ const EditProfile = () => {
 
                         <ScrollView style={{ width: '90%', }}>
                             <Text style={styles.title}>Nombre de usuario:</Text>
-                            <Input name="username" control={control} errors = {errors} style={styles.input} value={form.usernombre} onChangeText={(value) => setForm({...form, usernombre: value})}></Input>
+                            <TextInputValue 
+                                name="username"
+                                iconName="person-circle-outline"
+                                placeholder="Nombre de usuario"
+                                control={control} 
+                                errors = {errors}
+                                errorValidationStyle = {styles.errorValidation} 
+                                inputStyle={styles.input} 
+                                value={form.usernombre} 
+                                onChangeText={(value) => setForm({...form, usernombre: value})}/>
                             
                             <Text style={styles.title}>Nombre:</Text>
-                            <Input name="first_name" control={control} errors = {errors} style={styles.input} value={form.nombre} onChangeText={(value) => setForm({...form, nombre: value})}></Input>
-
+                            <TextInputValue 
+                                name="first_name"
+                                iconName="person"
+                                placeholder="Nombre"
+                                control={control} 
+                                errors = {errors}
+                                errorValidationStyle = {styles.errorValidation} 
+                                inputStyle={styles.input} 
+                                value={form.nombre} 
+                                onChangeText={(value) => setForm({...form, nombre: value})}/>
+                            
                             <Text style={styles.title}>Apellido:</Text>
-                            <Input name="last_name" control={control} errors = {errors} style={styles.input} value={form.apellido} onChangeText={(value) => setForm({...form, apellido: value})}></Input>
+                            <TextInputValue 
+                                name="last_name"
+                                iconName="person"
+                                placeholder="Apellido"
+                                control={control} 
+                                errors = {errors}
+                                errorValidationStyle = {styles.errorValidation} 
+                                inputStyle={styles.input} 
+                                value={form.apellido} 
+                                onChangeText={(value) => setForm({...form, apellido: value})}/>
 
                             <Text style={styles.title}>Cédula:</Text>
-                            <Input name="cedula" control={control} errors = {errors} style={styles.input} value={form.cedula} onChangeText={(value) => setForm({...form, cedula: value})}></Input>
-
-                            <Text style={styles.title}>E-mail:</Text>
-                            <Input name="email" control={control} errors = {errors} style={styles.input} value={form.email} onChangeText={(value) => setForm({...form, email: value})}></Input>
-
-                            <Text style={styles.title}>Fecha de nacimiento:</Text>
-                            <Input name="birthdate" control={control} errors = {errors} style={styles.input} value={form.birthdate} onChangeText={(value) => setForm({...form, birthdate: value})}></Input>
+                            <TextInputValue 
+                                name="cedula"
+                                iconName="card-outline"
+                                placeholder="Cédula"
+                                control={control} 
+                                errors = {errors}
+                                errorValidationStyle = {styles.errorValidation} 
+                                inputStyle={styles.input} 
+                                value={form.cedula} 
+                                onChangeText={(value) => setForm({...form, cedula: value})}/>
 
                             <Text style={styles.title}>Télefono:</Text>
-                            <Input name="home_phone" control={control} errors = {errors} style={styles.input} value={form.telefono} onChangeText={(value) => setForm({...form, telefono: value})}></Input>
+                            <TextInputValue 
+                                name="home_phone"
+                                iconName="call-outline"
+                                placeholder="Teléfono (Opcional)"
+                                control={control} 
+                                errors = {errors}
+                                errorValidationStyle = {styles.errorValidation} 
+                                inputStyle={styles.input} 
+                                value={form.telefono} 
+                                onChangeText={(value) => setForm({...form, telefono: value})}/>
 
                             <Text style={styles.title}>Celular:</Text>
                             <Input name="personal_phone" control={control} errors = {errors} style={styles.input} value={form.celular} onChangeText={(value) => setForm({...form, celular: value})}></Input>
+                            <TextInputValue 
+                                name="personal_phone"
+                                iconName="call-outline"
+                                placeholder="Teléfono (Opcional)"
+                                control={control} 
+                                errors = {errors}
+                                errorValidationStyle = {styles.errorValidation} 
+                                inputStyle={styles.input} 
+                                value={form.telefono}
+                                onChangeText={(value) => setForm({...form, telefono: value})}/>
+
 
                             <Text style={styles.title}>Dirección:</Text>
-                            <Input name="address" control={control} errors = {errors} style={styles.input} value={form.direccion} onChangeText={(value) => setForm({...form, direccion: value})}></Input>
-                            
+                            <TextInputValue 
+                                name="address"
+                                iconName="map-outline"
+                                placeholder="Dirección"
+                                control={control} 
+                                errors = {errors}
+                                errorValidationStyle = {styles.errorValidation} 
+                                inputStyle={styles.input} 
+                                value={form.direccion}
+                                onChangeText={(value) => setForm({...form, direccion: value})}/>
                             <Text
                                 onPress={handleSubmit(_updateProfile)}
                                 style={styles.button}
@@ -221,6 +280,9 @@ const styles =  EStyleSheet.create({
         borderRadius: 15,
         backgroundColor:'#F5F9FF',
         borderColor: 'transparent',
+    },
+    errorValidation: {
+        color: "$red",
     },
     button: {
         backgroundColor:'#3F88C5', 

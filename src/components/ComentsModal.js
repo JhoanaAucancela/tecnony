@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Text, Modal, View, Button, ScrollView} from 'react-native';
+import {Text, Modal, View, Button, TouchableOpacity, Image} from 'react-native';
 import { Icon } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { useForm } from "react-hook-form";
-import { TextInput, TextAreaInput } from "../components/inputs";
+import { TextInputValue, TextAreaInput } from "../components/inputs";
 import { comentService } from "../services/AuthService";
 import styles from "../styles/auth";
 
@@ -15,6 +15,41 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
     const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
 
+    //////
+    const [defaultRating, setDefaultRating] = useState(2)
+    const [maxRating, setMaxRating] = useState([2,4,6,8,10])
+
+    const starImgFilled = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png';
+    const starImgCorner = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png';
+
+    const CustomRatingBar = () => {
+        return(
+            <View style={{ justifyContent: 'center', flexDirection:'row', marginTop:30 }}>
+                {
+                    maxRating.map((item, key) => {
+                        return(
+                            <TouchableOpacity
+                            activeOpacity={0.7}
+                            key={item}
+                            onPress={() => setDefaultRating(item)}
+                            >
+                                <Image 
+                                    style={{ width: 40, height: 40, resizeMode: 'cover' }}
+                                    source={
+                                        item <= defaultRating
+                                        ? {uri: starImgFilled}
+                                        : {uri: starImgCorner}
+                                    }
+                                />
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+
+            </View>
+        )
+    }
+    //////
     const _comentService = async (data) => {
         try {
             setLoading(true);
@@ -61,7 +96,8 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
         borderRadius: 15, 
         color:"$white", 
         fontWeight: 'bold'
-    } 
+    }
+
     
     return (
         <>
@@ -69,8 +105,7 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                 <View style = {modalContainerStyle}>
                     
                 {loading == true ? <ActivityLoader /> : null}
-                    <ScrollView style = {modalStyle}>
-                    <Text>{ID}</Text> 
+                    <View style = {modalStyle}>
                     <Icon
                         name="close"
                         type="ionicon"
@@ -86,11 +121,11 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
 
                         <Text style={styles.text}>Comentario</Text>
 
-                    <TextAreaInput
+                    <TextAreaInput 
                         name="comment"
-                        minLength={2}
+                        minLength={5}
                         maxLength={500}
-                        iconName="person-circle-outline"
+                        iconName="create"
                         placeholder="Comentario"
                         control={control}
                         errors = {errors}
@@ -102,9 +137,9 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                     <TextAreaInput
                         name="suggestion"
                         required={false}
-                        minLength={2}
+                        minLength={5}
                         maxLength={500}
-                        iconName="person-circle-outline"
+                        iconName="create"
                         placeholder="Sugerencia"
                         control={control}
                         errors = {errors}
@@ -113,12 +148,11 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                     />
 
                     <Text style={styles.text}>Calificación</Text>
-
-                    <TextInput
+                    <CustomRatingBar/>
+                    <TextInputValue
+                        value={defaultRating.toString()}
                         name="qualification"
-                        minLength={2}
-                        maxLength={2}
-                        iconName="person-circle-outline"
+                        iconName="happy"
                         placeholder="Calificacion"
                         control={control}
                         errors = {errors}
@@ -127,9 +161,9 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                     />
 
                         
-                        <Text style={btnStyle} onPress={handleSubmit(_comentService)}>Save</Text>
+                        <Text style={btnStyle} onPress={handleSubmit(_comentService)}>Guardar</Text>
                         
-                    </ScrollView>
+                    </View>
                 </View>
             </Modal>
         </>

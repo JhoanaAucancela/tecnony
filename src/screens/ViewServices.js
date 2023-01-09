@@ -3,9 +3,7 @@ import { View, Text} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import axios from "axios";
 import { Card, Image, Icon, Avatar } from 'react-native-elements';
-
-
-import { ErrorText, ActivityLoader } from "../components/Shared";
+import FormContractModal from '../components/FormContractModal';
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
@@ -15,6 +13,7 @@ export default function ViewServices(props) {
     const [post, setPost] = React.useState([]);
     const [tecnico, setTecnico] = React.useState([]);
 
+    const [isModalCOpen, setIsModalCOpen] = React.useState(false);
     
       const fetchCharacters = (url) => {
         fetch(url)
@@ -83,16 +82,20 @@ export default function ViewServices(props) {
                 
             
             <View style={{ alignItems: 'center', padding:'5%' }}>
-                
-                <Text style={styles.button} onPress={() => props.navigation.navigate("FormService")}
-                >
+                                        
+                <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}>
                     <Icon
-                        onPress={() => props.navigation.navigate("FormService") }
+                        onPress={() => setIsModalCOpen(!isModalCOpen)}
                         name="cart"
                         color='white'
                         type = "ionicon" 
                     />
                 </Text>
+                <ComentsModal 
+                    isModalOpen={isModalCOpen} 
+                    setIsModalOpen={setIsModalCOpen} 
+                    ID={post.id}
+                />
             </View>
     </View>
     

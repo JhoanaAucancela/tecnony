@@ -9,6 +9,8 @@ import axios from "axios";
 import Toast from "react-native-root-toast";
 import FormModal from '../components/FormModal';
 import ComentsModal from '../components/ComentsModal';
+import ViewComentsModal from '../components/ViewComentsModal';
+import ViewMoreModal from '../components/ViewMoreModal';
 
 const MyServices = () => {
 
@@ -24,6 +26,9 @@ const MyServices = () => {
     //MODAL
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [isModalCOpen, setIsModalCOpen] = React.useState(false);
+    const [isModalVOpen, setIsModalVOpen] = React.useState(false);
+    const [isModalMOpen, setIsModalMOpen] = React.useState(false);
+
 
 
     const fetchMyServices = (url, config) => {
@@ -38,22 +43,6 @@ const MyServices = () => {
         }
             
     };
-/*
-    function FormModal({isFormModalOpen, setFormModalOpen}){
-        return (
-            <>
-                <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
-                <View style = {styles.modalContainerStyle}>
-                    <View style = {styles.modalStyle}>
-                        <Text>hello</Text>
-                        <Text style={styles.button} onPress={() => setIsModalOpen(!setIsModalOpen)}>Close and Save</Text>
-                    </View>
-                </View>
-            </Modal>
-            </>
-        );
-    }
-*/
     const fetchCancel = (url,config) =>{
         try{
             fetch(url,config)
@@ -121,10 +110,6 @@ const MyServices = () => {
                         setIsModalOpen={setIsModalOpen} 
                         ID={ID}
                     />
-                    <Text> </Text>
-                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
-                    >Ver más</Text>
-                    <Text> </Text>
                 </View>
             )
         }
@@ -141,12 +126,17 @@ const MyServices = () => {
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.BtnRehabilitar} onPress={() => fetchCancel((urlCancel, configBtn))} //onPress={() => alert("rea")}
                     >Rehabilitar</Text>
-                    <Text> </Text>
-                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
-                    >Ver más</Text>
                 </View>
             )
         }
+        else if(std === 3){
+            return (
+                <View style = {{ flexDirection: "row", alignItems: 'center' }}>
+                <Text style={styles.BtnRehabilitar}>En Curso</Text>
+                </View>
+            )
+        }
+
         else if(std === 4){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
@@ -157,16 +147,24 @@ const MyServices = () => {
                         setIsModalOpen={setIsModalCOpen} 
                         ID={ID}
                     />
-                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
-                    >Ver más</Text>
+                    <Text style={styles.button} onPress={() => setIsModalVOpen(!isModalVOpen)}>Ver más</Text>
+                    <ViewComentsModal 
+                        isModalOpen={isModalVOpen} 
+                        setIsModalOpen={setIsModalVOpen} 
+                        ID={ID}
+                    />
                 </View>
             )
         }
         else{
             return(
                 <View style = {{ alignItems: "center" }}>
-                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
-                    >Ver más</Text>
+                    <Text style={styles.button} onPress={() => setIsModalMOpen(!isModalMOpen)}>Ver más</Text>
+                    <ViewMoreModal 
+                        isModalOpen={isModalMOpen} 
+                        setIsModalOpen={setIsModalMOpen} 
+                        ID={ID}
+                    />
                 </View>
             )
         }

@@ -6,6 +6,10 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
+import ComentsModal from '../components/ComentsModal';
+import ViewComentsModal from '../components/ViewComentsModal';
+
+
 
 
 const Opinions = () => {
@@ -13,6 +17,9 @@ const Opinions = () => {
     
     const [characters, setCharacters] = React.useState([])
     const [error, setError] = React.useState([])
+    const [isModalCOpen, setIsModalCOpen] = React.useState(false);
+    const [isModalVOpen, setIsModalVOpen] = React.useState(false);
+
 
     const fetchMyServices = (url, config) => {
         try{
@@ -68,10 +75,22 @@ const Opinions = () => {
                                     <Text style={styles.descripcion}>Fecha: </Text>
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
                                     <Text>   </Text>
-                             
-                                    <View style = {{ alignItems: "center" }}>
-                                        <Text style={styles.button} //onPress={() => verServicios((item.id))}
+
+                                     <View style = {{ flexDirection: "row", alignItems: 'center' }}>
+                                        <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
+                                        >Comentar</Text>
+                                        <ComentsModal 
+                                            isModalOpen={isModalCOpen} 
+                                            setIsModalOpen={setIsModalCOpen} 
+                                            ID={item.id}
+                                        />
+                                        <Text style={styles.button} onPress={() => setIsModalVOpen(!isModalVOpen)}
                                         >Ver más</Text>
+                                        <ViewComentsModal 
+                                            isModalOpen={isModalVOpen} 
+                                            setIsModalOpen={setIsModalVOpen} 
+                                            ID={item.id}
+                                        />
                                     </View>
                                 </View>
                             </View>  
