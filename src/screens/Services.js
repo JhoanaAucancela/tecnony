@@ -7,6 +7,8 @@ import { Card, Image, Icon, Input } from 'react-native-elements';
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import Auxialiar from './auxiliar';
 
+import ViewServiceModal from '../components/ViewServiceModal';
+
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
@@ -19,6 +21,8 @@ export default function Services (props) {
     const [search, setSearch] = useState(""); //Hooks Busqueda
 
     const [post, setPost] = React.useState([]);
+    const [isModalVSOpen, setIsModalVSOpen] = React.useState(false);
+    
     const fetchService = (url) => {
         fetch(url)
             .then(response => response.json())
@@ -47,13 +51,15 @@ export default function Services (props) {
     }, []) 
 
     const verServicios = (num) => {
-        fetchService(`${baseURL}/${num}`);
-        //ViewServices((serviceURL))
+        
+        
+        
+        //fetchService(`${baseURL}/${num}`);
+       //alert(post.name)
+       //ViewServices((serviceURL))
         //<Auxialiar url = {serviceURL} />
         //props.navigation.navigate("ViewServices")
         //Auxialiar((serviceURL))
-       alert(post.name)
-
     }
 
   
@@ -102,17 +108,22 @@ export default function Services (props) {
                                     <Text style={styles.descripciontext}>{item.price}</Text>
                                     <Text>   </Text>
                              
-                                   <Text>{item.id}</Text>
-                                    <Text style={styles.button} onPress={() => verServicios((item.id))}>
+                                    <Text style={styles.button} onPress={() => setIsModalVSOpen(!isModalVSOpen)}>
                                     <Icon
-                                        onPress={() => verServicios((item.id)) }
+                                        onPress={() => setIsModalVSOpen(!isModalVSOpen) }
                                         name="cart"
                                         color='white'
                                         type = "ionicon" 
                                     />
                                     </Text>
-
-                                  
+                                    <ViewServiceModal
+                                        isModalOpen={isModalVSOpen} 
+                                        setIsModalOpen={setIsModalVSOpen} 
+                                        ID={item.id}
+                                    />
+                                    
+        
+        
                                 </View>
                             </View>  
                         </Card>

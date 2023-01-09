@@ -78,13 +78,13 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         style={{ marginTop: 2, marginRight: 100 }}
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
-                        <Text h2 style={ styles.title }>Formulario</Text>
-                        <Text style={styles.subtitle}>Solicitud de contratación del servicio.</Text>
+                        <Text h2 style={ styles.title }>Editar el servicio</Text>
                         {loading == true ? <ActivityLoader /> : null}
                         <ErrorText error={error} />
                         <Text style={styles.text}>Dispositivo</Text>
                         <TextInput
                             name="device"
+                            required={false}
                             minLength={2}
                             maxLength={30}
                             iconName="cube"
@@ -98,6 +98,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         <Text style={styles.text}>Modelo</Text>
                         <TextInput
                             name="model"
+                            required={false}
                             minLength={2}
                             maxLength={30}
                             iconName="phone-portrait"
@@ -111,6 +112,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         <Text style={styles.text}>Marca</Text>
                         <TextInput
                             name="brand"
+                            required={false}
                             minLength={2}
                             maxLength={30}
                             iconName="logo-closed-captioning"
@@ -124,6 +126,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         <Text style={styles.text}>Serie</Text>
                         <TextInput
                             name="serie"
+                            required={false}
                             minLength={2}
                             maxLength={30}
                             iconName="barcode"
@@ -137,6 +140,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         <Text style={styles.text}>Descripcion del problema</Text>
                         <TextAreaInput
                             name="description_problem"
+                            required={false}
                             minLength={2}
                             maxLength={530}
                             iconName="create"

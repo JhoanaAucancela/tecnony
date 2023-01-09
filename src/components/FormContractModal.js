@@ -28,6 +28,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
             setError(e.message);
         }finally{
             setLoading(false);
+            setIsModalOpen(!setIsModalOpen);
         }
     }
 

@@ -94,7 +94,7 @@ export default function ViewServices(props) {
                 <ComentsModal 
                     isModalOpen={isModalCOpen} 
                     setIsModalOpen={setIsModalCOpen} 
-                    ID={post.id}
+                    ID={item.id}
                 />
             </View>
     </View>

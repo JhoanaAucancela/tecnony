@@ -1,0 +1,200 @@
+import React, {useState} from 'react';
+import {Text, Modal, View, Button, TouchableOpacity} from 'react-native';
+import { Icon, Card, Image, Avatar } from "react-native-elements";
+import EStyleSheet from 'react-native-extended-stylesheet';
+
+import { ScrollView } from 'react-native-gesture-handler';
+import FormContractModal from '../components/FormContractModal';
+
+const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
+
+export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID}){
+    
+    ///////////
+    const [post, setPost] = React.useState([]); // Datos del servicio
+    const [tecnico, setTecnico] = React.useState([]); //Datos del tecnico
+    const [isModalCOpen, setIsModalCOpen] = React.useState(false);
+
+    const fetchCharacters = (url) => {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => setPost(data.data.service))
+            .catch(error => console.log(error))
+      };
+
+
+      const fetchTecnico = (url) => {
+      fetch(url)
+          .then(response => response.json())
+          .then(data => setTecnico(data.data.created_by))
+          .catch(error => console.log(error))
+      };
+
+
+      React.useEffect(() => {
+        (async () => {
+            fetchCharacters(`${baseURL}/${ID}`)
+            fetchTecnico(`${baseURL}/${ID}`)
+        })();
+    }, []);
+    ///////////
+
+    const modalContainerStyle ={
+        flex: 1,
+        justifyContent: 'flex-end',
+    }
+    const modalStyle = {
+        backgroundColor:'white',
+        //alignItems:'center',
+        margin: 20,
+        borderRadius: 16,
+        paddingHorizontal: 30,
+        paddingVertical: 20,
+        shadowColor: '#000',
+        shadowOffset:{
+            width: 0,
+            height:2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    }
+
+
+
+    
+    return (
+        <>
+            <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
+                <View style = {modalContainerStyle}>
+                    
+                    <ScrollView style = {modalStyle}>
+                    <Icon
+                        name="close"
+                        type="ionicon"
+                        size= {30}
+                        color= "black"
+                        style={{ marginTop: 2, marginRight: 100 }}
+                        onPress={() => setIsModalOpen(!setIsModalOpen)}
+                    />
+                        
+
+                        <View style={{ alignItems: 'center' }}>
+                            <Text style= {styles.titleX}>{post.name}</Text>
+                            <View style= {styles.lineStyle}></View>
+                        </View>
+
+                        <Card containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                                <Image
+                                    source={{ uri: post.image }}
+                                    style={{ width: '100%', height: 170, borderRadius: 15 }}
+                                />
+                        <Card.Divider/>
+                            
+                                <Text style ={styles.descripcion}>Categoria: <Text style ={styles.descripciontext}>{post.categories}</Text></Text>
+                                <Text style ={styles.descripcion}>Descripción: <Text style ={styles.descripciontext}>{post.description}</Text></Text>
+                                <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>{post.price}</Text></Text>
+                        
+                        </Card>
+                        
+                    
+                        <Text> </Text>
+                        <Text style = {styles.text}>Técnico</Text>
+                        <View style = {{ alignItems: 'center' }}>  
+                            <Card containerStyle={{borderRadius: 15}}>
+                                
+                                    <View style={{ alignItems:'center'}}>
+                                        <Avatar
+                                            rounded
+                                            size="medium"
+                                            source={{ uri: tecnico.avatar }}
+                                        />
+                                    </View>
+                                    
+                                        <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.first_name} {tecnico.last_name}</Text></Text>
+                                        <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnico.email}</Text></Text>
+                                        <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.personal_phone}</Text></Text>
+                                   
+                            </Card>
+                        </View>
+                            
+                        
+                        <View style={{ alignItems: 'center', padding:'5%' }}>
+                                                    
+                            <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
+                            >
+                                <Icon
+                                    onPress={() => setIsModalCOpen(!isModalCOpen)}
+                                    name="cart"
+                                    color='white'
+                                    type = "ionicon" 
+                                />
+                            </Text>
+                            <FormContractModal 
+                                isModalOpen={isModalCOpen} 
+                                setIsModalOpen={setIsModalCOpen} 
+                                ID={post.id}
+                            />
+                        </View>
+
+
+                        <Text> </Text>
+                        <Text> </Text>
+                        <Text> </Text>
+
+                        
+                    </ScrollView>
+                </View>
+            </Modal>
+        </>
+    );
+}
+
+const styles =  EStyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor:'$authBg',
+    },
+    text: {
+        color: '$primary',
+        fontWeight: '$fontWeight600', 
+        marginLeft: '4%'
+     },
+
+     title:{
+        fontFamily: '$700Bold',
+        fontSize: 16,
+        color:'$primary',
+    },
+    titleX:{
+        fontFamily: '$700Bold',
+        fontSize: 24,
+        color:'$primary',
+    },
+    descripcion:{
+        fontFamily:'$700Bold',
+    },
+
+    descripciontext:{
+        fontFamily:'$400Regular',
+        color:'#273469',
+    },
+    lineStyle:{ 
+        borderWidth: 0.5, 
+        borderColor:'#CDCACA', 
+        margin:10,
+        paddingLeft: "90%"
+
+    },
+    button: {
+        backgroundColor:'#3F88C5', 
+        padding:'3%', 
+        paddingLeft:'10%',
+        paddingRight:'10%',
+        textAlign: 'center', 
+        borderRadius: 15, 
+        color:"$white", 
+        fontWeight: 'bold'
+    },
+
+});
