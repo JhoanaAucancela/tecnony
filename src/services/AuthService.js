@@ -79,3 +79,13 @@ export async function updateService (data, id) {
         throw errorHandler(e);
     }
 }
+
+
+export async function comentService (data, id) {
+    try{
+        let res = await axios.post(`satisfaction-form/create/${id}`,data);
+        return res.data.message;
+    }catch(e){
+        throw errorHandler(e);
+    }
+}

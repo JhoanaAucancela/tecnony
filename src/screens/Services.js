@@ -18,6 +18,14 @@ export default function Services (props) {
     const [loading, setLoading] = useState(false); // Hooks Activity Loaders
     const [search, setSearch] = useState(""); //Hooks Busqueda
 
+    const [post, setPost] = React.useState([]);
+    const fetchService = (url) => {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => setPost(data.data.service))
+            .catch(error => console.log(error))
+      };
+
     const fetchCharacters = (url) => {
         try{
             fetch(url)
@@ -39,21 +47,16 @@ export default function Services (props) {
     }, []) 
 
     const verServicios = (num) => {
-        
-      
-        //const serviceURL = `${baseURL}/${num}`;
+        fetchService(`${baseURL}/${num}`);
         //ViewServices((serviceURL))
-        //<Auxialiar num = {serviceURL} />
+        //<Auxialiar url = {serviceURL} />
         //props.navigation.navigate("ViewServices")
-        //Auxialiar(num)
-       alert(num)
-        
+        //Auxialiar((serviceURL))
+       alert(post.name)
+
     }
 
-    if(!characters){
-        setLoading(true) 
-        return <View>{loading == true ? <ActivityLoader /> : null}</View>
-    }
+  
     
     return(
         <View style={styles.container}>

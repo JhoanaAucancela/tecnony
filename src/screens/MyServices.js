@@ -8,6 +8,7 @@ import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 import Toast from "react-native-root-toast";
 import FormModal from '../components/FormModal';
+import ComentsModal from '../components/ComentsModal';
 
 const MyServices = () => {
 
@@ -22,6 +23,8 @@ const MyServices = () => {
 
     //MODAL
     const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [isModalCOpen, setIsModalCOpen] = React.useState(false);
+
 
     const fetchMyServices = (url, config) => {
         try{
@@ -147,8 +150,13 @@ const MyServices = () => {
         else if(std === 4){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.button} //onPress={() => verServicios((item.id))}
+                    <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
                     >Comentar</Text>
+                    <ComentsModal 
+                        isModalOpen={isModalCOpen} 
+                        setIsModalOpen={setIsModalCOpen} 
+                        ID={ID}
+                    />
                     <Text style={styles.button} //onPress={() => verServicios((item.id))}
                     >Ver más</Text>
                 </View>

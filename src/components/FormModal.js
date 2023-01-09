@@ -4,7 +4,7 @@ import { Icon } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { useForm } from "react-hook-form";
-import { TextInput } from "../components/inputs";
+import { TextInput, TextAreaInput } from "../components/inputs";
 import { updateService } from "../services/AuthService";
 import styles from "../styles/auth";
 
@@ -135,7 +135,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         />
 
                         <Text style={styles.text}>Descripcion del problema</Text>
-                        <TextInput
+                        <TextAreaInput
                             name="description_problem"
                             minLength={2}
                             maxLength={530}

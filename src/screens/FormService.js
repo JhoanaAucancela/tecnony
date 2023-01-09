@@ -5,7 +5,7 @@ import { Text, Button, Image } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { useForm } from "react-hook-form";
-import { TextInput } from "../components/inputs";
+import { TextInput, TextAreaInput } from "../components/inputs";
 import { contractService } from "../services/AuthService";
 
 
@@ -92,7 +92,7 @@ const FormService = () => {
             />
 
             <Text style={styles.text}>Descripcion del problema</Text>
-            <TextInput
+            <TextAreaInput
                 name="description_problem"
                 minLength={2}
                 maxLength={530}
