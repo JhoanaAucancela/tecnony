@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import styles from "../../styles/auth";
-import { Text, Button, Image } from "react-native-elements";
+import { Text, Button, Image, Input } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../../components/Shared";
 import { useForm } from "react-hook-form";
-import { EmailInput, PasswordInput, TextInput } from "../../components/inputs";
+import { EmailInput, PasswordInput, TextInput, DateInput } from "../../components/inputs";
 import { signup } from "../../services/AuthService";
 
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Signup = ({ navigation }) => {
     const [error, setError] = useState(null);
@@ -15,6 +17,22 @@ const Signup = ({ navigation }) => {
     const [secureEntry, setSecureEntry] = useState(true);
     const [secureConfirmationEntry, setSecureConfirmationEntry] = useState(true);
     const { control, handleSubmit, formState: { errors }} = useForm();
+///////////////
+    const [datePicker, setDatePicker] = useState(false);
+    const [date, setDate] = useState(new Date("2001","10","03"));
+    const [fecha, setFecha] = useState("");
+
+    function showDatePicker() {
+        setDatePicker(true);
+    };
+
+    function onDateSelected(event, value) {
+        setDate(value);
+        setDatePicker(false);
+        setFecha(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`)
+      };
+    
+///////////////
 
     const _signup = async (data) => {
         try {
@@ -42,6 +60,7 @@ const Signup = ({ navigation }) => {
     }
     return(
         <View style={ styles.container }>
+            {loading == true ? <ActivityLoader /> : null}
             <View style={{ alignItems: 'center' }}>
                 <Image 
                     style = {{ width:250, height:50, marginTop:20 }}
@@ -49,7 +68,7 @@ const Signup = ({ navigation }) => {
                 />
             </View>
            <ScrollView style={ styles.containerScroll }>
-            {loading == true ? <ActivityLoader /> : null}
+            
             
             <Text h2 style={ styles.title }>Registrarse</Text>
             <Text style={styles.subtitle}>Crea tu cuenta</Text>
@@ -63,7 +82,7 @@ const Signup = ({ navigation }) => {
                 minLength={2}
                 maxLength={30}
                 iconName="person-circle-outline"
-                placeholder="Username"
+                placeholder="Nombre de usuario"
                 control={control}
                 errors = {errors}
                 errorValidationStyle = {styles.errorValidation}
@@ -76,7 +95,7 @@ const Signup = ({ navigation }) => {
                 minLength={3}
                 maxLength={35}
                 iconName="person-outline"
-                placeholder="Name"
+                placeholder="Nombre"
                 control={control}
                 errors = {errors}
                 errorValidationStyle = {styles.errorValidation}
@@ -89,7 +108,7 @@ const Signup = ({ navigation }) => {
                 minLength={3}
                 maxLength={35}
                 iconName="person-outline"
-                placeholder="Lastname"
+                placeholder="Apellido"
                 control={control}
                 errors = {errors}
                 errorValidationStyle = {styles.errorValidation}
@@ -99,10 +118,10 @@ const Signup = ({ navigation }) => {
             <Text style={styles.text}>Celular</Text>
             <TextInput
                 name="personal_phone"
-                minLength={2}
+                minLength={10}
                 maxLength={10}
                 iconName="phone-portrait-outline"
-                placeholder="Cell Phone"
+                placeholder="Celular"
                 control={control}
                 errors = {errors}
                 errorValidationStyle = {styles.errorValidation}
@@ -115,7 +134,7 @@ const Signup = ({ navigation }) => {
                 minLength={2}
                 maxLength={30}
                 iconName="map-outline"
-                placeholder="Address"
+                placeholder="Dirección"
                 control={control}
                 errors = {errors}
                 errorValidationStyle = {styles.errorValidation}
@@ -125,10 +144,11 @@ const Signup = ({ navigation }) => {
             <Text style={styles.text}>Cédula</Text>
             <TextInput
                 name="cedula"
+                required= {false}
                 minLength={10}
                 maxLength={10}
                 iconName="card-outline"
-                placeholder="cedula"
+                placeholder="Cédula (Opcional)"
                 control={control}
                 errors = {errors}
                 errorValidationStyle = {styles.errorValidation}
@@ -145,25 +165,26 @@ const Signup = ({ navigation }) => {
                 inputStyle={ styles.input }
             />
             <Text style={styles.text}>Fecha de nacimiento</Text>
-            <TextInput
+            <DateInput
+                value={fecha}
                 name="birthdate"
-                minLength={2}
-                maxLength={30}
                 iconName="calendar-outline"
-                placeholder="Date of Birth"
+                placeholder="Fecha de nacimiento (Opcional)"
                 control={control}
                 errors = {errors}
                 errorValidationStyle = {styles.errorValidation}
                 inputStyle={styles.input}
+                dateSelect = { showDatePicker }
             />
 
             <Text style={styles.text}>Teléfono</Text>
             <TextInput
                 name="home_phone"
-                minLength={2}
-                maxLength={9}
+                required= {false}
+                minLength={7}
+                maxLength={7}
                 iconName="call-outline"
-                placeholder="Phone"
+                placeholder="Teléfono (Opcional)"
                 control={control}
                 errors = {errors}
                 errorValidationStyle = {styles.errorValidation}
@@ -190,6 +211,20 @@ const Signup = ({ navigation }) => {
                 secureEntry={ secureConfirmationEntry }
                 toggleSecureEntry = { toggleSecureConfirmationEntry }
             />
+            
+            
+            {datePicker && (
+          <DateTimePicker
+            value={date}
+            mode={'date'}
+            display='default'
+            is24Hour={true}
+            onChange={onDateSelected}
+            style={styles.datePicker}
+          />
+        )}
+ 
+        
  
             <Button 
                 titleStyle={styles.buttonTitle}

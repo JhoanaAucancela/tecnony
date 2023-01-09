@@ -72,6 +72,14 @@ const styles = EStyleSheet.create({
     errorValidation: {
         color: "$red",
     },
+
+    datePicker: {
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        width: 320,
+        height: 260,
+        display: 'flex',
+      },
     
 });
 

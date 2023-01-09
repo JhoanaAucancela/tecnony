@@ -39,16 +39,21 @@ export default function Services (props) {
     }, []) 
 
     const verServicios = (num) => {
-        const serviceURL = `${baseURL}/${num}`;
+        
+      
+        //const serviceURL = `${baseURL}/${num}`;
         //ViewServices((serviceURL))
-        //<Auxialiar url = {serviceURL} />
-        props.navigation.navigate("ViewServices")
-        //Auxialiar((serviceURL))
-       //alert(serviceURL)
+        //<Auxialiar num = {serviceURL} />
+        //props.navigation.navigate("ViewServices")
+        //Auxialiar(num)
+       alert(num)
         
     }
 
-  
+    if(!characters){
+        setLoading(true) 
+        return <View>{loading == true ? <ActivityLoader /> : null}</View>
+    }
     
     return(
         <View style={styles.container}>

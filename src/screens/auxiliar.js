@@ -1,27 +1,19 @@
-import React from "react";
-import ViewServices from "./ViewServices";
-import { View, Text, Alert} from 'react-native';
+import React, { useEffect } from "react";
+import {Text, Modal, View, Button, ScrollView, alert} from 'react-native';
 import axios from "axios";
 
-const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
+const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service/";
 
-const Auxialiar = (urlServices) =>{
-   const [post, setPost] = React.useState([]);
-/*
-   React.useEffect(() => {
-       axios.get(`${baseURL}/1`).then((response) => {
-       setPost(response.data.data.service);
-       });
-   }, []);
-   
-     if (!post) return <Text>"No post!"</Text>
- 
- */
+const Auxialiar = (props) =>{
+
+  const [id, setId] = React.useState("");
+
+  React.useEffect(()=> {
+    setId(props.id)
+  },[])
+
  return(
-  
-  alert((urlServices))
-  //alert("LLamada de services a Auxiliar")
-  
+  alert(id)
   )
 
 }

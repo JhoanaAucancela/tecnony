@@ -43,7 +43,10 @@ export default function ServicesInvitados (props) {
         
     }
 
-    if(!characters) setLoading(true)
+    if(!characters){
+        setLoading(true) 
+        return <View>{loading == true ? <ActivityLoader /> : null}</View>
+    }
 
     return(
         <View style={styles.container}>
@@ -61,8 +64,6 @@ export default function ServicesInvitados (props) {
                 }
                         
             />
-
-            {loading == true ? <ActivityLoader /> : null}
             <ScrollView>
             {
                 characters.filter((item) => item.name.toLowerCase().includes(search.toLowerCase())).map((item, index) => (
