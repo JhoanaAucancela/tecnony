@@ -48,15 +48,6 @@ export default function Services (props) {
         setIsModalVSOpen(!isModalVSOpen);
     }
 
-    function ver (num){
-    
-            return(
-                <>
-                    
-                </>
-         )
-    }
-
 
     if(characters.length===0) {
         return (
@@ -123,7 +114,7 @@ export default function Services (props) {
                                         isModalOpen={isModalVSOpen} 
                                         setIsModalOpen={setIsModalVSOpen} 
                                         ID={numService}
-                                        //estado={true}
+                                        estado={isModalVSOpen}
                                     /> 
                                    
         

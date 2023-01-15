@@ -5,10 +5,11 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import FormContractModal from '../components/FormContractModal';
+import { clearCache } from 'react-native-extended-stylesheet';
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
-export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID}){
+export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estado}){
     
     ///////////
     const [post, setPost] = React.useState([]); // Datos del servicio
@@ -32,15 +33,15 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID}){
 
 
       React.useEffect(() => {
-            (async () => {
 
+            (async () => {
                 fetchCharacters(`${baseURL}/${ID}`)
                 fetchTecnico(`${baseURL}/${ID}`)
             })()
-          //  console.log(ID)
-      
-            
-    }, []);
+
+           return () => console.log('cleanup', post)
+          //  console.log(ID)      
+    }, [estado]);
     ///////////
 
     const modalContainerStyle ={
