@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Controller } from 'react-hook-form';
 import {Icon, Input, Text} from 'react-native-elements';
 
-export default function TextInput({ name, required = true, minLength, maxLength, iconName, placeholder, control, errors, inputStyle, errorValidationStyle }){
+export default function TextInput({ name, required = true, minLength, maxLength, iconName, placeholder, control, errors, inputStyle, errorValidationStyle, keyboardType }){
     return(
         <>
             <Controller
@@ -11,10 +11,12 @@ export default function TextInput({ name, required = true, minLength, maxLength,
                     required,
                     minLength,
                     maxLength,
+                
                     
                 }}
                 render={({ field: { onChange, onBlur, value} }) => (
                     <Input
+                        keyboardType={keyboardType}
                         onChangeText={onChange}
                         onBlur={onBlur}
                         value={value} 

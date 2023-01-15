@@ -43,10 +43,14 @@ export default function ServicesInvitados (props) {
         
     }
 
-    if(!characters){
-        setLoading(true) 
-        return <View>{loading == true ? <ActivityLoader /> : null}</View>
-    }
+    if(characters.length===0) {
+        
+        return (
+            <View style={styles.container}>
+            <Text style= {styles.titleX}>Cargando...</Text>
+            </View>
+    
+    )}
 
     return(
         <View style={styles.container}>
@@ -125,6 +129,7 @@ const styles =  EStyleSheet.create({
         flex: 1,
         backgroundColor:'$white',
         alignItems:'center',
+        justifyContent: 'center',
 
     },
     services:{

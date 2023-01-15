@@ -118,6 +118,7 @@ const Signup = ({ navigation }) => {
             <Text style={styles.text}>Celular</Text>
             <TextInput
                 name="personal_phone"
+                keyboardType="phone-pad"
                 minLength={10}
                 maxLength={10}
                 iconName="phone-portrait-outline"
@@ -144,6 +145,7 @@ const Signup = ({ navigation }) => {
             <Text style={styles.text}>Cédula</Text>
             <TextInput
                 name="cedula"
+                keyboardType="phone-pad"
                 required= {false}
                 minLength={10}
                 maxLength={10}
@@ -155,7 +157,7 @@ const Signup = ({ navigation }) => {
                 inputStyle={styles.input}
             />
 
-            <Text style={styles.text}>Correo Electronico</Text>
+            <Text style={styles.text}>Correo Electrónico</Text>
             <EmailInput 
                 name="email"
                 control={ control }
@@ -168,6 +170,7 @@ const Signup = ({ navigation }) => {
             <DateInput
                 value={fecha}
                 name="birthdate"
+                required={false}
                 iconName="calendar-outline"
                 placeholder="Fecha de nacimiento (Opcional)"
                 control={control}
@@ -180,6 +183,7 @@ const Signup = ({ navigation }) => {
             <Text style={styles.text}>Teléfono</Text>
             <TextInput
                 name="home_phone"
+                keyboardType="phone-pad"
                 required= {false}
                 minLength={7}
                 maxLength={7}

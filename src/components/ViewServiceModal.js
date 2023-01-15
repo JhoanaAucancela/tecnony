@@ -32,10 +32,14 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID}){
 
 
       React.useEffect(() => {
-        (async () => {
-            fetchCharacters(`${baseURL}/${ID}`)
-            fetchTecnico(`${baseURL}/${ID}`)
-        })();
+            (async () => {
+
+                fetchCharacters(`${baseURL}/${ID}`)
+                fetchTecnico(`${baseURL}/${ID}`)
+            })()
+          //  console.log(ID)
+      
+            
     }, []);
     ///////////
 
@@ -122,13 +126,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID}){
                         <View style={{ alignItems: 'center', padding:'5%' }}>
                                                     
                             <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
-                            >
-                                <Icon
-                                    onPress={() => setIsModalCOpen(!isModalCOpen)}
-                                    name="cart"
-                                    color='white'
-                                    type = "ionicon" 
-                                />
+                            > Contratar
+                            
                             </Text>
                             <FormContractModal 
                                 isModalOpen={isModalCOpen} 

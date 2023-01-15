@@ -20,15 +20,8 @@ export default function Services (props) {
     const [loading, setLoading] = useState(false); // Hooks Activity Loaders
     const [search, setSearch] = useState(""); //Hooks Busqueda
 
-    const [post, setPost] = React.useState([]);
     const [isModalVSOpen, setIsModalVSOpen] = React.useState(false);
-    
-    const fetchService = (url) => {
-        fetch(url)
-            .then(response => response.json())
-            .then(data => setPost(data.data.service))
-            .catch(error => console.log(error))
-      };
+    const[numService, setNumService] = useState()
 
     const fetchCharacters = (url) => {
         try{
@@ -51,18 +44,27 @@ export default function Services (props) {
     }, []) 
 
     const verServicios = (num) => {
-        
-        
-        
-        //fetchService(`${baseURL}/${num}`);
-       //alert(post.name)
-       //ViewServices((serviceURL))
-        //<Auxialiar url = {serviceURL} />
-        //props.navigation.navigate("ViewServices")
-        //Auxialiar((serviceURL))
+        setNumService(num);
+        setIsModalVSOpen(!isModalVSOpen);
     }
 
-  
+    function ver (num){
+    
+            return(
+                <>
+                    
+                </>
+         )
+    }
+
+
+    if(characters.length===0) {
+        return (
+            <View style={styles.container}>
+            <Text style= {styles.titleX}>Cargando...</Text>
+            </View>
+    
+    )}
     
     return(
         <View style={styles.container}>
@@ -108,20 +110,22 @@ export default function Services (props) {
                                     <Text style={styles.descripciontext}>{item.price}</Text>
                                     <Text>   </Text>
                              
-                                    <Text style={styles.button} onPress={() => setIsModalVSOpen(!isModalVSOpen)}>
+                                    <Text style={styles.button} onPress={() => verServicios((item.id))}>
                                     <Icon
-                                        onPress={() => setIsModalVSOpen(!isModalVSOpen) }
+                                        onPress={() => verServicios((item.id)) }
                                         name="cart"
                                         color='white'
                                         type = "ionicon" 
                                     />
                                     </Text>
+                                    
                                     <ViewServiceModal
                                         isModalOpen={isModalVSOpen} 
                                         setIsModalOpen={setIsModalVSOpen} 
-                                        ID={item.id}
-                                    />
-                                    
+                                        ID={numService}
+                                        //estado={true}
+                                    /> 
+                                   
         
         
                                 </View>
@@ -149,6 +153,7 @@ const styles =  EStyleSheet.create({
         flex: 1,
         backgroundColor:'$white',
         alignItems:'center',
+        justifyContent: 'center',
 
     },
     services:{

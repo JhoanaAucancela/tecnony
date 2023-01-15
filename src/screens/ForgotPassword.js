@@ -43,10 +43,10 @@ const ForgotPassword = ({ navigation }) => {
             {loading == true ? <ActivityLoader /> : null}
             <View style={{width: '100%', padding:'2%', paddingLeft:'3%'}}>
                 <Text h2 style={styles.title}>Recuperar Cuenta</Text>
-                <Text style={styles.subtitle}>Ingresa el correo electronico que usas en Tecnony</Text>
+                <Text style={styles.subtitle}>Ingresa el correo electrónico que usas en Tecnony</Text>
                 <Text> </Text>
                 <ErrorText error={error} />
-                <Text style={styles.text}>Correo Electronico</Text>
+                <Text style={styles.text}>Correo Electrónico</Text>
                 <EmailInput 
                     name="email"
                     control={ control }

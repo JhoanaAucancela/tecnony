@@ -39,6 +39,15 @@ export async function updateProfile (data) {
     }
 }
 
+export async function updateImage (data) {
+    try{
+        let res = await axios.post("avatar",data);
+        return res.data.message;
+    }catch(e){
+        throw errorHandler(e);
+    }
+}
+
 export async function logout () {
     try{
         let res = await axios.post("logout");

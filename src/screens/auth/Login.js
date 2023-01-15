@@ -57,7 +57,7 @@ const Login = ({ navigation }) => {
                 <Text h2 style={styles.title}>Acceso</Text>
                 <Text style={styles.subtitle}>Inicia sesión en tu cuenta</Text>
                 
-                <Text style={styles.text}>Correo Electronico</Text>
+                <Text style={styles.text}>Correo Electrónico</Text>
                 <EmailInput 
                     name="email"
                     control={ control }

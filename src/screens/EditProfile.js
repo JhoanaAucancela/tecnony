@@ -1,16 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { ScrollView, View, Text} from 'react-native';
-import { Avatar, Icon, Input } from "react-native-elements";
+import { Avatar, Icon, Input, Button } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { useAuth, USER_KEY, USER_TOKEN_KEY } from "../providers/AuthProvider";
+import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
-import axios from "axios";
-import { EmailInput, PasswordInput, TextInput, DateInput, TextInputValue } from "../components/inputs";
+import { TextInputValue } from "../components/inputs";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
-import { updateProfile } from "../services/AuthService";
+import { updateProfile, updateImage } from "../services/AuthService";
 
 const EditProfile = () => {
 
@@ -22,6 +21,7 @@ const EditProfile = () => {
     const [token, setToken] = useState([]);
     const [error, setError] = React.useState([]);
 
+    const fileInput = useRef();
 
     const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
@@ -37,7 +37,7 @@ const EditProfile = () => {
             setError(e.message);
             
         }finally{ 
-            setLoading(false);
+            setLoading(false); 
         }
             
         };
@@ -47,8 +47,6 @@ const EditProfile = () => {
             nombre: "",
             apellido: "",
             cedula: "",
-            email: "",
-            birthdate: "",
             telefono: "",
             celular: "",
             direccion: ""
@@ -103,9 +101,24 @@ const EditProfile = () => {
             setLoading(false);
         }
     }
+/*
+    const _updateImage = async (data) => {
+        try {
+            setLoading(true);
+            const message = await updateImage(data);
+            Toast.show(
+                message,
+                {
+                }
+            )
+        } catch (e) {
+            setError(e.message);
+        }finally{
+            setLoading(false);
+        }
+    }
 
-
-  
+  */
 
     return(
         <View style={styles.container}>   
@@ -118,6 +131,8 @@ const EditProfile = () => {
                             size='xlarge'
                             source={{ uri: user.avatar }}
                         />
+                        
+                        
                         <Text
                                 //onPress={() => props.navigation.navigate("EditProfile")}
                                 style={styles.button}
@@ -135,6 +150,7 @@ const EditProfile = () => {
                             <Text style={styles.title}>Nombre de usuario:</Text>
                             <TextInputValue 
                                 name="username"
+                                required={false}
                                 iconName="person-circle-outline"
                                 placeholder="Nombre de usuario"
                                 control={control} 
@@ -147,6 +163,7 @@ const EditProfile = () => {
                             <Text style={styles.title}>Nombre:</Text>
                             <TextInputValue 
                                 name="first_name"
+                                required={false}
                                 iconName="person"
                                 placeholder="Nombre"
                                 control={control} 
@@ -155,10 +172,11 @@ const EditProfile = () => {
                                 inputStyle={styles.input} 
                                 value={form.nombre} 
                                 onChangeText={(value) => setForm({...form, nombre: value})}/>
-                            
+                            <Text>{form.nombre}</Text>
                             <Text style={styles.title}>Apellido:</Text>
                             <TextInputValue 
                                 name="last_name"
+                                required={false}
                                 iconName="person"
                                 placeholder="Apellido"
                                 control={control} 
@@ -171,6 +189,7 @@ const EditProfile = () => {
                             <Text style={styles.title}>Cédula:</Text>
                             <TextInputValue 
                                 name="cedula"
+                                required={false}
                                 iconName="card-outline"
                                 placeholder="Cédula"
                                 control={control} 
@@ -183,6 +202,7 @@ const EditProfile = () => {
                             <Text style={styles.title}>Télefono:</Text>
                             <TextInputValue 
                                 name="home_phone"
+                                required={false}
                                 iconName="call-outline"
                                 placeholder="Teléfono (Opcional)"
                                 control={control} 
@@ -193,22 +213,24 @@ const EditProfile = () => {
                                 onChangeText={(value) => setForm({...form, telefono: value})}/>
 
                             <Text style={styles.title}>Celular:</Text>
-                            <Input name="personal_phone" control={control} errors = {errors} style={styles.input} value={form.celular} onChangeText={(value) => setForm({...form, celular: value})}></Input>
                             <TextInputValue 
                                 name="personal_phone"
-                                iconName="call-outline"
-                                placeholder="Teléfono (Opcional)"
+                                required={false}
+
+                                iconName="phone-portrait-outline"
+                                placeholder="Celular"
                                 control={control} 
                                 errors = {errors}
                                 errorValidationStyle = {styles.errorValidation} 
                                 inputStyle={styles.input} 
-                                value={form.telefono}
-                                onChangeText={(value) => setForm({...form, telefono: value})}/>
+                                value={form.celular}
+                                onChangeText={(value) => setForm({...form, celular: value})}/>
 
 
                             <Text style={styles.title}>Dirección:</Text>
                             <TextInputValue 
                                 name="address"
+                                required={false}
                                 iconName="map-outline"
                                 placeholder="Dirección"
                                 control={control} 

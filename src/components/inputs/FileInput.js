@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Controller } from 'react-hook-form';
 import {Icon, Input, Text} from 'react-native-elements';
 
-export default function TextInput({ name, required = true, iconName, placeholder, control, errors, inputStyle, errorValidationStyle, value }){
+export default function TextInput({ name, required = true, iconName, placeholder, control, errors, inputStyle, errorValidationStyle }){
     return(
         <>
             <Controller
@@ -11,9 +11,10 @@ export default function TextInput({ name, required = true, iconName, placeholder
                     required,
                     
                 }}
-                render={({ field: {  onBlur} }) => (
+                render={({ field: { onChange, onBlur, value} }) => (
                     <Input
                         
+                        onChangeText={onChange}
                         onBlur={onBlur}
                         value={value} 
                         style={inputStyle}
@@ -27,6 +28,7 @@ export default function TextInput({ name, required = true, iconName, placeholder
                 name={name}
             />
             {errors[name] ?.type == "required" && <Text style={errorValidationStyle}>Campo requerido</Text>}
+            
             
         </>
     );

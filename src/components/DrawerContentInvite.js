@@ -39,7 +39,7 @@ export default function DrawerContent(props){
                                     type = "ionicon" 
                                 />
                             )}
-                        />
+                        /> 
                     </View>
 
                     <View styles={styles.drawerItem}>
@@ -52,7 +52,7 @@ export default function DrawerContent(props){
                                     type = "ionicon" 
                                 />
                             )}
-                            label="Iniciar Sesion"
+                            label="Iniciar Sesión"
                             labelStyle= {styles.label}
                             onPress={() => {
                                 props.navigation.navigate("Login");

@@ -43,9 +43,14 @@ const MyServices = () => {
         }
             
     };
+
     const fetchCancel = (url,config) =>{
+
+        console.log(`https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/49`)
+        console.log(config)
+
         try{
-            fetch(url,config)
+            fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/49`,config)
             .then(response => response.json())
             .then(data => setMessage(data.message))
             .catch(error => console.log(error))
@@ -53,6 +58,7 @@ const MyServices = () => {
             setError(e.message);
         }
     };
+    
 
     React.useEffect(() => {
         (async () => {
@@ -132,7 +138,7 @@ const MyServices = () => {
         else if(std === 3){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                <Text style={styles.BtnRehabilitar}>En Curso</Text>
+                <Text style={styles.BtnRehabilitar}>El técnico esta atendiendo su solicitud</Text>
                 </View>
             )
         }
@@ -141,12 +147,13 @@ const MyServices = () => {
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
-                    >Comentar</Text>
+                    >Calificar</Text>
                     <ComentsModal 
                         isModalOpen={isModalCOpen} 
                         setIsModalOpen={setIsModalCOpen} 
                         ID={ID}
                     />
+                    <Text> </Text>
                     <Text style={styles.button} onPress={() => setIsModalVOpen(!isModalVOpen)}>Ver más</Text>
                     <ViewComentsModal 
                         isModalOpen={isModalVOpen} 
@@ -169,6 +176,15 @@ const MyServices = () => {
             )
         }
     }
+
+    if(characters.length===0) return (
+        <View style={styles.container}>
+            
+
+        <Text style= {styles.titleX}>No hay servicios contratados</Text>
+        </View>
+    
+    )
 
         
     return(

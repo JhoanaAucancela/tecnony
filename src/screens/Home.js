@@ -21,12 +21,19 @@ export default function Home(props) {
 
     return(
         <View style={styles.container} >
-            
+            <Image
+                source = {require("../../assets/logo_retra.png")}
+                style={{ width: 220, height: 120 }}
+            />
+            <Text>  </Text>
+            <Text>  </Text>
+
 
             {user &&
                 <View style={{ alignItems:'center'}}>
-                    <Text style={styles.titleX}>Menú</Text>
-                    <Text style={styles.subtitle}>¡ Hola {user.username} !</Text>
+                    <Text style={styles.titleX}>¡ Hola {user.username} !</Text>
+                    <Text style={styles.subtitle}>Menú</Text>
+                    
                     <Text> </Text>
                 </View>
             }
@@ -88,10 +95,7 @@ export default function Home(props) {
 
            <Text> </Text>
            <Text> </Text>
-           <Image
-                source = {require("../../assets/logo_retra.png")}
-                style={{ width: 220, height: 120 }}
-            />
+           
             
     </View>  
     );

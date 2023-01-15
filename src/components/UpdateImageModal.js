@@ -151,7 +151,6 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                     <CustomRatingBar/>
                     <TextInputValue
                         value={defaultRating.toString()}
-                        //required={false}
                         name="qualification"
                         iconName="happy"
                         placeholder="Calificacion"
