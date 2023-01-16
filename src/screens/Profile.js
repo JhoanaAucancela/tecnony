@@ -7,9 +7,11 @@ import * as SecureStore from "expo-secure-store";
 
 import { logout } from "../services/AuthService";
 import Toast from "react-native-root-toast";
+import FormEditProfileModal from "../components/FormEditProfileModal";
 
 export default function Profile(props){
-    
+
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [user, setUser] =useState([]);
 
     useEffect(() => {
@@ -27,7 +29,7 @@ export default function Profile(props){
             await handleLoguot();
             Toast.show("Cierre de sesion exitoso");
         }catch (e){
-            Toast.show(e.message);
+            Toast.show("Cierre de sesion exitoso");
         }
     }
 
@@ -87,11 +89,16 @@ export default function Profile(props){
                         <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', marginTop:'5%' }}>
 
                             <Text
-                                onPress={() => props.navigation.navigate("EditProfile")}
+                                onPress={() => setIsModalOpen(!isModalOpen)}
                                 style={styles.button}
                             >
                             Editar Perfil
                             </Text>
+
+                            <FormEditProfileModal
+                                isModalOpen={isModalOpen} 
+                                setIsModalOpen={setIsModalOpen}
+                            />
                         </View>
 
                     </View>

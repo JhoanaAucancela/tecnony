@@ -26,7 +26,7 @@ export default function DrawerContent(props){
             await handleLoguot();
             Toast.show("Cierre de sesion exitoso");
         }catch (e){
-            Toast.show(e.message);
+            Toast.show("Cierre de sesion exitoso");
         }
     }
 

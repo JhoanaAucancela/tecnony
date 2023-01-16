@@ -151,7 +151,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                             inputStyle={styles.input}
                         />
                         
-                        <Text style={btnStyle} onPress={handleSubmit(_updateService)}>Save</Text>
+                        <Text style={btnStyle} onPress={handleSubmit(_updateService)}>Guardar</Text>
                         <Text>  </Text>
                         <Text>  </Text>
                         <Text>  </Text>

@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Icon, Input } from 'react-native-elements';
-
-
-import { ErrorText, ActivityLoader } from "../components/Shared";
-import Auxialiar from './auxiliar';
-
+import { ActivityLoader } from "../components/Shared";
 import ViewServiceModal from '../components/ViewServiceModal';
 
 

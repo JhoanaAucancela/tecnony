@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
-import { ScrollView, View, Text} from 'react-native';
+import { ScrollView, View, Text, Modal} from 'react-native';
 import { Avatar, Icon, Input, Button } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
-
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { TextInputValue } from "../components/inputs";
@@ -11,21 +10,16 @@ import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { updateProfile, updateImage } from "../services/AuthService";
 
-const EditProfile = () => {
-
-    const url = "https://tecnony-v1.herokuapp.com/api/v1/profile";
+export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
     
+    const url = "https://tecnony-v1.herokuapp.com/api/v1/profile";
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const { control, handleSubmit, formState: { errors }} = useForm();
 
     const [user, setUser] = useState([]); 
     const [active, setActive] = useState(false); 
     const [token, setToken] = useState([]);
-    const [error, setError] = React.useState([]);
-
-
-
-    const [loading, setLoading] = useState(false);
-    const { control, handleSubmit, formState: { errors }} = useForm();
-
 
     const fetchUser = (url, config) => {
         try{
@@ -40,9 +34,9 @@ const EditProfile = () => {
             setLoading(false); 
         }
             
-        };
+    };
 
-        const [form, setForm] = useState({
+    const [form, setForm] = useState({
             usernombre: "",
             nombre: "",
             apellido: "",
@@ -50,10 +44,24 @@ const EditProfile = () => {
             telefono: "",
             celular: "",
             direccion: ""
-        })
+    });
 
+    const _updateProfile = async (data) => {
+        try {
+            setLoading(true);
+            const message = await updateProfile(data);
+            Toast.show(
+                message,
+                {
+                }
+            )
+        } catch (e) {
+            setError(e.message);
+        }finally{
+            setLoading(false);
+        }
+    }
 
-       
     useEffect(() => {
         (async () => {
             const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
@@ -71,46 +79,63 @@ const EditProfile = () => {
                 nombre:     user.first_name,
                 apellido:     user.last_name,
                 cedula:     user.cedula,
-                email:     user.email,
-                birthdate:     user.birthdate,
                 telefono:     user.home_phone,
                 celular:     user.personal_phone,
                 direccion:     user.address
             })
         })();
+    }, [true]);
 
-        
-        
-        
-    }, []);
-
-
-    
-    
-/*
-    const _updateImage = async (data) => {
-        try {
-            setLoading(true);
-            const message = await updateImage(data);
-            Toast.show(
-                message,
-                {
-                }
-            )
-        } catch (e) {
-            setError(e.message);
-        }finally{
-            setLoading(false);
-        }
+    const modalContainerStyle ={
+        flex: 1,
+        justifyContent: 'flex-end',
+    }
+    const modalStyle = {
+        backgroundColor:'white',
+        //alignItems:'center',
+        margin: 20,
+        borderRadius: 16,
+        paddingHorizontal: 30,
+        paddingVertical: 20,
+        shadowColor: '#000',
+        shadowOffset:{
+            width: 0,
+            height:2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
     }
 
-  */
-
-    return(
-        <View style={styles.container}>   
-            
-            <ScrollView>
-                <View style={{ alignItems: 'center', marginTop:'5%' }}>
+    const btnStyle ={
+        backgroundColor:'#3F88C5', 
+        padding:'3%', 
+        paddingLeft:'7%',
+        paddingRight:'7%',
+        textAlign: 'center', 
+        borderRadius: 15, 
+        color:"$white", 
+        fontWeight: 'bold'
+    } 
+    
+    return (
+        <>
+            <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
+                <View style = {modalContainerStyle}>
+                {loading == true ? <ActivityLoader /> : null}
+                    <ScrollView style = {modalStyle}>
+                    <Icon
+                        name="close"
+                        type="ionicon"
+                        size= {30}
+                        color= "black"
+                        style={{ marginTop: 2, marginRight: 100 }}
+                        onPress={() => setIsModalOpen(!setIsModalOpen)}
+                    />
+                        <Text h2 style={ styles.title }>Editar Perfil</Text>
+                        <ErrorText error={error} />
+                        
+                        <View style={{ alignItems: 'center', marginTop:'5%' }}>
                     <View>
                         <Avatar
                             roundeds
@@ -242,15 +267,14 @@ const EditProfile = () => {
 
                 
                 </View>
-
-
-            </ScrollView>
-    </View>
-          
+                        
+                    </ScrollView>
+                </View>
+            </Modal>
+        </>
     );
-};
+}
 
-export default EditProfile;
 
 const styles =  EStyleSheet.create({
     container: {

@@ -154,7 +154,7 @@ const MyServices = () => {
 
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.BtnCancel}>La solicitud ha sido rechazada</Text>
+                    <Text style={styles.BtnCancel} onPress={() => alert("Para más información revise su correo electrónico")}>La solicitud ha sido rechazada</Text>
                 </View>
             )
         }
@@ -169,7 +169,7 @@ const MyServices = () => {
         else if(std === 3){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                <Text style={styles.BtnRehabilitar} onPress={() => alert("Para más información revise su correo electrónico")}>El técnico esta atendiendo su solicitud</Text>
+                <Text style={styles.BtnRehabilitar} >El técnico esta atendiendo su solicitud</Text>
                 </View>
             )
         }
@@ -234,7 +234,7 @@ const MyServices = () => {
                 value = {search}
                 onChangeText={(value) => setSearch(value)}
                 style={styles.input}
-                placeholder="Ej. Computadora"
+                placeholder="Dispositivo"
                 placeholderTextColor="gray"
                 leftIcon={
                     <Icon name="search" type='ionicon' size={24} color="black" />
@@ -264,7 +264,7 @@ const MyServices = () => {
                                     
                                     <Text style={styles.descripcion}>Fecha: </Text>
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
-                                    <Text>{item.id}</Text>
+                                    <Text>  </Text>
                                     <View style = {{ alignItems: "center" }}>
                                         {Btn(item.state, item.id)} 
                                     </View>

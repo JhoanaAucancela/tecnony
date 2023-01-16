@@ -34,9 +34,6 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
 
       React.useEffect(() => {
-        setPost([]);
-        setTecnico([]);
-
             (async () => {
                 setPost([]);
                 setTecnico([]);
@@ -49,7 +46,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
     
     ///////////
-    /*
+   
     function cargar(){
         if(post.length === 0){
             return(
@@ -61,7 +58,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
         }
 
     }
-*/
+
     
 
     ///////////
@@ -97,7 +94,6 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                 <View style = {modalContainerStyle}>
                     
                     <ScrollView style = {modalStyle}>
-                    
                     <Icon
                         name="close"
                         type="ionicon"
@@ -106,7 +102,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                         style={{ marginTop: 2, marginRight: 100 }}
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
-                        
+                        {cargar()}
 
                         <View style={{ alignItems: 'center' }}>
                             <Text style= {styles.titleX}>{post.name}</Text>
