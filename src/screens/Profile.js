@@ -42,12 +42,8 @@ export default function Profile(props){
                         <Text
                             onPress={() => _logout()}
                             style={styles.buttonlogout}
-                        >Cerrar sesión
-                            <Icon
-                                    name="exit-outline"
-                                    color='black'
-                                    type = "ionicon" 
-                                />
+                        > 🔙 Cerrar sesión
+                            
                             
                         </Text>
                     </View>

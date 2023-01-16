@@ -187,7 +187,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                 value={form.nombre} 
                                 onChangeText={(value) => setForm({...form, nombre: value})}/>
 
-                                <Text>{form.nombre}</Text>
+                                <Text>{user.first_name}</Text>
 
                             <Text style={styles.title}>Apellido:</Text>
                             <TextInputValueChange 

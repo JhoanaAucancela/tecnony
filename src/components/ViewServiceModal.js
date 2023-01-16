@@ -137,9 +137,25 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                                         <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.first_name} {tecnico.last_name}</Text></Text>
                                         <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnico.email}</Text></Text>
                                         <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.personal_phone}</Text></Text>
+                                        <Text> </Text>
+                                    <Card.Divider/>
+                                    
+                                    <Card.Title  style={styles.title}>Métodos de pago</Card.Title>
+                                    <Card.Divider/>
+
+                                    <Card containerStyle={{borderRadius: 15}}>
+                                        <Text style ={styles.descripciontext}>💵 Efectivo</Text>
+                                    </Card>
+
+                                    <Card containerStyle={{borderRadius: 15}}>
+                                        <Text style ={styles.descripciontext}>💼 Depósito</Text>
                                    
                             </Card>
+                            </Card>
+                        </View>
 
+                        <View style = {{ alignItems: 'center' }}>  
+                            
                         </View>
                             
                         
