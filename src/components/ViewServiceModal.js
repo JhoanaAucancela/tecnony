@@ -5,7 +5,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import FormContractModal from '../components/FormContractModal';
-import { clearCache } from 'react-native-extended-stylesheet';
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
@@ -18,6 +17,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
     const fetchCharacters = (url) => {
         fetch(url)
+            .then(setPost([]))
             .then(response => response.json())
             .then(data => setPost(data.data.service))
             .catch(error => console.log(error))
@@ -26,22 +26,44 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
       const fetchTecnico = (url) => {
       fetch(url)
-          .then(response => response.json())
-          .then(data => setTecnico(data.data.created_by))
-          .catch(error => console.log(error))
+            .then(setTecnico([]))
+            .then(response => response.json())
+            .then(data => setTecnico(data.data.created_by))
+            .catch(error => console.log(error))
       };
 
 
       React.useEffect(() => {
+        setPost([]);
+        setTecnico([]);
 
             (async () => {
+                setPost([]);
+                setTecnico([]);
                 fetchCharacters(`${baseURL}/${ID}`)
                 fetchTecnico(`${baseURL}/${ID}`)
             })()
 
-           return () => console.log('cleanup', post)
           //  console.log(ID)      
     }, [estado]);
+
+    
+    ///////////
+    /*
+    function cargar(){
+        if(post.length === 0){
+            return(
+                <View style = {modalStyle}>
+                    <Text style= {styles.titleX}>Cargando...</Text>
+                </View>
+                
+            )
+        }
+
+    }
+*/
+    
+
     ///////////
 
     const modalContainerStyle ={
@@ -71,9 +93,11 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     return (
         <>
             <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
+                
                 <View style = {modalContainerStyle}>
                     
                     <ScrollView style = {modalStyle}>
+                    
                     <Icon
                         name="close"
                         type="ionicon"
@@ -102,12 +126,10 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                         
                         </Card>
                         
-                    
-                        <Text> </Text>
-                        <Text style = {styles.text}>Técnico</Text>
                         <View style = {{ alignItems: 'center' }}>  
                             <Card containerStyle={{borderRadius: 15}}>
-                                
+                                    <Card.Title  style={styles.title}>Técnico</Card.Title>
+                                    <Card.Divider/>
                                     <View style={{ alignItems:'center'}}>
                                         <Avatar
                                             rounded
@@ -121,6 +143,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                                         <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.personal_phone}</Text></Text>
                                    
                             </Card>
+
                         </View>
                             
                         

@@ -15,12 +15,15 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
     const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
 
+    
+    //////////////////////////
+
     const _contractService = async (data) => {
         try {
             setLoading(true);
             const message = await contractService(data, ID);
             Toast.show(
-                message,
+                "Servicio Contratado",
                 {
                 }
             )
@@ -86,7 +89,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                         <TextInput
                             name="device"
                             minLength={2}
-                            maxLength={30}
+                            maxLength={20}
                             iconName="cube"
                             placeholder="Ej. Computadora"
                             control={control}
@@ -99,7 +102,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                         <TextInput
                             name="model"
                             minLength={2}
-                            maxLength={30}
+                            maxLength={20}
                             iconName="phone-portrait"
                             placeholder="Ej. HP-500"
                             control={control}
@@ -112,7 +115,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                         <TextInput
                             name="brand"
                             minLength={2}
-                            maxLength={30}
+                            maxLength={20}
                             iconName="logo-closed-captioning"
                             placeholder="Ej. HP"
                             control={control}
@@ -126,7 +129,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                             name="serie"
                             required={false}
                             minLength={2}
-                            maxLength={30}
+                            maxLength={10}
                             iconName="barcode"
                             placeholder="Ej. HSO12355 (Opcional)"
                             control={control}

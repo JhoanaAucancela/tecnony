@@ -10,11 +10,9 @@ export default function TextInput({ name, required = true, minLength, maxLength,
                 rules = {{ 
                     required,
                     minLength,
-                    maxLength,
-                
-                    
+                    maxLength,   
                 }}
-                render={({ field: { onChange, onBlur, value} }) => (
+                render={({ field: {  onChange, onBlur, value} }) => (
                     <Input
                         keyboardType={keyboardType}
                         onChangeText={onChange}

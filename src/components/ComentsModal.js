@@ -54,10 +54,12 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
         try {
             setLoading(true);
             const message = await comentService(data, ID);
+            setIsModalOpen(!setIsModalOpen);
             Toast.show(
                 message,
                 {
                 }
+            
             )
         } catch (e) {
             setError(e.message);
@@ -103,7 +105,6 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
         <>
             <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
                 <View style = {modalContainerStyle}>
-                    
                 {loading == true ? <ActivityLoader /> : null}
                     <View style = {modalStyle}>
                     <Icon
@@ -115,12 +116,8 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
                         <Text h2 style={ styles.title }>Comparte tu opinión</Text>
-                        
                         <ErrorText error={error} />
-                        
-
                         <Text style={styles.text}>Comentario</Text>
-
                     <TextAreaInput 
                         name="comment"
                         minLength={5}
@@ -149,17 +146,16 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
 
                     <Text style={styles.text}>Calificación</Text>
                     <CustomRatingBar/>
-                    <TextInputValue
-                        value={defaultRating.toString()}
-                        //required={false}
-                        name="qualification"
-                        iconName="happy"
-                        placeholder="Calificacion"
-                        control={control}
-                        errors = {errors}
-                        errorValidationStyle = {styles.errorValidation}
-                        inputStyle={styles.input}
-                    />
+                        <TextInputValue
+                            value={defaultRating.toString()}
+                            name="qualification"
+                            iconName="happy"
+                            placeholder="Calificacion"
+                            control={control}
+                            errors = {errors}
+                            errorValidationStyle = {styles.errorValidation}
+                            inputStyle={styles.input}
+                        />
 
                         
                         <Text style={btnStyle} onPress={handleSubmit(_comentService)}>Guardar</Text>

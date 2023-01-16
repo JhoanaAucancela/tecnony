@@ -5,11 +5,8 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
-import axios from "axios";
 import ComentsModal from '../components/ComentsModal';
 import ViewComentsModal from '../components/ViewComentsModal';
-
-
 
 
 const Opinions = () => {
@@ -19,6 +16,9 @@ const Opinions = () => {
     const [error, setError] = React.useState([])
     const [isModalCOpen, setIsModalCOpen] = React.useState(false);
     const [isModalVOpen, setIsModalVOpen] = React.useState(false);
+
+    const[numService, setNumService] = React.useState();
+    const[numCService, setNumCService] = React.useState();
 
 
     const fetchMyServices = (url, config) => {
@@ -44,15 +44,26 @@ const Opinions = () => {
                 Authorization: `Bearer ${_token}`
             }
         };
-      //     setToken(_token);
            fetchMyServices(url, config);
         })();
-
-        
-
-        
     }, []);
 
+    const verServicios = (num) => {
+        setNumService(num);
+        setIsModalVOpen(!isModalVOpen);
+    }
+
+    const ComentServicios = (num) => {
+        setNumCService(num);
+        setIsModalCOpen(!isModalCOpen);
+    }
+
+    if(characters.length===0) {
+        return (
+            <View style={styles.container}>
+            <Text style= {styles.titleX}>No hay servicios por comentar</Text>
+            </View>
+    )}
     return(
         <View style={styles.container}>
             <Text style= {styles.titleX}>Servicios por Comentar</Text>
@@ -60,7 +71,7 @@ const Opinions = () => {
             <ScrollView>
             {
                 characters.map((item, index) => (
-                    <View key={index} >
+                    <View key={index}>
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>{item.device}</Card.Title>
                             <Card.Divider />
@@ -77,19 +88,21 @@ const Opinions = () => {
                                     <Text>   </Text>
 
                                      <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                                        <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
-                                        >Comentar</Text>
+                                        <Text style={styles.button} onPress={() => ComentServicios((item.id))}
+                                        >Calificar</Text>
                                         <ComentsModal 
                                             isModalOpen={isModalCOpen} 
                                             setIsModalOpen={setIsModalCOpen} 
-                                            ID={item.id}
+                                            ID={numCService}
                                         />
-                                        <Text style={styles.button} onPress={() => setIsModalVOpen(!isModalVOpen)}
+                                        <Text> </Text>
+                                        <Text style={styles.button} onPress={() => verServicios((item.id))}
                                         >Ver más</Text>
                                         <ViewComentsModal 
                                             isModalOpen={isModalVOpen} 
                                             setIsModalOpen={setIsModalVOpen} 
-                                            ID={item.id}
+                                            ID={numService}
+                                            estado={isModalVOpen}
                                         />
                                     </View>
                                 </View>

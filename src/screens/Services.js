@@ -21,7 +21,7 @@ export default function Services (props) {
     const [search, setSearch] = useState(""); //Hooks Busqueda
 
     const [isModalVSOpen, setIsModalVSOpen] = React.useState(false);
-    const[numService, setNumService] = useState()
+    const[numService, setNumService] = useState();
 
     const fetchCharacters = (url) => {
         try{

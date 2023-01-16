@@ -10,7 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/hiring/show";
 
-export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID}){
+export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado}){
     
     ///////////
     const [post, setPost] = React.useState([]); // Datos del contrato
@@ -49,6 +49,12 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID}){
       };
 
       React.useEffect(() => {
+
+        setPost([]);
+        setAttention([]);
+        setTecnico([]);
+        setServicio([]);
+
         (async () => {
            const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
            const config = {
@@ -63,7 +69,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID}){
 
 
         })();
-    }, []);
+    }, [estado]);
     ///////////
 
     const modalContainerStyle ={

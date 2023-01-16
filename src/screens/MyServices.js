@@ -23,11 +23,18 @@ const MyServices = () => {
     const [message, setMessage] = React.useState([]);
     const [token, setToken] = React.useState("");
 
+    //Capturar ID
+
+    const [numServices, setNumServices]= React.useState();//Editar
+    const [numCService, setNumCService] = React.useState(); //Calificar
+    const [numService, setNumService] = React.useState();//Ver más comentar
+    const [numServiceMore, setNumServiceMore] = React.useState(); //Ver más Servicio Completo
+
     //MODAL
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
-    const [isModalCOpen, setIsModalCOpen] = React.useState(false);
-    const [isModalVOpen, setIsModalVOpen] = React.useState(false);
-    const [isModalMOpen, setIsModalMOpen] = React.useState(false);
+    const [isModalOpen, setIsModalOpen] = React.useState(false);//Editar
+    const [isModalCOpen, setIsModalCOpen] = React.useState(false);//Comentar
+    const [isModalVOpen, setIsModalVOpen] = React.useState(false);// Ver más comentar
+    const [isModalMOpen, setIsModalMOpen] = React.useState(false);//Ver más Servicio Completo
 
 
 
@@ -43,21 +50,6 @@ const MyServices = () => {
         }
             
     };
-
-    const fetchCancel = (url,config) =>{
-
-        console.log(`https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/49`)
-        console.log(config)
-
-        try{
-            fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/49`,config)
-            .then(response => response.json())
-            .then(data => setMessage(data.message))
-            .catch(error => console.log(error))
-        }catch(e){
-            setError(e.message);
-        }
-    };
     
 
     React.useEffect(() => {
@@ -70,8 +62,8 @@ const MyServices = () => {
             }
         };
            fetchMyServices(url, config);
-        })();
-    }, []);
+        })(); 
+    }, [true]);
 
     const Estado = (estado) =>{
         if(estado === 0){
@@ -80,7 +72,7 @@ const MyServices = () => {
         else if(estado === 1){
             return <Text style={styles.descripciontext}>Rechazado</Text>
         }
-        else if(estado === 2){
+        else if(estado === 2){ 
             return <Text style={styles.descripciontext}>Cancelado</Text>
         }
         else if(estado === 3){
@@ -94,27 +86,66 @@ const MyServices = () => {
         }
     }
 
-    const Btn = (std, ID) => {
 
-        const urlCancel = `https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/${ID}`;
-        const configBtn = {
+    const IDServicesCancel = (num) => {
+        const urlCancel = `https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/${num}`;
+        const config = {
             headers:{
                 Authorization: `Bearer ${token}`
             }
         }
 
+        try{
+            fetch(urlCancel,config)
+            .then(response => response.json())
+            .then(data => setMessage(data.message))
+            .catch(error => console.log(error))
+             
+            Toast.show( 
+                "Acción Exitosa",{} 
+            
+            )
+
+        }catch(e){
+            setError(e.message);
+        }
+
+    }
+
+    const IDServicesEdit = (num) => {
+        setIsModalOpen(!isModalOpen);
+        setNumServices(num);
+    }
+
+    const verServiciosC = (num) => {
+        setNumService(num);
+        setIsModalVOpen(!isModalVOpen);
+    }
+
+    const ComentServicios = (num) => {
+        setNumCService(num);
+        setIsModalCOpen(!isModalCOpen);
+    }
+
+    const VerMoreService = (num) => {
+        setNumServiceMore(num);
+        setIsModalMOpen(!isModalMOpen);
+    }
+
+    const Btn = (std, ID) => {
+
+
         if(std === 0){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.BtnCancel} onPress={() => fetchCancel((urlCancel, configBtn))}
-                    >Cancelar</Text>
+                    <Text style={styles.BtnCancel} onPress={() => IDServicesCancel(ID)}>Cancelar</Text>
                     <Text> </Text>
-                    <Text style={styles.button} onPress={() => setIsModalOpen(!isModalOpen)}
+                    <Text style={styles.button} onPress={() => IDServicesEdit((ID))}
                     >Editar</Text>
                     <FormModal 
                         isModalOpen={isModalOpen} 
                         setIsModalOpen={setIsModalOpen} 
-                        ID={ID}
+                        ID={numServices}
                     />
                 </View>
             )
@@ -130,7 +161,7 @@ const MyServices = () => {
         else if(std === 2){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.BtnRehabilitar} onPress={() => fetchCancel((urlCancel, configBtn))} //onPress={() => alert("rea")}
+                    <Text style={styles.BtnRehabilitar}  onPress={() => IDServicesCancel(ID)} //onPress={() => alert("rea")}
                     >Rehabilitar</Text>
                 </View>
             )
@@ -138,7 +169,7 @@ const MyServices = () => {
         else if(std === 3){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                <Text style={styles.BtnRehabilitar}>El técnico esta atendiendo su solicitud</Text>
+                <Text style={styles.BtnRehabilitar} onPress={() => alert("Para más información revise su correo electrónico")}>El técnico esta atendiendo su solicitud</Text>
                 </View>
             )
         }
@@ -146,19 +177,22 @@ const MyServices = () => {
         else if(std === 4){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
+                    <Text style={styles.button} onPress={() => ComentServicios((ID))}
                     >Calificar</Text>
                     <ComentsModal 
                         isModalOpen={isModalCOpen} 
                         setIsModalOpen={setIsModalCOpen} 
-                        ID={ID}
+                        ID={numCService}
+                    
                     />
                     <Text> </Text>
-                    <Text style={styles.button} onPress={() => setIsModalVOpen(!isModalVOpen)}>Ver más</Text>
+                    <Text style={styles.button} onPress={() => verServiciosC((ID))}>Ver más</Text>
                     <ViewComentsModal 
                         isModalOpen={isModalVOpen} 
                         setIsModalOpen={setIsModalVOpen} 
-                        ID={ID}
+                        ID={numService}
+                        estado={isModalVOpen}
+
                     />
                 </View>
             )
@@ -166,11 +200,12 @@ const MyServices = () => {
         else{
             return(
                 <View style = {{ alignItems: "center" }}>
-                    <Text style={styles.button} onPress={() => setIsModalMOpen(!isModalMOpen)}>Ver más</Text>
+                    <Text style={styles.button} onPress={() => VerMoreService((ID))}>Ver más</Text>
                     <ViewMoreModal 
                         isModalOpen={isModalMOpen} 
                         setIsModalOpen={setIsModalMOpen} 
-                        ID={ID}
+                        ID={numServiceMore}
+                        estado={isModalMOpen}
                     />
                 </View>
             )

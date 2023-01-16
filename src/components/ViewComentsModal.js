@@ -8,7 +8,7 @@ import * as SecureStore from "expo-secure-store";
 
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form";
-export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID}){
+export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estado}){
     
     ///////////
     const [post, setPost] = React.useState([]);
@@ -40,18 +40,20 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID}){
 
       React.useEffect(() => {
         (async () => {
+            setPost([]);
+            setAttention([]);
+            setTecnico([]);
            const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
            const config = {
-            headers:{
-                Authorization: `Bearer ${_token}`
-            }
-        };
-        fetchCharacters(`${baseURL}/${ID}`,config)
-        fetchAttention(`${baseURL}/${ID}`,config)
-        fetchTecnico(`${baseURL}/${ID}`,config)
-
+                headers:{
+                    Authorization: `Bearer ${_token}`
+                }
+            };
+            fetchCharacters(`${baseURL}/${ID}`,config)
+            fetchAttention(`${baseURL}/${ID}`,config)
+            fetchTecnico(`${baseURL}/${ID}`,config)
         })();
-    }, []);
+    }, [estado]);
     ///////////
 
     const modalContainerStyle ={
