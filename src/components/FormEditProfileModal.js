@@ -4,7 +4,7 @@ import { Avatar, Icon, Input, Button } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
-import { TextInputValue } from "../components/inputs";
+import { TextInputValueChange } from "../components/inputs";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
@@ -18,7 +18,6 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
     const { control, handleSubmit, formState: { errors }} = useForm();
 
     const [user, setUser] = useState([]); 
-    const [active, setActive] = useState(false); 
     const [token, setToken] = useState([]);
 
     const fetchUser = (url, config) => {
@@ -50,6 +49,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
         try {
             setLoading(true);
             const message = await updateProfile(data);
+            setIsModalOpen(!setIsModalOpen);
             Toast.show(
                 message,
                 {
@@ -72,7 +72,6 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
             }; 
             setToken(_token);
             fetchUser(url, config);
-            setActive(true);
             setForm({
                 ...form,
                 usernombre:     user.username,
@@ -84,7 +83,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                 direccion:     user.address
             })
         })();
-    }, [true]);
+    }, [isModalOpen]);
 
     const modalContainerStyle ={
         flex: 1,
@@ -132,7 +131,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                         style={{ marginTop: 2, marginRight: 100 }}
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
-                        <Text h2 style={ styles.title }>Editar Perfil</Text>
+                        <Text h2 style={ styles.titleX }>Editar Perfil</Text>
                         <ErrorText error={error} />
                         
                         <View style={{ alignItems: 'center', marginTop:'5%' }}>
@@ -155,24 +154,24 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                 />
                         </Text>
                     </View>
-                    {loading == true ? <ActivityLoader /> : null}
+                    
 
                         <ScrollView style={{ width: '90%', }}>
                             <Text style={styles.title}>Nombre de usuario:</Text>
-                            <TextInputValue 
+                            <TextInputValueChange 
                                 name="username"
-                                required={false}
+                                required={false} 
                                 iconName="person-circle-outline"
                                 placeholder="Nombre de usuario"
                                 control={control} 
                                 errors = {errors}
                                 errorValidationStyle = {styles.errorValidation} 
                                 inputStyle={styles.input} 
-                                value={form.usernombre} 
+                                value={form.usernombre}  
                                 onChangeText={(value) => setForm({...form, usernombre: value})}/>
                             
                             <Text style={styles.title}>Nombre:</Text>
-                            <TextInputValue 
+                            <TextInputValueChange
                                 name="first_name"
                                 required={false}
                                 iconName="person"
@@ -183,9 +182,9 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                 inputStyle={styles.input} 
                                 value={form.nombre} 
                                 onChangeText={(value) => setForm({...form, nombre: value})}/>
-                            <Text>{form.nombre}</Text>
+
                             <Text style={styles.title}>Apellido:</Text>
-                            <TextInputValue 
+                            <TextInputValueChange 
                                 name="last_name"
                                 required={false}
                                 iconName="person"
@@ -198,7 +197,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                 onChangeText={(value) => setForm({...form, apellido: value})}/>
 
                             <Text style={styles.title}>Cédula:</Text>
-                            <TextInputValue 
+                            <TextInputValueChange 
                                 name="cedula"
                                 required={false}
                                 iconName="card-outline"
@@ -211,7 +210,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                 onChangeText={(value) => setForm({...form, cedula: value})}/>
 
                             <Text style={styles.title}>Télefono:</Text>
-                            <TextInputValue 
+                            <TextInputValueChange 
                                 name="home_phone"
                                 required={false}
                                 iconName="call-outline"
@@ -224,7 +223,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                 onChangeText={(value) => setForm({...form, telefono: value})}/>
 
                             <Text style={styles.title}>Celular:</Text>
-                            <TextInputValue 
+                            <TextInputValueChange 
                                 name="personal_phone"
                                 required={false}
 
@@ -239,7 +238,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
 
 
                             <Text style={styles.title}>Dirección:</Text>
-                            <TextInputValue 
+                            <TextInputValueChange 
                                 name="address"
                                 required={false}
                                 iconName="map-outline"
