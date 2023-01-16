@@ -6,6 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { ScrollView } from 'react-native-gesture-handler';
 import FormContractModal from '../components/FormContractModal';
 
+
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
 export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estado}){
@@ -17,23 +18,26 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
     const fetchCharacters = (url) => {
         fetch(url)
-            .then(setPost([]))
+       
             .then(response => response.json())
             .then(data => setPost(data.data.service))
             .catch(error => console.log(error))
       };
 
-
       const fetchTecnico = (url) => {
       fetch(url)
-            .then(setTecnico([]))
+           
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
             .catch(error => console.log(error))
       };
 
 
+
+
       React.useEffect(() => {
+        setPost([]);
+        setTecnico([]);
             (async () => {
                 setPost([]);
                 setTecnico([]);
@@ -52,16 +56,28 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
             return(
                 <View style = {modalStyle}>
                     <Text style= {styles.titleX}>Cargando...</Text>
-                </View>
-                
+                </View>       
             )
         }
-
     }
-
-    
-
     ///////////
+
+    const Local = () => {
+        if(tecnico.local_name != null){
+            return(
+                <View style = {{ alignItems: 'center' }}>  
+                <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+                        <Card.Title  style={styles.title}>🏛️ Local</Card.Title>
+                        <Card.Divider/> 
+                            <Text style ={styles.descripcion}>Local: <Text style ={styles.descripciontext}>{tecnico.local_name}</Text></Text>
+                            <Text style ={styles.descripcion}>Dirección: <Text style ={styles.descripciontext}>{tecnico.local_address}</Text></Text>
+                            <Text style ={styles.descripcion}>Horario de atención: <Text style ={styles.descripciontext}>{tecnico.attention_schedule}</Text></Text>
+                </Card>
+            </View>
+
+            )
+        }
+    };
 
     const modalContainerStyle ={
         flex: 1,
@@ -121,38 +137,18 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                                 <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>{post.price}</Text></Text>
                         
                         </Card>
-                        
+                        {Local()}
                         <View style = {{ alignItems: 'center' }}>  
-                            <Card containerStyle={{borderRadius: 15}}>
-                                    <Card.Title  style={styles.title}>Técnico</Card.Title>
-                                    <Card.Divider/>
-                                    <View style={{ alignItems:'center'}}>
-                                        <Avatar
-                                            rounded
-                                            size="medium"
-                                            source={{ uri: tecnico.avatar }}
-                                        />
-                                    </View>
+                            <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+                                    <Card.Title  style={styles.title}>🙍🏻‍♂️ Técnico</Card.Title>
+                                    <Card.Divider/> 
+                                        <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
+                                        <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
+                                        <Text style ={styles.descripcion}>Profesión: <Text style ={styles.descripciontext}>{tecnico.profession}</Text></Text>
                                     
-                                        <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.first_name} {tecnico.last_name}</Text></Text>
-                                        <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnico.email}</Text></Text>
-                                        <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.personal_phone}</Text></Text>
-                                        <Text> </Text>
-                                    <Card.Divider/>
-                                    
-                                    <Card.Title  style={styles.title}>Métodos de pago</Card.Title>
-                                    <Card.Divider/>
-
-                                    <Card containerStyle={{borderRadius: 15}}>
-                                        <Text style ={styles.descripciontext}>💵 Efectivo</Text>
-                                    </Card>
-
-                                    <Card containerStyle={{borderRadius: 15}}>
-                                        <Text style ={styles.descripciontext}>💼 Depósito</Text>
-                                   
-                            </Card>
                             </Card>
                         </View>
+                        
 
                         <View style = {{ alignItems: 'center' }}>  
                             

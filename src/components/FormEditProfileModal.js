@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, Component} from "react";
 import { ScrollView, View, Text, Modal} from 'react-native';
-import { Avatar, Icon } from "react-native-elements";
+import { Avatar, Icon, Image } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
@@ -9,8 +9,9 @@ import { useForm } from "react-hook-form";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { updateProfile, updateImage } from "../services/AuthService";
+import UploadModal from "./UploadModal";
 
-export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
+export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     
     const url = "https://tecnony-v1.herokuapp.com/api/v1/profile";
     const [error, setError] = useState(null);
@@ -19,6 +20,9 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
 
     const [user, setUser] = useState([]); 
     const [token, setToken] = useState([]);
+
+    const [ModalOpen, setModalOpen] = React.useState(false);
+    
 
     const fetchUser = (url, config) => {
         try{
@@ -144,7 +148,7 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                         
                         
                         <Text
-                                //onPress={() => props.navigation.navigate("EditProfile")}
+                                onPress={() => setModalOpen(!ModalOpen)}
                                 style={styles.button}
                             >
                             <Icon
@@ -153,7 +157,12 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                     type = "ionicon" 
                                 />
                         </Text>
+                        
                     </View>
+                            <UploadModal
+                                isModalOpen={ModalOpen} 
+                                setIsModalOpen={setModalOpen}
+                            />
                     
 
                         <ScrollView style={{ width: '90%', }}>
@@ -172,22 +181,21 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                 value={form.usernombre}  
                                 onChangeText={(value) => setForm({...form, usernombre: value})}/>
                             
-                            <Text style={styles.title}>Nombre:</Text>
-                            <TextInputValueChange
-                                name="first_name"
-                                minLength={3}
-                                maxLength={10}
-                                required={false}
-                                iconName="person"
-                                placeholder="Nombre"
-                                control={control} 
-                                errors = {errors}
-                                errorValidationStyle = {styles.errorValidation} 
-                                inputStyle={styles.input} 
-                                value={form.nombre} 
-                                onChangeText={(value) => setForm({...form, nombre: value})}/>
+                                <Text style={styles.title}>Nombre:</Text>
+                                <TextInputValueChange
+                                    name="first_name"
+                                    minLength={3}
+                                    maxLength={10}
+                                    required={false}
+                                    iconName="person"
+                                    placeholder="Nombre"
+                                    control={control} 
+                                    errors = {errors}
+                                    errorValidationStyle = {styles.errorValidation} 
+                                    inputStyle={styles.input} 
+                                    value={form.nombre} 
+                                    onChangeText={(value) => setForm({...form, nombre: value})}/>
 
-                                <Text>{user.first_name}</Text>
 
                             <Text style={styles.title}>Apellido:</Text>
                             <TextInputValueChange 

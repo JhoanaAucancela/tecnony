@@ -170,7 +170,7 @@ const Signup = ({ navigation }) => {
             <DateInput
                 
                 name="birthdate"
-                //required={false}
+                required={false}
                 value={fecha}
                 iconName="calendar-outline"
                 placeholder="Fecha de nacimiento (Opcional)"

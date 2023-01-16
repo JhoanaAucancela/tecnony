@@ -12,10 +12,12 @@ export default function TextInputValueChange({ name, required = true, minLength,
                     minLength,
                     maxLength,  
                 }}
-                render={({ field: { onBlur }}) => (
+                defaultValue={value}
+                render={({ field: { onBlur, onChange }}) => (
                     <Input
                         keyboardType={keyboardType}
-                        onChangeText={onChangeText}
+                        onChange={onChange}
+                        onChangeText={onChange}
                         onBlur={onBlur}
                         value={value}
                         style={inputStyle}

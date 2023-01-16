@@ -20,6 +20,12 @@ const styles = EStyleSheet.create({
         fontSize: 30,
         
     },
+    titleS:{
+        fontFamily: '$700Bold',
+        color:'$primary',
+        fontSize: 16,
+        
+    },
     subtitle:{
         color: '#788190', 
         padding:'2%',

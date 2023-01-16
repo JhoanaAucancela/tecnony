@@ -11,9 +11,9 @@ export default function DateInput({ name, required = true, iconName, placeholder
                     required,     
                 }}
                 defaultValue={value}
-                render={({ field: { onChange, onBlur, defaultValue} }) => (
+                
+                render={({ field: { onChange, onBlur } }) => (
                     <Input
-                        defaultValue={defaultValue}
                         onChangeText={onChange}
                         onBlur={onBlur}
                         value={value} 

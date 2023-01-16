@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text, Modal, View, Button, ScrollView} from 'react-native';
-import { Icon } from "react-native-elements";
+import { Icon, Card } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { useForm } from "react-hook-form";
@@ -15,7 +15,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
     const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
 
-    
+
     //////////////////////////
 
     const _contractService = async (data) => {
@@ -151,13 +151,22 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                             inputStyle={styles.input}
                         />
 
-                        <Button 
-                            titleStyle={styles.buttonTitle}
-                            buttonStyle={styles.button}
-                            title="Contratar servicio"
-                            type="outline"
-                            onPress={handleSubmit(_contractService)}
-                        />
+                        <Card containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                                <Card.Title  style={styles.titleS}>Métodos de pago</Card.Title>
+                            <Card.Divider/>
+                            <View style={{ flexDirection: "row"}}>
+                            <Card containerStyle={{borderRadius: 15}}>
+                                <Text style ={styles.descripciontext}>💵 Efectivo</Text>
+                            </Card>
+
+                            <Card containerStyle={{borderRadius: 15}}>
+                                <Text style ={styles.descripciontext}>💼 Depósito</Text>
+                            </Card>
+                            </View>
+                            
+                        </Card>
+                        <Text> </Text>
+                        <Text style={styles.button} onPress={handleSubmit(_contractService)}>Contratar</Text>
                         <Text>  </Text>
                         <Text>  </Text>
                         <Text>  </Text>

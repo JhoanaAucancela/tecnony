@@ -23,6 +23,8 @@ const MyServices = () => {
     const [message, setMessage] = React.useState([]);
     const [token, setToken] = React.useState("");
 
+    const [std, setStd] = React.useState(false);
+
     //Capturar ID
 
     const [numServices, setNumServices]= React.useState();//Editar
@@ -54,16 +56,19 @@ const MyServices = () => {
 
     React.useEffect(() => {
         (async () => {
-           const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
-           setToken(_token)
-           const config = {
+            
+            const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
+            setToken(_token)
+            const config = {
             headers:{
                 Authorization: `Bearer ${_token}`
             }
-        };
+        }; 
            fetchMyServices(url, config);
-        })(); 
-    }, [true]);
+           setStd(false);
+        })();
+        
+    }, [std]);
 
     const Estado = (estado) =>{
         if(estado === 0){
@@ -100,7 +105,7 @@ const MyServices = () => {
             .then(response => response.json())
             .then(data => setMessage(data.message))
             .catch(error => console.log(error))
-             
+            setStd(true);
             Toast.show( 
                 "Acción Exitosa",{} 
             
@@ -115,6 +120,7 @@ const MyServices = () => {
     const IDServicesEdit = (num) => {
         setIsModalOpen(!isModalOpen);
         setNumServices(num);
+        setStd(true);
     }
 
     const verServiciosC = (num) => {
@@ -125,6 +131,7 @@ const MyServices = () => {
     const ComentServicios = (num) => {
         setNumCService(num);
         setIsModalCOpen(!isModalCOpen);
+        setStd(true);
     }
 
     const VerMoreService = (num) => {
