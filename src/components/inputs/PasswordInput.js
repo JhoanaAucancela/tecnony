@@ -18,8 +18,8 @@ export default function PasswordInput({ name, control, errors, inputStyle, error
                         onBlur={onBlur}
                         value={value} 
                         style={inputStyle}
-                        placeholderTextColor="black"
-                        placeholder='Password'
+                        placeholderTextColor="gray"
+                        placeholder='Contraseña'
                         leftIcon={
                             <Icon name='key' type='ionicon' size={24} color='black' />
                         }

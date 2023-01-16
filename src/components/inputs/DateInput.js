@@ -8,19 +8,24 @@ export default function DateInput({ name, required = true, iconName, placeholder
             <Controller
                 control={control}
                 rules = {{ 
-                    required,
-                    
+                    required,     
                 }}
-                render={({ field: { onChange, onBlur} }) => (
+                defaultValue={value}
+                render={({ field: { onChange, onBlur, defaultValue} }) => (
                     <Input
+                        defaultValue={defaultValue}
                         onChangeText={onChange}
                         onBlur={onBlur}
                         value={value} 
                         style={inputStyle}
                         placeholder={placeholder}
                         placeholderTextColor="gray"
+                        onPress={dateSelect}
                         leftIcon={
                             <Icon name={iconName} type='ionicon' size={24} color="black" onPress={dateSelect}/>
+                        }
+                        rightIcon={
+                            <Icon name='calendar' type='ionicon' size={24} color='black' onPress={dateSelect} />
                         }
                     />
                 )}

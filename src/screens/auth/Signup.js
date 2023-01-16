@@ -19,7 +19,7 @@ const Signup = ({ navigation }) => {
     const { control, handleSubmit, formState: { errors }} = useForm();
 ///////////////
     const [datePicker, setDatePicker] = useState(false);
-    const [date, setDate] = useState(new Date("2001","10","03"));
+    const [date, setDate] = useState(new Date("2001","10","13"));
     const [fecha, setFecha] = useState("");
 
     function showDatePicker() {
@@ -80,7 +80,7 @@ const Signup = ({ navigation }) => {
             <TextInput
                 name="username"
                 minLength={2}
-                maxLength={30}
+                maxLength={10}
                 iconName="person-circle-outline"
                 placeholder="Nombre de usuario"
                 control={control}
@@ -93,7 +93,7 @@ const Signup = ({ navigation }) => {
             <TextInput
                 name="first_name"
                 minLength={3}
-                maxLength={35}
+                maxLength={10}
                 iconName="person-outline"
                 placeholder="Nombre"
                 control={control}
@@ -106,7 +106,7 @@ const Signup = ({ navigation }) => {
             <TextInput
                 name="last_name"
                 minLength={3}
-                maxLength={35}
+                maxLength={15}
                 iconName="person-outline"
                 placeholder="Apellido"
                 control={control}
@@ -132,7 +132,7 @@ const Signup = ({ navigation }) => {
             <Text style={styles.text}>Dirección</Text>
             <TextInput
                 name="address"
-                minLength={2}
+                minLength={5}
                 maxLength={30}
                 iconName="map-outline"
                 placeholder="Dirección"
@@ -168,9 +168,10 @@ const Signup = ({ navigation }) => {
             />
             <Text style={styles.text}>Fecha de nacimiento</Text>
             <DateInput
-                value={fecha}
+                
                 name="birthdate"
-                required={false}
+                //required={false}
+                value={fecha}
                 iconName="calendar-outline"
                 placeholder="Fecha de nacimiento (Opcional)"
                 control={control}
@@ -183,7 +184,7 @@ const Signup = ({ navigation }) => {
             <Text style={styles.text}>Teléfono</Text>
             <TextInput
                 name="home_phone"
-                keyboardType="phone-pad"
+                keyboardType='phone-pad'
                 required= {false}
                 minLength={7}
                 maxLength={7}
@@ -219,6 +220,9 @@ const Signup = ({ navigation }) => {
             
             {datePicker && (
           <DateTimePicker
+            
+            maximumDate={new Date("2007","01","01")}
+            minimumDate={new Date("1933","01","01")}
             value={date}
             mode={'date'}
             display='default'

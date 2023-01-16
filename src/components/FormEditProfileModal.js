@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import { ScrollView, View, Text, Modal} from 'react-native';
-import { Avatar, Icon, Input, Button } from "react-native-elements";
+import { Avatar, Icon } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
@@ -160,6 +160,8 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                             <Text style={styles.title}>Nombre de usuario:</Text>
                             <TextInputValueChange 
                                 name="username"
+                                minLength={2}
+                                maxLength={10}
                                 required={false} 
                                 iconName="person-circle-outline"
                                 placeholder="Nombre de usuario"
@@ -173,6 +175,8 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                             <Text style={styles.title}>Nombre:</Text>
                             <TextInputValueChange
                                 name="first_name"
+                                minLength={3}
+                                maxLength={10}
                                 required={false}
                                 iconName="person"
                                 placeholder="Nombre"
@@ -183,9 +187,13 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                                 value={form.nombre} 
                                 onChangeText={(value) => setForm({...form, nombre: value})}/>
 
+                                <Text>{form.nombre}</Text>
+
                             <Text style={styles.title}>Apellido:</Text>
                             <TextInputValueChange 
                                 name="last_name"
+                                minLength={3}
+                                maxLength={15}
                                 required={false}
                                 iconName="person"
                                 placeholder="Apellido"
@@ -199,6 +207,9 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                             <Text style={styles.title}>Cédula:</Text>
                             <TextInputValueChange 
                                 name="cedula"
+                                minLength={10}
+                                maxLength={10}
+                                keyboardType="phone-pad"
                                 required={false}
                                 iconName="card-outline"
                                 placeholder="Cédula"
@@ -212,6 +223,9 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                             <Text style={styles.title}>Télefono:</Text>
                             <TextInputValueChange 
                                 name="home_phone"
+                                minLength={7}
+                                maxLength={7}
+                                keyboardType="phone-pad"
                                 required={false}
                                 iconName="call-outline"
                                 placeholder="Teléfono (Opcional)"
@@ -225,8 +239,10 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                             <Text style={styles.title}>Celular:</Text>
                             <TextInputValueChange 
                                 name="personal_phone"
+                                keyboardType="phone-pad"
+                                minLength={10}
+                                maxLength={10}
                                 required={false}
-
                                 iconName="phone-portrait-outline"
                                 placeholder="Celular"
                                 control={control} 
@@ -240,6 +256,8 @@ export default function FormEditProfileModal({isModalOpen, setIsModalOpen}){
                             <Text style={styles.title}>Dirección:</Text>
                             <TextInputValueChange 
                                 name="address"
+                                minLength={5}
+                                maxLength={30}
                                 required={false}
                                 iconName="map-outline"
                                 placeholder="Dirección"
