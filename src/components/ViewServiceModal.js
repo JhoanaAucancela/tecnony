@@ -213,14 +213,14 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                                         <Text style ={styles.descripcion}>Profesión: <Text style ={styles.descripciontext}>{tecnico.profession}</Text></Text>
                                         <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnicoData.correo}</Text></Text>
                                         <Text style ={styles.descripcion}>Contacte: </Text>
-                                        <View style={styles.buttonWhatsapp} onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)}}
+                                        <View style={styles.buttonWhatsapp} onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)} }
                                         >
                                             <Icon
                                                 name="logo-whatsapp"
                                                 type="ionicon"
                                                 size= {20}
                                                 color= "white"
-                                                onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)}}
+                                                onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)} }
                                             />
                                         </View>
                             </Card>
