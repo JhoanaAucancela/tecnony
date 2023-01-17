@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, Modal, View, Button, TouchableOpacity} from 'react-native';
+import {Text, Modal, View, Button, TouchableOpacity, Linking} from 'react-native';
 import { Icon, Card, Image, Avatar } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -14,6 +14,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     ///////////
     const [post, setPost] = React.useState([]); // Datos del servicio
     const [tecnico, setTecnico] = React.useState([]); //Datos del tecnico
+    const [tecnicoData, setTecnicoData] = React.useState([]); //Datos del tecnico
+
     const [isModalCOpen, setIsModalCOpen] = React.useState(false);
 
     const fetchCharacters = (url) => {
@@ -33,16 +35,31 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
       };
 
 
+      const fetchTecnicoData = (url) => {
+        fetch(url)
+             
+              .then(response => response.json())
+              .then(data => setTecnicoData(data.data.datos_tecnico))
+              .catch(error => console.log(error))
+        };
+      
+
 
 
       React.useEffect(() => {
         setPost([]);
         setTecnico([]);
+        setTecnicoData([]);
+
             (async () => {
                 setPost([]);
                 setTecnico([]);
+                setTecnicoData([]);
+
                 fetchCharacters(`${baseURL}/${ID}`)
                 fetchTecnico(`${baseURL}/${ID}`)
+                fetchTecnicoData(`${baseURL}/${ID}`)
+
             })()
 
           //  console.log(ID)      
@@ -63,21 +80,64 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     ///////////
 
     const Local = () => {
-        if(tecnico.local_name != null){
+        if(post.attention_mode === 1){
             return(
-                <View style = {{ alignItems: 'center' }}>  
+            <View style = {{ alignItems: 'center' }}>  
                 <Card containerStyle={{borderRadius: 15, width:'100%'}}>
-                        <Card.Title  style={styles.title}>🏛️ Local</Card.Title>
-                        <Card.Divider/> 
-                            <Text style ={styles.descripcion}>Local: <Text style ={styles.descripciontext}>{tecnico.local_name}</Text></Text>
-                            <Text style ={styles.descripcion}>Dirección: <Text style ={styles.descripciontext}>{tecnico.local_address}</Text></Text>
-                            <Text style ={styles.descripcion}>Horario de atención: <Text style ={styles.descripciontext}>{tecnico.attention_schedule}</Text></Text>
+                    <Text style ={styles.descripcion}>Modo de atención: <Text style ={styles.descripciontext}>🏢 En local fisíco</Text></Text>
+                    <Text> </Text>
+                    <Card.Divider/> 
+                    <Card.Title  style={styles.title}>🏛️ Información del local</Card.Title>
+                    <Card.Divider/> 
+                        <Text style ={styles.descripcion}>Local: <Text style ={styles.descripciontext}>{tecnico.local_name}</Text></Text>
+                        <Text style ={styles.descripcion}>Dirección: <Text style ={styles.descripciontext}>{tecnico.local_address}</Text></Text>
+                        <Text style ={styles.descripcion}>Horario de atención: <Text style ={styles.descripciontext}>{tecnico.attention_schedule}</Text></Text>
                 </Card>
             </View>
-
             )
         }
+        else if(post.attention_mode === 2){
+            return(
+                <View style = {{ alignItems: 'center' }}>  
+                    <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+                        <Text style ={styles.descripcion}>Modo de atención: <Text style ={styles.descripciontext}>🛺 A domicilio</Text></Text>
+                    </Card>
+                </View>
+                )
+        }
     };
+
+    const Pago = () => {
+        if(post.payment_method === 1){
+            return(
+            <View style = {{ alignItems: 'center' }}>  
+                <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+                    <Text style ={styles.descripcion}>Método de pago: <Text style ={styles.descripciontext}>💵 Efectivo</Text></Text>
+                </Card>
+            </View>
+            )
+        }
+        else if (post.payment_method === 2){
+            return(
+                <View style = {{ alignItems: 'center' }}>  
+                    <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+                    <Text style ={styles.descripcion}>Métodos de pago: </Text>
+                    <Text style ={styles.descripciontext}>💵 Efectivo</Text>
+                    <Text style ={styles.descripciontext}>💼 Depósito o Transferencia</Text>
+                    <Text> </Text>
+                    <Card.Divider/> 
+                    <Card.Title  style={styles.title}>Información Bancaria del Técnico</Card.Title>
+                    <Card.Divider/> 
+                        <Text style ={styles.descripcion}>Banco: <Text style ={styles.descripciontext}>{tecnico.banking_entity}</Text></Text>
+                        <Text style ={styles.descripcion}>N° de cuenta: <Text style ={styles.descripciontext}>{tecnico.account_number}</Text></Text>
+                        <Text style ={styles.descripcion}>Tipo de cuenta: <Text style ={styles.descripciontext}>{tecnico.account_type}</Text></Text>
+                        <Text style ={styles.descripcion}>N° de cédula: <Text style ={styles.descripciontext}>{tecnicoData.cedula}</Text></Text>
+                </Card>
+                </View>
+                )
+        }
+    };
+
 
     const modalContainerStyle ={
         flex: 1,
@@ -99,8 +159,6 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
         shadowRadius: 4,
         elevation: 5,
     }
-
-
 
     
     return (
@@ -124,29 +182,51 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                             <Text style= {styles.titleX}>{post.name}</Text>
                             <View style= {styles.lineStyle}></View>
                         </View>
-
-                        <Card containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                                <Image
-                                    source={{ uri: post.image }}
-                                    style={{ width: '100%', height: 170, borderRadius: 15 }}
-                                />
-                        <Card.Divider/>
+                        <View style = {{ alignItems: 'center' }}> 
+                            <Card containerStyle={{borderRadius: 15,alignItems: 'center', width:'100%'}}>
+                                    <Image
+                                        source={{ uri: post.image }}
+                                        style={{ width: '100%', height: 170, borderRadius: 15 }}
+                                    />
+                            <Card.Divider/>
+                                
+                                    <Text style ={styles.descripcion}>Categoria: <Text style ={styles.descripciontext}>{post.categories}</Text></Text>
+                                    <Text style ={styles.descripcion}>Descripción: <Text style ={styles.descripciontext}>{post.description}</Text></Text>
+                                    <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>{post.price}</Text></Text>
                             
-                                <Text style ={styles.descripcion}>Categoria: <Text style ={styles.descripciontext}>{post.categories}</Text></Text>
-                                <Text style ={styles.descripcion}>Descripción: <Text style ={styles.descripciontext}>{post.description}</Text></Text>
-                                <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>{post.price}</Text></Text>
+                            </Card>
+                        </View>
                         
-                        </Card>
-                        {Local()}
                         <View style = {{ alignItems: 'center' }}>  
                             <Card containerStyle={{borderRadius: 15, width:'100%'}}>
                                     <Card.Title  style={styles.title}>🙍🏻‍♂️ Técnico</Card.Title>
                                     <Card.Divider/> 
+                                        <View style = {{ alignItems: 'center' }}>
+                                            <Avatar
+                                                rounded
+                                                size="medium"
+                                                source={{ uri: tecnicoData.avatar }}
+                                            />
+                                        </View>
                                         <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
                                         <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
                                         <Text style ={styles.descripcion}>Profesión: <Text style ={styles.descripciontext}>{tecnico.profession}</Text></Text>
-                                    
+                                        <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnicoData.correo}</Text></Text>
+                                        <Text style ={styles.descripcion}>Contacte: </Text>
+                                        <View style={styles.buttonWhatsapp} onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)}}
+                                        >
+                                            <Icon
+                                                name="logo-whatsapp"
+                                                type="ionicon"
+                                                size= {20}
+                                                color= "white"
+                                                onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)}}
+                                            />
+                                        </View>
                             </Card>
+
+                            {Local()}
+                            {Pago()}
                         </View>
                         
 
@@ -154,21 +234,15 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                             
                         </View>
                             
-                        
                         <View style={{ alignItems: 'center', padding:'5%' }}>
-                                                    
-                            <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
-                            > Contratar
-                            
-                            </Text>
+                            <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}>📝 Contratar</Text>
                             <FormContractModal 
                                 isModalOpen={isModalCOpen} 
                                 setIsModalOpen={setIsModalCOpen} 
                                 ID={post.id}
                             />
+
                         </View>
-
-
                         <Text> </Text>
                         <Text> </Text>
                         <Text> </Text>
@@ -227,5 +301,13 @@ const styles =  EStyleSheet.create({
         color:"$white", 
         fontWeight: 'bold'
     },
+
+    buttonWhatsapp: {
+        backgroundColor:'#25D366', 
+        alignItems: 'center',
+        borderRadius: 15, 
+        padding:'3%',
+    },
+
 
 });

@@ -151,20 +151,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                             inputStyle={styles.input}
                         />
 
-                        <Card containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                                <Card.Title  style={styles.titleS}>Métodos de pago</Card.Title>
-                            <Card.Divider/>
-                            <View style={{ flexDirection: "row"}}>
-                            <Card containerStyle={{borderRadius: 15}}>
-                                <Text style ={styles.descripciontext}>💵 Efectivo</Text>
-                            </Card>
-
-                            <Card containerStyle={{borderRadius: 15}}>
-                                <Text style ={styles.descripciontext}>💼 Depósito</Text>
-                            </Card>
-                            </View>
-                            
-                        </Card>
+            
                         <Text> </Text>
                         <Text style={styles.button} onPress={handleSubmit(_contractService)}>Contratar</Text>
                         <Text>  </Text>
