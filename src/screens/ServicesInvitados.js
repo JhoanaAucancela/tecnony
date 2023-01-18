@@ -3,9 +3,11 @@ import { View, Text, ScrollView} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Icon, Input } from 'react-native-elements';
 
-
 import { ErrorText, ActivityLoader } from "../components/Shared";
-import Auxialiar from './auxiliar';
+
+import ModalInformativa from '../components/ModalInformativa';
+import ModalInformativa2 from '../components/ModalInformativa2';
+import ModalInformativa3 from '../components/ModalInformativa3';
 
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
@@ -17,6 +19,11 @@ export default function ServicesInvitados (props) {
     const [characters, setCharacters] = useState([]); //Hooks servicios
     const [loading, setLoading] = useState(true); // Hooks Activity Loaders
     const [search, setSearch] = useState(""); //Hooks Busqueda
+
+    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [isModalOpen2, setIsModalOpen2] = useState(true);
+    const [isModalOpen3, setIsModalOpen3] = useState(true);
+
 
     const fetchCharacters = (url) => {
         try{
@@ -54,8 +61,23 @@ export default function ServicesInvitados (props) {
 
     return(
         <View style={styles.container}>
+
+            <ModalInformativa3
+                isModalOpen={isModalOpen3} 
+                setIsModalOpen={setIsModalOpen3} 
+            />
+            <ModalInformativa2
+                isModalOpen={isModalOpen2} 
+                setIsModalOpen={setIsModalOpen2} 
+            />
+            
+            <ModalInformativa
+                isModalOpen={isModalOpen} 
+                setIsModalOpen={setIsModalOpen} 
+            />
             
             <Text style={styles.titleX}>Servicios</Text>
+            
             <Input 
                 type = "search"
                 value = {search}
@@ -68,6 +90,9 @@ export default function ServicesInvitados (props) {
                 }
                         
             />
+
+            
+            
             <ScrollView>
             {
                 characters.filter((item) => item.name.toLowerCase().includes(search.toLowerCase())).map((item, index) => (
@@ -103,7 +128,6 @@ export default function ServicesInvitados (props) {
                                     />
                                     </Text>
 
-                                  
                                 </View>
                             </View>  
                         </Card>

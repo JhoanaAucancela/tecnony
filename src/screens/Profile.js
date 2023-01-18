@@ -37,17 +37,11 @@ export default function Profile(props){
         <View style={styles.container}>
             {user &&
                 <View>
-                    <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.titleX}>Mi Perfil</Text>
-                        <Text
-                            onPress={() => _logout()}
-                            style={styles.buttonlogout}
-                        > 🔙 Cerrar sesión
-                            
-                            
-                        </Text>
-                    </View>
-                    
+                  
+                    <View style={{ flexDirection:'row-reverse' }}>
+                            <Text onPress={() => _logout()} style={styles.buttonlogout}>🔙 Cerrar sesión</Text>
+                        </View>
+                    <Text style={styles.titleX}>Mi Cuenta</Text>
                     
                     <View style={{ alignItems: 'center', marginTop:'5%' }}>
                         <Avatar
@@ -57,7 +51,7 @@ export default function Profile(props){
                         />
                     </View>
                     
-                    <View style={{ marginLeft:'2%', marginTop:'5%' }}>
+                    <View style={{ marginTop:'5%' }}>
                         <Text style={styles.title}>Nombre de usuario:</Text>
                         <Text style={styles.text}>      {user.username}</Text>
 
@@ -117,7 +111,6 @@ const styles =  EStyleSheet.create({
         fontFamily: '$400Regular',
         color:'$black',
         textDecorationLine: "underline",
-        marginLeft:'40%',
         marginTop:'5%'
         
     },

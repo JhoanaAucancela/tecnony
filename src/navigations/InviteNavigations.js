@@ -1,10 +1,7 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import DrawerContentInvite from "../components/DrawerContentInvite";
-
-import { Icon } from "react-native-elements";
 import EStyleSheet from "react-native-extended-stylesheet";
 
 import ServicesInvitadoStack from "./stacks/ServicesInvitadoStack";
@@ -12,8 +9,6 @@ import LoginStack from "./stacks/LoginStack";
 import SignupStack from "./stacks/SignupStack";
 import ForgotPasswordStack from "./stacks/ForgotPasswordStack";
 
-
-//const BottomTabs = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -102,7 +97,6 @@ export default function ServicesNavigation(){
 
 TabBar.defaultProps = {
     appName: "Tecnony",
-    //appName: Application.name,
 }
 
 

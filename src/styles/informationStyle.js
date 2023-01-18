@@ -11,13 +11,23 @@ const styles = EStyleSheet.create({
     imageLeft:{
         width:125, 
         height:60, 
-        marginRight:"60%", 
         position:"relative",
     },
 
     imageInformation:{ 
         width:270, 
         height:250 , 
+
+    },
+    imageInformation1:{ 
+        width:270, 
+        height:260 , 
+
+    },
+
+    imageInformation2:{ 
+        width:270, 
+        height:205 , 
 
     },
 
@@ -29,7 +39,6 @@ const styles = EStyleSheet.create({
         borderRadius: 15, 
         color:"#FFFFFF", 
         fontWeight: 'bold',  
-        height:"30%",
         justifyContent: 'center',
         textAlign:'center',
 
@@ -49,6 +58,7 @@ const styles = EStyleSheet.create({
         fontSize: 32,
         color: '$white',
         padding:'2%', 
+        textAlign:'center'
     },
     subtitulo:{
         fontFamily: '$400Regular',
@@ -56,7 +66,15 @@ const styles = EStyleSheet.create({
         color: '$black',
         padding:'2%', 
     },
-    
+
+    link: {
+        fontFamily: '$400Regular',
+        color:'$black',
+        fontSize:16,
+        textDecorationLine: "underline",
+        padding: '3%',
+        
+    },
     
 });
 

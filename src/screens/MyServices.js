@@ -91,6 +91,16 @@ const MyServices = () => {
         }
     }
 
+    const TipoPago = (numPago) =>{
+        if(numPago === 1){
+            return <Text style={styles.descripciontext}>Efectivo</Text>
+        }
+        else if(numPago === 2){
+            return <Text style={styles.descripciontext}>Depósito</Text>
+        }
+        
+    }
+
 
     const IDServicesCancel = (num) => {
         const urlCancel = `https://tecnony-v1.herokuapp.com/api/v1/hiring/cancel/${num}`;
@@ -263,6 +273,8 @@ const MyServices = () => {
                                 <View style={{ width:'100%'}}>
                                     <Text style ={styles.descripcion}>Estado de la solicitud: </Text>
                                     {Estado((item.state))}
+                                    <Text style ={styles.descripcion}>Modo de pago: </Text>
+                                    {TipoPago((item.payment_method))}
                                     <Text style ={styles.descripcion}>Modelo: </Text>
                                     <Text style={styles.descripciontext}>{item.model}</Text>
 

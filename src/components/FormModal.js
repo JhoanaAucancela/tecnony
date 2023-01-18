@@ -3,10 +3,11 @@ import {Text, Modal, View, Button, ScrollView} from 'react-native';
 import { Icon } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
-import { useForm } from "react-hook-form";
-import { TextInput, TextAreaInput } from "../components/inputs";
+import { set, useForm } from "react-hook-form";
+import { TextInput, TextAreaInput, TextInputValue2 } from "../components/inputs";
 import { updateService } from "../services/AuthService";
 import styles from "../styles/auth";
+import {Picker} from '@react-native-picker/picker';
 
 
 export default function FormModal({isModalOpen, setIsModalOpen, ID}){
@@ -14,12 +15,21 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
+    const [selectedPago, setSelectedPago] = useState(0);
+    const [confirmation, setConfirmation] = useState("No se ha confirmado el tipo de pago");
+    const [newName, setNewName] = useState("");
+    const [newName1, setNewName1] = useState("");
+
+
+    const pickerRef = React.useRef();
+
 
     const _updateService = async (data) => {
         try {
             setLoading(true);
             const message = await updateService(data, ID);
             setIsModalOpen(!isModalOpen);
+            alert(message)
             Toast.show(
                 message,
                 {
@@ -64,6 +74,62 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
         color:"$white", 
         fontWeight: 'bold'
     } 
+
+    const Efectivo = () =>{
+        setNewName("payment_method");
+        setNewName1(" ");
+        setConfirmation("Confirmación pago: Efectivo")
+    }
+
+    const Deposito = () =>{
+        setNewName1("payment_method");
+        setNewName(" ");
+        setConfirmation("Confirmación pago: Depósito")
+
+    }
+
+    const slcPago  = (arg) =>{      
+
+        if(arg === 1){
+            return(
+                <View>
+                    <Text>Confirmar Pago</Text>
+                    <Text style={btnStyle} onPress={() => Efectivo()}>Efectivo</Text>
+                    <Text style={styles.text}>{confirmation}</Text>
+                    <TextInputValue2
+                            value="1"
+                            name={newName}
+                            placeholder="Deposito"
+                            control={control}
+                            errors = {errors}
+                            errorValidationStyle = {styles.errorValidation}
+                            inputStyle={styles.inputVisible}
+                    />
+                </View>   
+            )
+        }
+        else if(arg === 2){
+            
+            return(
+                <View>
+                    <Text style={styles.text}>Confirmar Pago</Text>
+                    <Text style={btnStyle} onPress={() => Deposito()}>Deposito</Text>
+                    <Text style={styles.text}>{confirmation}</Text>
+                    <TextInputValue2
+                            value="2"
+                            name={newName1}
+                            placeholder="Deposito"
+                            control={control}
+                            errors = {errors}
+                            errorValidationStyle = {styles.errorValidation}
+                            inputStyle={styles.inputVisible}
+                        />
+                </View>   
+            )
+            
+        }
+    }
+
     
     return (
         <>
@@ -130,7 +196,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                             minLength={2}
                             maxLength={30}
                             iconName="barcode"
-                            placeholder="Ej. HSO12355"
+                            placeholder="Ej. HSO12355 (Opcional)"
                             control={control}
                             errors = {errors}
                             errorValidationStyle = {styles.errorValidation}
@@ -150,12 +216,25 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                             errorValidationStyle = {styles.errorValidation}
                             inputStyle={styles.input}
                         />
+                        <Text style={styles.text}>Método de pago</Text>
+                        <Picker
+                            style={styles.input}
+                            ref={pickerRef}
+                            selectedValue={selectedPago}
+                            onValueChange={(itemValue, itemIndex) => setSelectedPago(itemValue)}>
+                            <Picker.Item label="---" value={0}/>
+                            <Picker.Item label="Efectivo" value={1}/>
+                            <Picker.Item label="Depósito" value={2}/>
+                        </Picker>
+
+                        {slcPago(selectedPago)}
+                        
+                        
                         
                         <Text style={btnStyle} onPress={handleSubmit(_updateService)}>Guardar</Text>
-                        <Text>  </Text>
-                        <Text>  </Text>
-                        <Text>  </Text>
-
+                        
+                        <Text> </Text>
+                        <Text> </Text>
                         
                     </ScrollView>
                 </View>

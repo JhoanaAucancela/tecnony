@@ -3,8 +3,8 @@ import {Text, Modal, View, Button, ScrollView} from 'react-native';
 import { Icon, Card } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
-import { useForm } from "react-hook-form";
-import { TextInput, TextAreaInput,TextInputValue } from "../components/inputs";
+import { set, useForm } from "react-hook-form";
+import { TextInput, TextAreaInput,TextInputValue2 } from "../components/inputs";
 import { contractService } from "../services/AuthService";
 import styles from "../styles/auth";
 
@@ -19,17 +19,12 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
     const { control, handleSubmit, formState: { errors }} = useForm();
 
     ////////////////////////
-    const [selectedPago, setSelectedPago] = useState(1);
+    const [selectedPago, setSelectedPago] = useState(0);
+    const [confirmation, setConfirmation] = useState("No se ha confirmado el tipo de pago");
+    const [newName, setNewName] = useState("");
+    const [newName1, setNewName1] = useState("");
+
     const pickerRef = useRef();
-
-    function open() {
-    pickerRef.current.focus();
-    }
-
-    function close() {
-    pickerRef.current.blur();
-    }
-    ///////////////////////
 
 
     //////////////////////////
@@ -38,14 +33,15 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
         try {
             setLoading(true);
             const message = await contractService(data, ID);
-            setIsModalOpen(!setIsModalOpen);
+            setIsModalOpen(!isModalOpen);
+            alert(message);
             Toast.show(
-                "Servicio Contratado",
+                message,
                 {
                 }
             )
         } catch (e) {
-            setError(e.message);
+            setError(message);
         }finally{
             setLoading(false);
             
@@ -83,6 +79,61 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
         color:"$white", 
         fontWeight: 'bold'
     } 
+
+    const Efectivo = () =>{
+        setNewName("payment_method");
+        setNewName1(" ");
+        setConfirmation("Confirmación pago: Efectivo")
+    }
+
+    const Deposito = () =>{
+        setNewName1("payment_method");
+        setNewName(" ");
+        setConfirmation("Confirmación pago: Depósito")
+
+    }
+
+    const slcPago  = (arg) =>{      
+
+        if(arg === 1){
+            return(
+                <View>
+                    <Text>Confirmar Pago</Text>
+                    <Text style={btnStyle} onPress={() => Efectivo()}>Efectivo</Text>
+                    <Text style={styles.text}>{confirmation}</Text>
+                    <TextInputValue2
+                            value="1"
+                            name={newName}
+                            placeholder="Deposito"
+                            control={control}
+                            errors = {errors}
+                            errorValidationStyle = {styles.errorValidation}
+                            inputStyle={styles.inputVisible}
+                    />
+                </View>   
+            )
+        }
+        else if(arg === 2){
+            
+            return(
+                <View>
+                    <Text style={styles.text}>Confirmar Pago</Text>
+                    <Text style={btnStyle} onPress={() => Deposito()}>Deposito</Text>
+                    <Text style={styles.text}>{confirmation}</Text>
+                    <TextInputValue2
+                            value="2"
+                            name={newName1}
+                            placeholder="Deposito"
+                            control={control}
+                            errors = {errors}
+                            errorValidationStyle = {styles.errorValidation}
+                            inputStyle={styles.inputVisible}
+                        />
+                </View>   
+            )
+            
+        }
+    }
     
     return (
         <>
@@ -167,27 +218,27 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                             errorValidationStyle = {styles.errorValidation}
                             inputStyle={styles.input}
                         />
+                        
+                        
+                        
                         <Text style={styles.text}>Método de pago</Text>
                         <Picker
                             style={styles.input}
                             ref={pickerRef}
                             selectedValue={selectedPago}
                             onValueChange={(itemValue, itemIndex) => setSelectedPago(itemValue)}>
-                            <Picker.Item label="Efectivo" value="1"/>
-                            <Picker.Item label="Depósito" value="2"/>
+                            <Picker.Item label="---" value={0}/>
+                            <Picker.Item label="Efectivo" value={1}/>
+                            <Picker.Item label="Depósito" value={2}/>
                         </Picker>
-                        <Text>  </Text>
+
+                        {slcPago(selectedPago)}
+
                         <Text style={styles.button} onPress={handleSubmit(_contractService)}>📝 Contratar</Text>
-                        <TextInputValue
-                            value={selectedPago.toString()}
-                            name="payment_method"
-                            placeholder=""
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.inputVisible}
-                        />
                         
+                        <Text> </Text>
+                        <Text> </Text>
+
 
                     </ScrollView>
                 </View>

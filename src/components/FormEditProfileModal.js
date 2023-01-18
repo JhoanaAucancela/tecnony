@@ -145,24 +145,9 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                             size='xlarge'
                             source={{ uri: user.avatar }}
                         />
-                        
-                        
-                        <Text
-                                onPress={() => setModalOpen(!ModalOpen)}
-                                style={styles.button}
-                            >
-                            <Icon
-                                    name="camera"
-                                    color='white'
-                                    type = "ionicon" 
-                                />
-                        </Text>
+                    
                         
                     </View>
-                            <UploadModal
-                                isModalOpen={ModalOpen} 
-                                setIsModalOpen={setModalOpen}
-                            />
                     
 
                         <ScrollView style={{ width: '90%', }}>
