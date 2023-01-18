@@ -5,6 +5,8 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import FormContractModal from '../components/FormContractModal';
+import FormContractModalE from '../components/FormContractModalE';
+
 
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
@@ -17,6 +19,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     const [tecnicoData, setTecnicoData] = React.useState([]); //Datos del tecnico
 
     const [isModalCOpen, setIsModalCOpen] = React.useState(false);
+    const [isModalCOpenE, setIsModalCOpenE] = React.useState(false);
+
 
     const fetchCharacters = (url) => {
         fetch(url)
@@ -101,6 +105,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                 <View style = {{ alignItems: 'center' }}>  
                     <Card containerStyle={{borderRadius: 15, width:'100%'}}>
                         <Text style ={styles.descripcion}>Modo de atención: <Text style ={styles.descripciontext}>🛺 A domicilio</Text></Text>
+                        <Text style ={styles.descripcion}>Nota: Una vez contratado el servicio el técnico se comunicara con usted.</Text>
+
                     </Card>
                 </View>
                 )
@@ -137,6 +143,17 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                 )
         }
     };
+
+    const ContractED = (metodo) =>{
+        if(metodo === 1){
+            return <Text style={styles.button} onPress={() => setIsModalCOpenE(!isModalCOpenE)}>📝 Contratar</Text>  
+
+            
+        }
+        else if (metodo === 2){
+            return <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}>Contratar</Text>      
+        }
+    }
 
 
     const modalContainerStyle ={
@@ -234,15 +251,24 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                             
                         </View>
                             
+                        
                         <View style={{ alignItems: 'center', padding:'5%' }}>
-                            <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}>📝 Contratar</Text>
+                            {ContractED(post.payment_method)}
                             <FormContractModal 
                                 isModalOpen={isModalCOpen} 
                                 setIsModalOpen={setIsModalCOpen} 
                                 ID={post.id}
                             />
 
+                            <FormContractModalE
+                                isModalOpen={isModalCOpenE} 
+                                setIsModalOpen={setIsModalCOpenE} 
+                                ID={post.id}
+                            />
                         </View>
+                            
+
+                        
                         <Text> </Text>
                         <Text> </Text>
                         <Text> </Text>

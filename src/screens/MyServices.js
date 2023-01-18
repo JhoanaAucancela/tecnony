@@ -127,8 +127,14 @@ const MyServices = () => {
 
     }
 
-    const IDServicesEdit = (num) => {
-        setIsModalOpen(!isModalOpen);
+    const IDServicesEdit = (num, tp) => {
+        if(tp === 1){
+            
+        }
+        else{
+            setIsModalOpen(!isModalOpen);
+        }
+        
         setNumServices(num);
         setStd(true);
     }
@@ -149,7 +155,7 @@ const MyServices = () => {
         setIsModalMOpen(!isModalMOpen);
     }
 
-    const Btn = (std, ID) => {
+    const Btn = (std, ID, PT) => {
 
 
         if(std === 0){
@@ -157,7 +163,7 @@ const MyServices = () => {
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.BtnCancel} onPress={() => IDServicesCancel(ID)}>Cancelar</Text>
                     <Text> </Text>
-                    <Text style={styles.button} onPress={() => IDServicesEdit((ID))}
+                    <Text style={styles.button} onPress={() => IDServicesEdit((ID, PT))}
                     >Editar</Text>
                     <FormModal 
                         isModalOpen={isModalOpen} 
@@ -285,7 +291,7 @@ const MyServices = () => {
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
                                     <Text>  </Text>
                                     <View style = {{ alignItems: "center" }}>
-                                        {Btn(item.state, item.id)} 
+                                        {Btn(item.state, item.id, item.payment_method)} 
                                     </View>
                                                                 
                                     
