@@ -61,6 +61,13 @@ const styles = EStyleSheet.create({
         backgroundColor:'#F5F9FF',
         borderColor: 'transparent',
     },
+
+    inputVisible: {
+        color:'transparent',
+        backgroundColor:'transparent',
+        borderColor: 'transparent',
+    },
+
     link: {
         fontFamily: '$400Regular',
         color:'$black',

@@ -1,19 +1,35 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {Text, Modal, View, Button, ScrollView} from 'react-native';
 import { Icon, Card } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { useForm } from "react-hook-form";
-import { TextInput, TextAreaInput } from "../components/inputs";
+import { TextInput, TextAreaInput,TextInputValue } from "../components/inputs";
 import { contractService } from "../services/AuthService";
 import styles from "../styles/auth";
 
+///////////////////////////////
+import {Picker} from '@react-native-picker/picker';
+///////////////////////////////////
 
 export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
     
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
+
+    ////////////////////////
+    const [selectedPago, setSelectedPago] = useState(1);
+    const pickerRef = useRef();
+
+    function open() {
+    pickerRef.current.focus();
+    }
+
+    function close() {
+    pickerRef.current.blur();
+    }
+    ///////////////////////
 
 
     //////////////////////////
@@ -22,6 +38,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
         try {
             setLoading(true);
             const message = await contractService(data, ID);
+            setIsModalOpen(!setIsModalOpen);
             Toast.show(
                 "Servicio Contratado",
                 {
@@ -31,7 +48,7 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
             setError(e.message);
         }finally{
             setLoading(false);
-            setIsModalOpen(!setIsModalOpen);
+            
         }
     }
 
@@ -150,14 +167,27 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                             errorValidationStyle = {styles.errorValidation}
                             inputStyle={styles.input}
                         />
-
-            
-                        <Text> </Text>
-                        <Text style={styles.button} onPress={handleSubmit(_contractService)}>Contratar</Text>
+                        <Text style={styles.text}>Método de pago</Text>
+                        <Picker
+                            style={styles.input}
+                            ref={pickerRef}
+                            selectedValue={selectedPago}
+                            onValueChange={(itemValue, itemIndex) => setSelectedPago(itemValue)}>
+                            <Picker.Item label="Efectivo" value="1"/>
+                            <Picker.Item label="Depósito" value="2"/>
+                        </Picker>
                         <Text>  </Text>
-                        <Text>  </Text>
-                        <Text>  </Text>
-                        <Text>  </Text>
+                        <Text style={styles.button} onPress={handleSubmit(_contractService)}>📝 Contratar</Text>
+                        <TextInputValue
+                            value={selectedPago.toString()}
+                            name="payment_method"
+                            placeholder=""
+                            control={control}
+                            errors = {errors}
+                            errorValidationStyle = {styles.errorValidation}
+                            inputStyle={styles.inputVisible}
+                        />
+                        
 
                     </ScrollView>
                 </View>

@@ -20,7 +20,7 @@ const Signup = ({ navigation }) => {
 ///////////////
     const [datePicker, setDatePicker] = useState(false);
     const [date, setDate] = useState(new Date("2001","10","13"));
-    const [fecha, setFecha] = useState("");
+    const [fecha, setFecha] = useState(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
 
     function showDatePicker() {
         setDatePicker(true);
@@ -168,9 +168,8 @@ const Signup = ({ navigation }) => {
             />
             <Text style={styles.text}>Fecha de nacimiento</Text>
             <DateInput
-                
                 name="birthdate"
-                required={false}
+                //required={false}
                 value={fecha}
                 iconName="calendar-outline"
                 placeholder="Fecha de nacimiento (Opcional)"
@@ -180,7 +179,6 @@ const Signup = ({ navigation }) => {
                 inputStyle={styles.input}
                 dateSelect = { showDatePicker }
             />
-
             <Text style={styles.text}>Teléfono</Text>
             <TextInput
                 name="home_phone"
