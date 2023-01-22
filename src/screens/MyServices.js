@@ -5,7 +5,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
-import axios from "axios";
 import Toast from "react-native-root-toast";
 import FormModal from '../components/FormModal';
 import ComentsModal from '../components/ComentsModal';
@@ -130,14 +129,8 @@ const MyServices = () => {
 
     }
 
-    const IDServicesEdit = (num, tp) => {
-        if(tp === 1){
-            
-        }
-        else{
-            setIsModalOpen(!isModalOpen);
-        }
-        
+    const IDServicesEdit = (num) => {
+        setIsModalOpen(!isModalOpen);
         setNumServices(num);
         setStd(true);
     }
@@ -158,7 +151,7 @@ const MyServices = () => {
         setIsModalMOpen(!isModalMOpen);
     }
 
-    const Btn = (std, ID, PT) => {
+    const Btn = (std, ID) => {
 
 
         if(std === 0){
@@ -166,7 +159,7 @@ const MyServices = () => {
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.BtnCancel} onPress={() => IDServicesCancel(ID)}>Cancelar</Text>
                     <Text> </Text>
-                    <Text style={styles.button} onPress={() => IDServicesEdit((ID, PT))}
+                    <Text style={styles.button} onPress={() => IDServicesEdit((ID))}
                     >Editar</Text>
                     <FormModal 
                         isModalOpen={isModalOpen} 
@@ -302,10 +295,8 @@ const MyServices = () => {
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
                                     <Text>{item.id}</Text>
                                     <View style = {{ alignItems: "center" }}>
-                                        {Btn(item.state, item.id, item.payment_method)} 
+                                        {Btn(item.state, item.id)} 
                                     </View>
-                                                                
-                                    
                                 </View>
                             </View>  
                         </Card>

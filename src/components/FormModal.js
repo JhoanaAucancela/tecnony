@@ -145,6 +145,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
                         <Text h2 style={ styles.title }>Editar el servicio</Text>
+                        <Text>{ID}</Text>
                         <ErrorText error={error} />
                         <Text style={styles.text}>Dispositivo</Text>
                         <TextInput
