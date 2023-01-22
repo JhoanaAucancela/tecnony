@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import {Text, Modal, View, Button, TouchableOpacity} from 'react-native';
-import { Icon, Card, Image, Avatar } from "react-native-elements";
-import { useForm } from "react-hook-form";
+import React from 'react';
+import {Text, Modal, View} from 'react-native';
+import { Icon, Card, Image } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
@@ -41,12 +40,15 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
             .catch(error => console.log(error))
       };
 
+
       const fetchService = (url, config) => { //Datos del servicio
         fetch(url, config)
             .then(response => response.json())
             .then(data => setServicio(data.data.of_service))
             .catch(error => console.log(error))
       };
+
+      
 
       React.useEffect(() => {
 
@@ -92,9 +94,6 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
         shadowRadius: 4,
         elevation: 5,
     }
-
-
-
     
     return (
         <>
@@ -178,16 +177,8 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>Datos del tecnico</Card.Title>
                             <Card.Divider />
-                                <View style={{ alignItems: 'center' }}>
-                                    <Avatar
-                                        rounded
-                                        size="medium"
-                                        source={{ uri: tecnico.avatar }}
-                                    />
-                                </View>
-                                    <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.first_name} {tecnico.last_name}</Text></Text>
-                                    <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnico.email}</Text></Text>
-                                    <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.personal_phone}</Text></Text>
+                                    <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
+                                    <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
                                 
                         </Card>
 
