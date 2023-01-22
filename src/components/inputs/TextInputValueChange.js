@@ -17,7 +17,7 @@ export default function TextInputValueChange({ name, required = true, minLength,
                     <Input
                         keyboardType={keyboardType}
                         onChange={onChange}
-                        onChangeText={onChange}
+                        onChangeText={onChangeText}
                         onBlur={onBlur}
                         value={value}
                         style={inputStyle}

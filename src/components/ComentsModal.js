@@ -100,6 +100,7 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
         fontWeight: 'bold'
     }
 
+
     
     return (
         <>
@@ -143,7 +144,6 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                         errorValidationStyle = {styles.errorValidation}
                         inputStyle={styles.input}
                     />
-
                     <Text style={styles.text}>Calificación</Text>
                     <CustomRatingBar/>
                         <TextInputValue
@@ -156,8 +156,6 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                             errorValidationStyle = {styles.errorValidation}
                             inputStyle={styles.input}
                         />
-
-                        
                         <Text style={btnStyle} onPress={handleSubmit(_comentService)}>Guardar</Text>
                         
                     </View>

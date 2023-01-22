@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { updateProfile, updateImage } from "../services/AuthService";
-import UploadModal from "./UploadModal";
+
 
 export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     
@@ -20,8 +20,6 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
 
     const [user, setUser] = useState([]); 
     const [token, setToken] = useState([]);
-
-    const [ModalOpen, setModalOpen] = React.useState(false);
     
 
     const fetchUser = (url, config) => {

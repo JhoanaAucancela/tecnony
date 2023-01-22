@@ -86,6 +86,9 @@ const MyServices = () => {
         else if(estado === 4){
             return <Text style={styles.descripciontext}>Finalizado</Text>
         }
+        else if(estado === 5){
+            return <Text style={styles.descripciontext}>Pagado</Text>
+        }
         else {
             return <Text style={styles.descripciontext}>Comentado</Text>
         }
@@ -200,6 +203,14 @@ const MyServices = () => {
         else if(std === 4){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
+                    <Text style={styles.button}>Pendiente de pago</Text>
+                    
+                </View>
+            )
+        }
+        else if(std === 5){
+            return (
+                <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.button} onPress={() => ComentServicios((ID))}
                     >Calificar</Text>
                     <ComentsModal 
@@ -289,7 +300,7 @@ const MyServices = () => {
                                     
                                     <Text style={styles.descripcion}>Fecha: </Text>
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
-                                    <Text>  </Text>
+                                    <Text>{item.id}</Text>
                                     <View style = {{ alignItems: "center" }}>
                                         {Btn(item.state, item.id, item.payment_method)} 
                                     </View>

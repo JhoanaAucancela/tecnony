@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "tecnony",
+    "slug": "tecnony",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +9,12 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "extra": {
+        "eas": {
+          "projectId": "da044388-8e36-47d8-9cf0-76a0c1d64e2f"
+        }
+      }
     },
     "updates": {
       "fallbackToCacheTimeout": 0
