@@ -13,8 +13,6 @@ import ProfileStack from "./stacks/ProfileStack";
 import HomeStack from "./stacks/HomeStack";
 import MyServicesStack from "./stacks/MyServicesStack"
 
-import EditProfile from "../screens/EditProfile";
-
 
 const BottomTabs = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();

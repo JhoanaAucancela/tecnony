@@ -1,9 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Services from "../../screens/Services";
-import ViewServices from "../../screens/ViewServices";
-import Auxialiar from "../../screens/auxiliar";
-import FormService from "../../screens/FormService";
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const Stack = createNativeStackNavigator();
@@ -17,35 +14,6 @@ export default function ServicesStack(){
                     headerShown: false,
                  }}
             />
-
-            <Stack.Screen  name="ViewServices" component={ViewServices}
-                options={{ 
-                    title: "Detalles del servicio",
-                    headerTitleAlign: "center",
-                    headerStyle: styles.headerStyle,
-                    headerTintColor: styles.header.color,
-                    headerTitleStyle: {
-                        fontFamily: styles.header.fontFamily,
-                        
-                    }
-                }}
-            />
-            
-            <Stack.Screen  name="FormService" component={FormService}
-                options={{ 
-                    title: "Formulario de contratación",
-                    headerTitleAlign: "center",
-                    headerStyle: styles.headerStyle,
-                    headerTintColor: styles.header.color,
-                    headerTitleStyle: {
-                        fontFamily: styles.header.fontFamily,
-                        
-                    }
-                }}
-            />
-
-        
-
 
         </Stack.Navigator>
     )
