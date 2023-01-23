@@ -27,9 +27,9 @@ export default function Profile(props){
         try{
             await logout();
             await handleLoguot();
-            Toast.show("Cierre de sesion exitoso");
+            Toast.show("Cierre de sesión exitoso");
         }catch (e){
-            Toast.show("Cierre de sesion exitoso");
+            Toast.show("Cierre de sesión exitoso");
         }
     }
 
@@ -37,10 +37,9 @@ export default function Profile(props){
         <View style={styles.container}>
             {user &&
                 <View>
-                  
                     <View style={{ flexDirection:'row-reverse' }}>
                             <Text onPress={() => _logout()} style={styles.buttonlogout}>🔙 Cerrar sesión</Text>
-                        </View>
+                    </View>
                     <Text style={styles.titleX}>Mi Cuenta</Text>
                     
                     <View style={{ alignItems: 'center', marginTop:'5%' }}>
@@ -50,8 +49,7 @@ export default function Profile(props){
                             source={{ uri: user.avatar }}
                         />
                     </View>
-                    
-                    <View style={{ marginTop:'5%' }}>
+                    <View >
                         <Text style={styles.title}>Nombre de usuario:</Text>
                         <Text style={styles.text}>      {user.username}</Text>
 
@@ -93,6 +91,7 @@ export default function Profile(props){
 
                     </View>
                 </View>
+                
             }
         </View>
     );
@@ -104,7 +103,7 @@ const styles =  EStyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:'$authBg',
-        alignItems: 'center',
+        //alignItems: 'center',
     },
 
     buttonlogout: {

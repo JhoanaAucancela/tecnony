@@ -7061,6 +7061,11 @@ react-native-extended-stylesheet@^0.12.0:
     css-mediaquery "^0.1.2"
     object-resolve-path "^1.1.0"
 
+react-native-form-component@^2.6.8:
+  version "2.6.8"
+  resolved "https://registry.yarnpkg.com/react-native-form-component/-/react-native-form-component-2.6.8.tgz#ae45be93c08153b2a55117c2e1d0547b98ba8ef2"
+  integrity sha512-BDlCJCmKsMpGwrTdCKvt/fUp+vzWwJK8yuiBKQJt77Tf5W90VF1l+YY2JndzpAU/DuTbnII0LK4aGgl8CT+sxw==
+
 react-native-gesture-handler@~2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.8.0.tgz#ef9857871c10663c95a51546225b6e00cd4740cf"

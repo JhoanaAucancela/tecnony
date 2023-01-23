@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Icon, Input } from 'react-native-elements';
 
@@ -45,8 +45,6 @@ export default function ServicesInvitados (props) {
     }, []) 
 
     const verServicios = () => {
-        alert("Para contratar este servicio debes iniciar sesión")
-        props.navigation.navigate("LoginServ")
         
     }
 
@@ -119,9 +117,15 @@ export default function ServicesInvitados (props) {
                                     <Text>   </Text>
                              
                                    
-                                    <Text style={styles.button} onPress={() => verServicios()}>
+                                    <Text style={styles.button} onPress={() => Alert.alert('Tecnony', "Para acceder a este servicio inicia sesión", [
+                                                                            {text: 'OK', onPress: () => props.navigation.navigate("LoginServ")},
+                                                                            {text: 'Cancelar'}
+                                                                        ])}>
                                     <Icon
-                                        onPress={() => verServicios() }
+                                        onPress={() => Alert.alert('Tecnony', "Para acceder a este servicio inicia sesión", [
+                                            {text: 'OK', onPress: () => props.navigation.navigate("LoginServ")},
+                                            {text: 'Cancelar'}
+                                          ]) }
                                         name="cart"
                                         color='white'
                                         type = "ionicon" 
@@ -134,8 +138,6 @@ export default function ServicesInvitados (props) {
                     </View>
                 ))
             }
-                <Text> </Text>
-                <Text> </Text>
                 <Text> </Text>
 
             </ScrollView>

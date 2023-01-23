@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {Text, Modal, View, Button, ScrollView} from 'react-native';
+import {Text, Modal, View, Button, ScrollView, Alert } from 'react-native';
 import { Icon, Card } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
@@ -34,7 +34,9 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
         try {
             setLoading(true);
             const message = await contractService(data, ID);
-            alert(message);
+            Alert.alert('Tecnony', {message}, [
+                {text: 'OK'},
+              ]);
             setIsModalOpen(!setIsModalOpen);
             Toast.show(
                 message,

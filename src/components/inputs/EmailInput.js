@@ -19,7 +19,7 @@ export default function EmailInput({ name, control, errors, inputStyle, errorVal
                         onBlur={onBlur}
                         value={value} 
                         style={inputStyle}
-                        placeholderTextColor="black"
+                        placeholderTextColor="gray"
                         placeholder='E-mail'
                         leftIcon={
                             <Icon name='at' type='ionicon' size={24} color="black" />

@@ -2,18 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Icon, Input } from 'react-native-elements';
-import { ActivityLoader } from "../components/Shared";
 import ViewServiceModal from '../components/ViewServiceModal';
 
-
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
-
 
 
 export default function Services (props) {
 
     const [characters, setCharacters] = useState([]); //Hooks servicios
-    const [loading, setLoading] = useState(false); // Hooks Activity Loaders
     const [search, setSearch] = useState(""); //Hooks Busqueda
 
     const [isModalVSOpen, setIsModalVSOpen] = React.useState(false);
@@ -28,14 +24,11 @@ export default function Services (props) {
         }catch(e){
             setError(e.message);
             
-        }finally{
-            setLoading(false);
         }
             
         };
 
     useEffect(() => {
-        setLoading(true);
         fetchCharacters(baseURL);
     }, []) 
 
@@ -55,7 +48,6 @@ export default function Services (props) {
     
     return(
         <View style={styles.container}>
-            {loading == true ? <ActivityLoader /> : null}
             <Text style={styles.titleX}>Servicios</Text>
             
             <Input 

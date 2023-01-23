@@ -18,6 +18,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
 
 
     const fetchCharacters = (url, config) => {
+        setPost([]);
         fetch(url, config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
@@ -25,6 +26,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
       };
 
       const fetchAttention = (url, config) => {
+        setAttention([]);
         fetch(url, config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
@@ -32,19 +34,18 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
       };
 
       const fetchTecnico = (url, config) => {
+        setTecnico([]);
         fetch(url, config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.attended_by))
             .catch(error => console.log(error))
       };
 
+
       React.useEffect(() => {
         (async () => {
-            setPost([]);
-            setAttention([]);
-            setTecnico([]);
            const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
-           const config = {
+           const config = {  
                 headers:{
                     Authorization: `Bearer ${_token}`
                 }
@@ -104,6 +105,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                             <Card.Divider />
                             <View style={{ flexDirection: "row"}}>
                                 <View style={{ width:'100%'}}>
+                                    <Text>{ID}</Text>
                                     <Text style ={styles.descripcion}>Modelo: <Text style={styles.descripciontext}>{post.model}</Text></Text>
                                     
                                     <Text style ={styles.descripcion}>Dispositivo: <Text style={styles.descripciontext}>{post.device}</Text></Text>
@@ -123,11 +125,13 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                                 <View style={{ width:'100%'}}>
                                     <Text style ={styles.descripcion}>Diagnostico: <Text style={styles.descripciontext}>{attention.diagnosis}</Text></Text>
                                     
-                                    <Text style ={styles.descripcion}>Resolución: <Text style={styles.descripciontext}>{attention.incident_resolution}</Text></Text>
+                                    <Text style ={styles.descripcion}>Solución: <Text style={styles.descripciontext}>{attention.incident_resolution}</Text></Text>
                                     
+                                    <Text style ={styles.descripcion}>Garantia: <Text style={styles.descripciontext}>{attention.warranty}</Text></Text>
+
                                     <Text style ={styles.descripcion}>Repuestos: <Text style={styles.descripciontext}>{attention.spare_parts}</Text></Text>
 
-                                    <Text style ={styles.descripcion}>Garantia: <Text style={styles.descripciontext}>{attention.warranty}</Text></Text>
+                                    <Text style ={styles.descripcion}>Precio de repuestos: <Text style={styles.descripciontext}>{attention.price_spare_parts}</Text></Text>
                                     
                                     <Text style={styles.descripcion}>Precio Final: <Text style={styles.descripciontext}>{attention.final_price}</Text></Text>
                                                                         
@@ -139,18 +143,9 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>Datos del tecnico</Card.Title>
                             <Card.Divider />
-                                <View style={{ alignItems: 'center' }}>
-                                    <Avatar
-                                        rounded
-                                        size="medium"
-                                        source={{ uri: tecnico.avatar }}
-                                    />
-                                </View>
-                                    <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.first_name} {tecnico.last_name}</Text></Text>
-                                    <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnico.email}</Text></Text>
-                                    <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.personal_phone}</Text></Text>
-                                
-                             
+                                    <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
+                                    <Text style ={styles.descripcion}>Profesión: <Text style ={styles.descripciontext}>{tecnico.profession}</Text></Text>
+                                    <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
                         </Card>
                         
                     </View>

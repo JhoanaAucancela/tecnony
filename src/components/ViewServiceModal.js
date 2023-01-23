@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
-import {Text, Modal, View, Button, TouchableOpacity, Linking} from 'react-native';
+import React from 'react';
+import {Text, Modal, View, Linking} from 'react-native';
 import { Icon, Card, Image, Avatar } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
-
 import { ScrollView } from 'react-native-gesture-handler';
 import FormContractModal from '../components/FormContractModal';
 import FormContractModalE from '../components/FormContractModalE';
-
 
 
 const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
@@ -47,26 +45,16 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
               .catch(error => console.log(error))
         };
       
-
-
-
-      React.useEffect(() => {
+    React.useEffect(() => {
         setPost([]);
         setTecnico([]);
         setTecnicoData([]);
 
             (async () => {
-                setPost([]);
-                setTecnico([]);
-                setTecnicoData([]);
-
                 fetchCharacters(`${baseURL}/${ID}`)
                 fetchTecnico(`${baseURL}/${ID}`)
                 fetchTecnicoData(`${baseURL}/${ID}`)
-
-            })()
-
-          //  console.log(ID)      
+            })()    
     }, [estado]);
 
     

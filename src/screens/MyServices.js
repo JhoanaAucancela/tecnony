@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, Text, ScrollView, Modal} from 'react-native';
+import { View, Text, ScrollView, Modal, Alert} from 'react-native';
 import { Card, Image, Icon, Input, Button } from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -21,7 +21,7 @@ const MyServices = () => {
     const [search, setSearch] = React.useState(""); //Hooks Busqueda
     const [message, setMessage] = React.useState([]);
     const [token, setToken] = React.useState("");
-
+    const [stateFilter, setStateFilter]= React.useState("");
     const [std, setStd] = React.useState(false);
 
     //Capturar ID
@@ -48,16 +48,14 @@ const MyServices = () => {
         }catch(e){
             setError(e.message);
             
-        }
-            
+        }        
     };
     
-
     React.useEffect(() => {
         (async () => {
-            
             const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
             setToken(_token)
+           /// console.log(_token)
             const config = {
             headers:{
                 Authorization: `Bearer ${_token}`
@@ -68,6 +66,8 @@ const MyServices = () => {
         })();
         
     }, [std]);
+
+
 
     const Estado = (estado) =>{
         if(estado === 0){
@@ -159,7 +159,7 @@ const MyServices = () => {
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.BtnCancel} onPress={() => IDServicesCancel(ID)}>Cancelar</Text>
                     <Text> </Text>
-                    <Text style={styles.button} onPress={() => IDServicesEdit((ID))}
+                    <Text style={styles.BtnEdit} onPress={() => IDServicesEdit((ID))}
                     >Editar</Text>
                     <FormModal 
                         isModalOpen={isModalOpen} 
@@ -173,7 +173,11 @@ const MyServices = () => {
 
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.BtnCancel} onPress={() => alert("Para más información revise su correo electrónico")}>La solicitud ha sido rechazada</Text>
+                    <Text style={styles.BtnCancel} onPress={() => 
+                    Alert.alert('Tecnony', 'Para más información revise su correo electrónico', [
+                        {text: 'OK'},
+                      ])
+                }>La solicitud ha sido rechazada</Text>
                 </View>
             )
         }
@@ -188,7 +192,7 @@ const MyServices = () => {
         else if(std === 3){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                <Text style={styles.BtnRehabilitar} >El técnico esta atendiendo su solicitud</Text>
+                <Text style={styles.BtnRehabilitar} >El técnico está atendiendo su solicitud</Text>
                 </View>
             )
         }
@@ -204,7 +208,7 @@ const MyServices = () => {
         else if(std === 5){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.button} onPress={() => ComentServicios((ID))}
+                    <Text style={styles.BtnCalificar} onPress={() => ComentServicios((ID))}
                     >Calificar</Text>
                     <ComentsModal 
                         isModalOpen={isModalCOpen} 
@@ -241,8 +245,6 @@ const MyServices = () => {
 
     if(characters.length===0) return (
         <View style={styles.container}>
-            
-
         <Text style= {styles.titleX}>No hay servicios contratados</Text>
         </View>
     
@@ -250,11 +252,7 @@ const MyServices = () => {
 
         
     return(
-
-        
         <View style={styles.container}>
-            
-
             <Text style= {styles.titleX}>Servicios Contratados</Text>
             <Input 
                 type = "search"
@@ -268,6 +266,7 @@ const MyServices = () => {
                 }
                         
             />
+            
             <ScrollView>
             {
                 characters.filter((item) => item.device.toLowerCase().includes(search.toLowerCase())).map((item, index) => (
@@ -290,7 +289,7 @@ const MyServices = () => {
 
                                     <Text style={styles.descripcion}>Problema: </Text>
                                     <Text style={styles.descripciontext}>{item.description_problem}</Text>
-                                    
+                                       
                                     <Text style={styles.descripcion}>Fecha: </Text>
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
                                     <Text>{item.id}</Text>
@@ -307,12 +306,8 @@ const MyServices = () => {
                 <Text> </Text>
                 <Text> </Text>
                 <Text> </Text>
-
             </ScrollView>
-            
-        
     </View>  
-
     );
 };
 
@@ -393,6 +388,29 @@ const styles =  EStyleSheet.create({
         fontWeight: 'bold'
     },
 
+    BtnEdit: {
+        backgroundColor:'#273469', 
+        padding:'3%', 
+        paddingLeft:'7%',
+        paddingRight:'7%',
+        textAlign: 'center', 
+        borderRadius: 15, 
+        color:"$white", 
+        fontWeight: 'bold'
+    },
+
+    BtnCalificar: {
+        backgroundColor:'#129989', 
+        padding:'3%', 
+        paddingLeft:'7%',
+        paddingRight:'7%',
+        textAlign: 'center', 
+        borderRadius: 15, 
+        color:"$white", 
+        fontWeight: 'bold'
+    },
+
+    
     buttonTitle: {
         fontFamily: '$400Regular',
         color:"$white",

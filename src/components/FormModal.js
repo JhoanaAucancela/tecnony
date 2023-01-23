@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
-import {Text, Modal, View, Button, ScrollView} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {Text, Modal, View, ScrollView, Alert} from 'react-native';
 import { Icon } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { set, useForm } from "react-hook-form";
-import { TextInput, TextAreaInput, TextInputValue2 } from "../components/inputs";
 import { updateService } from "../services/AuthService";
 import styles from "../styles/auth";
-import {Picker} from '@react-native-picker/picker';
+import { Picker, Form, FormItem } from 'react-native-form-component';
 
 
 export default function FormModal({isModalOpen, setIsModalOpen, ID}){
@@ -16,26 +15,19 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
     const [loading, setLoading] = useState(false);
     const { control, handleSubmit, formState: { errors }} = useForm();
      ////////////////////////
-     const [selectedPago, setSelectedPago] = useState(0);
-     const [confirmation, setConfirmation] = useState("No se ha confirmado el tipo de pago");
-     const [newName, setNewName] = useState("");
-     const [newName1, setNewName1] = useState("");
-     const pickerRef = React.useRef();
-     //////////////////////////
-
-
-    const _updateService = async (data) => {
+     
+    const _updateService = async () => {
         try {
             setLoading(true);
-            const message = await updateService(data, ID);
-            setIsModalOpen(!isModalOpen);
+            const message = await updateService(form, ID);
             alert(message)
+            setIsModalOpen(!isModalOpen);
             Toast.show(
                 message,
                 {
                 }
-            
             )
+
         } catch (e) {
             setError(e.message);
         }finally{
@@ -64,70 +56,21 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
         elevation: 5,
     }
 
-    const btnStyle ={
-        backgroundColor:'#3F88C5', 
-        padding:'3%', 
-        paddingLeft:'7%',
-        paddingRight:'7%',
-        textAlign: 'center', 
-        borderRadius: 15, 
-        color:"$white", 
-        fontWeight: 'bold'
-    } 
 
-    const Efectivo = () =>{
-        setNewName("payment_method");
-        setNewName1(" ");
-        setConfirmation("Confirmación pago: Efectivo")
-    }
+    const device = useRef();
+    const model = useRef();
+    const brand = useRef();
+    const serie = useRef();
+    const description_problem = useRef();
 
-    const Deposito = () =>{
-        setNewName1("payment_method");
-        setNewName(" ");
-        setConfirmation("Confirmación pago: Depósito")
-    }
-
-    const slcPago  = (arg) =>{      
-
-        if(arg === 1){
-            return(
-                <View>
-                    <Text>Confirmar Pago</Text>
-                    <Text style={btnStyle} onPress={() => Efectivo()}>Efectivo</Text>
-                    <Text style={styles.text}>{confirmation}</Text>
-                    <TextInputValue2
-                            value="1"
-                            name={newName}
-                            placeholder="Deposito"
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.inputVisible}
-                    />
-                </View>   
-            )
-        }
-        else if(arg === 2){
-            
-            return(
-                <View>
-                    <Text style={styles.text}>Confirmar Pago</Text>
-                    <Text style={btnStyle} onPress={() => Deposito()}>Deposito</Text>
-                    <Text style={styles.text}>{confirmation}</Text>
-                    <TextInputValue2
-                            value="2"
-                            name={newName1}
-                            placeholder="Deposito"
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.inputVisible}
-                        />
-                </View>   
-            )
-            
-        }
-    }
+    const [form, setForm] = useState({
+        device: "",
+        model: "",
+        brand: "",
+        serie: "",
+        description_problem: "",
+        payment_method: 1
+    });
 
     
     return (
@@ -145,92 +88,93 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
                         <Text h2 style={ styles.title }>Editar el servicio</Text>
-                        <Text>{ID}</Text>
                         <ErrorText error={error} />
-                        <Text style={styles.text}>Dispositivo</Text>
-                        <TextInput
-                            name="device"
-                            //required={false}
-                            minLength={2}
-                            maxLength={30}
-                            iconName="cube"
-                            placeholder="Ej. Computadora"
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.input}
-                        />
 
-                        <Text style={styles.text}>Modelo</Text>
-                        <TextInput
-                            name="model"
-                            //required={false}
-                            minLength={2}
-                            maxLength={30}
-                            iconName="phone-portrait"
-                            placeholder="Ej. HP-500"
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.input}
-                        />
+                        <Form onButtonPress={handleSubmit(_updateService)}  buttonStyle={styles.button} buttonText="Guardar Cambios">
+                        <FormItem
+                                label="Dispositivo"
+                                labelStyle={styles.text}
+                                isRequired
+                                placeholder="Ej. Computadora"
+                                textInputStyle={styles.input}
+                                value={form.device}
+                                onChangeText={(value) => setForm({...form, device: value})}
+                                asterik
+                                ref={device} 
+                                children = {<Icon name="cube" type='ionicon' size={24} color="black" />}
+                            />
+                            
+                            <FormItem
+                                label="Modelo"
+                                labelStyle={styles.text}
+                                isRequired
+                                placeholder="Ej. HP-500"
+                                textInputStyle={styles.input}
+                                value={form.model}
+                                onChangeText={(value) => setForm({...form, model: value})}
+                                asterik
+                                ref={model} 
+                                children = {<Icon name="phone-portrait" type='ionicon' size={24} color="black" />}
+                            />
 
-                        <Text style={styles.text}>Marca</Text>
-                        <TextInput
-                            name="brand"
-                            //required={false}
-                            minLength={2}
-                            maxLength={30}
-                            iconName="logo-closed-captioning"
-                            placeholder="Ej. HP"
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.input}
-                        />
+                        <FormItem
+                                label="Marca:"
+                                labelStyle={styles.text}
+                                isRequired
+                                placeholder="Ej. HP"
+                                textInputStyle={styles.input}
+                                value={form.brand}
+                                onChangeText={(value) => setForm({...form, brand: value})}
+                                asterik
+                                ref={brand} 
+                                children = {<Icon name="logo-closed-captioning" type='ionicon' size={24} color="black" />}
+                            />
+                       
 
-                        <Text style={styles.text}>Serie</Text>
-                        <TextInput
-                            name="serie"
-                            required={false}
-                            minLength={2}
-                            maxLength={30}
-                            iconName="barcode"
-                            placeholder="Ej. HSO12355 (Opcional)"
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.input}
-                        />
+                        <FormItem
+                                label="Serie:"
+                                labelStyle={styles.text}
+                                placeholder="Ej. HSO12355 (Opcional)"
+                                notRequired
+                                textInputStyle={styles.input}
+                                value={form.serie}
+                                onChangeText={(value) => setForm({...form, serie: value})}
+                                ref={serie} 
+                                children = {<Icon name="barcode" type='ionicon' size={24} color="black" />}
+                            />
 
-                        <Text style={styles.text}>Descripcion del problema</Text>
-                        <TextAreaInput
-                            name="description_problem"
-                            //required={false}
-                            minLength={2}
-                            maxLength={530}
-                            iconName="create"
-                            placeholder="Ej. La pantalla esta rota"
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.input}
-                        />
-                        <Text style={styles.text}>Método de pago</Text>
+                        <FormItem
+                                label="Descripción del problema:"
+                                labelStyle={styles.text}
+                                isRequired
+                                textArea = {true}
+                                placeholder="Ej. La pantalla esta rota"
+                                textInputStyle={styles.input}
+                                value={form.description_problem}
+                                onChangeText={(value) => setForm({...form, description_problem: value})}
+                                asterik
+                                ref={description_problem} 
+                                children = {<Icon name="create" type='ionicon' size={24} color="black" />}
+                            />
+
                         <Picker
-                            style={styles.input}
-                            ref={pickerRef}
-                            selectedValue={selectedPago}
-                            onValueChange={(itemValue, itemIndex) => setSelectedPago(itemValue)}>
-                            <Picker.Item label="---" value={0}/>
-                            <Picker.Item label="Efectivo" value={1}/>
-                            <Picker.Item label="Depósito" value={2}/>
-                        </Picker>
-                        {slcPago(selectedPago)}
-                        <Text style={btnStyle} onPress={handleSubmit(_updateService)}>Guardar</Text>
+                            items={[
+                            { label: 'Efectivo', value: 1 },
+                            { label: 'Deposito', value: 2 },
+                            ]}
+                            label="Método de pago"
+                            itemLabelStyle={styles.text}
+                            type="modal"
+                            //selectedValueStyle={styles.input}
+                            isRequired
+                            selectedValue={form.payment_method}
+                            asterik
+                            onSelection={(item) => setForm({...form, payment_method: item.value})}
+                            
+                        />
                         
-                        <Text> </Text>
-                        <Text> </Text>
+                        </Form>
+
                         
                     </ScrollView>
                 </View>

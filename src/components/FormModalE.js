@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, Modal, View, Button, ScrollView} from 'react-native';
+import {Text, Modal, View, Button, ScrollView, Alert} from 'react-native';
 import { Icon } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "./Shared";
@@ -26,7 +26,9 @@ export default function FormModalE({isModalOpen, setIsModalOpen, ID}){
             setLoading(true);
             const message = await updateService(data, ID);
             setIsModalOpen(!isModalOpen);
-            alert(message)
+            Alert.alert('Tecnony', {message}, [
+                {text: 'OK'},
+              ])
             Toast.show(
                 message,
                 {
