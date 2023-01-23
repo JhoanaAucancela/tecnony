@@ -292,7 +292,7 @@ const MyServices = () => {
                                        
                                     <Text style={styles.descripcion}>Fecha: </Text>
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
-                                    <Text>{item.id}</Text>
+                                    <Text>  </Text>
                                     <View style = {{ alignItems: "center" }}>
                                         {Btn(item.state, item.id)} 
                                     </View>

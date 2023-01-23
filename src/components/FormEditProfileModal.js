@@ -1,27 +1,28 @@
-import React, {useState, useEffect, useRef, Component} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { ScrollView, View, Text, Modal } from 'react-native';
-import { Avatar, Icon, Image, Input } from "react-native-elements";
+import { Avatar, Icon } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
-import { TextInputValueChange } from "../components/inputs";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
-import { updateProfile, updateImage } from "../services/AuthService";
+import { updateProfile } from "../services/AuthService";
 import { Form, FormItem } from 'react-native-form-component';
 
+import ModalUpdateImage from "./ModalUpdateImage";
 
 export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     
     const url = "https://tecnony-v1.herokuapp.com/api/v1/profile";
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false); 
     const { control, handleSubmit, formState: { errors }} = useForm();
 
     const [user, setUser] = useState([]); 
     const [token, setToken] = useState([]);
     
+    const [isModalOpenU, setIsModalOpenU] = React.useState(false);
 
     const fetchUser = (url, config) => {
         try{
@@ -117,6 +118,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     const personal_phone = useRef();
     const address = useRef();
 
+
     return (
         <>
             <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
@@ -140,7 +142,19 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                             roundeds
                             size='xlarge'
                             source={{ uri: user.avatar }}
-                        />    
+                        /> 
+                        <Text
+                                onPress={() => setIsModalOpenU(!isModalOpenU)}
+                                style={styles.button}
+                            >
+                            Cambiar foto
+                            </Text>
+
+                            <ModalUpdateImage
+                                isModalOpen={isModalOpenU} 
+                                setIsModalOpen={setIsModalOpenU}
+                            />
+                        
                     </View>
                     
 
@@ -155,6 +169,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                                 onChangeText={(value) => setForm({...form, username: value})}
                                 asterik
                                 ref={username} 
+                                children = {<Icon name="person-circle-outline" type='ionicon' size={24} color="black" />}
                             />
 
                         <FormItem
@@ -165,6 +180,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                                 onChangeText={(value) => setForm({...form, first_name: value})}
                                 asterik
                                 ref={first_name} 
+                                children = {<Icon name="person" type='ionicon' size={24} color="black" />}
                             />
 
                             <FormItem
@@ -175,24 +191,27 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                                 onChangeText={(value) => setForm({...form, last_name: value})}
                                 asterik
                                 ref={last_name} 
+                                children = {<Icon name="person" type='ionicon' size={24} color="black" />}
                             />
 
                         <FormItem
                                 label="Cédula:"
+                                keyboardType="phone-pad"
                                 notRequired
                                 textInputStyle={styles.input}
                                 value={form.cedula}
                                 onChangeText={(value) => setForm({...form, cedula: value})}
-                               
+                                children = {<Icon name="card-outline" type='ionicon' size={24} color="black" />}
                                 ref={cedula} 
                             />
                             <FormItem
                                 label="Teléfono:"
                                 notRequired
                                 textInputStyle={styles.input}
+                                keyboardType="phone-pad"
                                 value={form.home_phone}
                                 onChangeText={(value) => setForm({...form, home_phone: value})}
-                                
+                                children = {<Icon name="call-outline" type='ionicon' size={24} color="black" />}
                                 ref={home_phone} 
                             />
 
@@ -200,9 +219,11 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                                 label="Celular:"
                                 isRequired
                                 textInputStyle={styles.input}
+                                keyboardType="phone-pad"
                                 value={form.personal_phone}
                                 onChangeText={(value) => setForm({...form, personal_phone: value})}
                                 asterik
+                                children = {<Icon name="phone-portrait-outline" type='ionicon' size={24} color="black" />}
                                 ref={personal_phone} 
                             />
 
@@ -213,6 +234,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                                 value={form.address}
                                 onChangeText={(value) => setForm({...form, address: value})}
                                 asterik
+                                children = {<Icon name="map-outline" type='ionicon' size={24} color="black" />}
                                 ref={address} 
                             />
                         </Form>
