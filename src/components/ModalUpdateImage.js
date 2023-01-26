@@ -59,7 +59,11 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
     try {
         setLoading(true);
         const data = new FormData();
-        data.append('image', image);
+        data.append('image', {
+            name: 'image.jpeg',
+            type: 'image/jpeg',
+            uri: image
+          }, "image.jpeg");
         const message = await updateImage(data)
         Toast.show(
             message,
