@@ -60,7 +60,6 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
         setLoading(true);
         const data = new FormData();
         data.append('image', image);
-        //console.log("Esto -> ",data._parts[0][1])
         const message = await updateImage(data)
         Toast.show(
             message,
@@ -70,7 +69,6 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
     } catch (e) {
         setError(e.message);
         console.log(e.message);
-        //alert(e.message);
     }finally{
         setLoading(false);
     }

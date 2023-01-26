@@ -41,10 +41,9 @@ export async function updateProfile (data) {
 
 export async function updateImage (data) {
 console.log("***",data)
-console.log("60873e5b-0315-4e6b-83e6-ecab15b11968.jpeg")
     try{
    
-        let res = await axios.post("profile/avatar",{image:"file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540jhoana6413%252FTecnony/ImagePicker/ad8c28fb-2ee9-4f50-ac4d-dc6fe99ea5d1.jpeg"},{
+        let res = await axios.post("profile/avatar",data,{
             headers: {
                 'Content-Type': 'multipart/form-data',
               } 
