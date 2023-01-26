@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import React, {useState, useEffect, useRef, Component} from "react";
-import { ScrollView, View, Text, Modal, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Modal, Button, TouchableOpacity } from 'react-native';
 import { Avatar, Icon, Image} from "react-native-elements";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-root-toast";
@@ -29,6 +29,7 @@ const modalStyle = {
 }
 
 
+
 export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
     
     const [error, setError] = useState(null);
@@ -39,13 +40,13 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
     const pickImage = async () => {
       // No permissions request is necessary for launching the image library
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
         type:'image',
       });
-  
+      
       console.log(result); 
   
       if (!result.canceled) {
@@ -54,14 +55,13 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
     };
 
   const handleUploadPhoto = async () => {
-      try {
+
+    try {
         setLoading(true);
-        const file = await fetch(image)
-        const blob = await file.blob()
-        const message = await updateImage(blob);
-        console.log(message)
-        alert(message);
-        console.log(e.message)
+        const data = new FormData();
+        data.append('image', image);
+        //console.log("Esto -> ",data._parts[0][1])
+        const message = await updateImage(data)
         Toast.show(
             message,
             {
@@ -69,7 +69,8 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
         )
     } catch (e) {
         setError(e.message);
-        alert(e.message);
+        console.log(e.message);
+        //alert(e.message);
     }finally{
         setLoading(false);
     }
@@ -91,6 +92,7 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
                     />
                     <ErrorText error={error} />
                 <Button title="Seleccionar Foto" onPress={pickImage} />
+            
                         {image && <View>
                             <Text>  </Text>
                             
