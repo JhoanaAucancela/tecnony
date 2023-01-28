@@ -9,10 +9,10 @@ import { logout } from "../services/AuthService";
 import Toast from "react-native-root-toast";
 import FormEditProfileModal from "../components/FormEditProfileModal";
 
-export default function Profile(props){
+export default function Profile(){
 
     const [isModalOpen, setIsModalOpen] = React.useState(false);
-    const [user, setUser] =useState([]);
+    const [user, setUser] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -20,7 +20,7 @@ export default function Profile(props){
            setUser(JSON.parse(_user)); 
         })();
     }, []);
-
+ 
     const {handleLoguot} = useAuth();
 
     const _logout = async () => {

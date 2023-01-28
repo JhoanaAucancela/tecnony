@@ -38,7 +38,6 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
     const { control, handleSubmit, formState: { errors }} = useForm();
 
     const pickImage = async () => {
-      // No permissions request is necessary for launching the image library
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
@@ -46,8 +45,6 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
         quality: 1,
         type:'image',
       });
-      
-      console.log(result); 
   
       if (!result.canceled) {
         setImage(result.assets[0].uri);
@@ -65,6 +62,7 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
             uri: image
           }, "image.jpeg");
         const message = await updateImage(data)
+        setIsModalOpen(!setIsModalOpen)
         Toast.show(
             message,
             {
@@ -72,7 +70,6 @@ export default function ModalUpdateImage ({isModalOpen, setIsModalOpen}) {
         )
     } catch (e) {
         setError(e.message);
-        console.log(e.message);
     }finally{
         setLoading(false);
     }

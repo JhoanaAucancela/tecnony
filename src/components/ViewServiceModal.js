@@ -7,11 +7,12 @@ import FormContractModal from '../components/FormContractModal';
 import FormContractModalE from '../components/FormContractModalE';
 
 
-const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
+
 
 export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estado}){
     
     ///////////
+    const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
     const [post, setPost] = React.useState([]); // Datos del servicio
     const [tecnico, setTecnico] = React.useState([]); //Datos del tecnico
     const [tecnicoData, setTecnicoData] = React.useState([]); //Datos del tecnico
@@ -21,16 +22,16 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
 
     const fetchCharacters = (url) => {
+        setPost([]);
         fetch(url)
-       
             .then(response => response.json())
             .then(data => setPost(data.data.service))
             .catch(error => console.log(error))
       };
 
       const fetchTecnico = (url) => {
-      fetch(url)
-           
+        setTecnico([]);
+        fetch(url)
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
             .catch(error => console.log(error))
@@ -38,24 +39,18 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
 
       const fetchTecnicoData = (url) => {
+        setTecnicoData([]);
         fetch(url)
-             
               .then(response => response.json())
               .then(data => setTecnicoData(data.data.datos_tecnico))
               .catch(error => console.log(error))
         };
       
     React.useEffect(() => {
-        setPost([]);
-        setTecnico([]);
-        setTecnicoData([]);
-
-            (async () => {
-                fetchCharacters(`${baseURL}/${ID}`)
-                fetchTecnico(`${baseURL}/${ID}`)
-                fetchTecnicoData(`${baseURL}/${ID}`)
-            })()    
-    }, [estado]);
+        fetchCharacters(`${baseURL}/${ID}`)
+        fetchTecnico(`${baseURL}/${ID}`)
+        fetchTecnicoData(`${baseURL}/${ID}`)   
+    }, [isModalOpen]);
 
     
     ///////////

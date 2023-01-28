@@ -7,11 +7,11 @@ import * as SecureStore from "expo-secure-store";
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/hiring/show";
+
 
 export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado}){
     
-    ///////////
+    const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/hiring/show";
     const [post, setPost] = React.useState([]); // Datos del contrato
     const [attention, setAttention] = React.useState([]); // Datos del diagnostico
     const [tecnico, setTecnico] = React.useState([]); //Datos del tecnico
@@ -20,6 +20,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
 
 
     const fetchCharacters = (url, config) => {// Datos del contrato
+        setPost([]);
         fetch(url, config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
@@ -27,6 +28,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
       };
 
       const fetchAttention = (url, config) => {// Datos del diagnostico
+        setAttention([]);
         fetch(url, config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
@@ -34,6 +36,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
       };
 
       const fetchTecnico = (url, config) => {//Datos del tecnico
+        setTecnico([]);
         fetch(url, config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
@@ -42,6 +45,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
 
 
       const fetchService = (url, config) => { //Datos del servicio
+        setServicio([]);
         fetch(url, config)
             .then(response => response.json())
             .then(data => setServicio(data.data.of_service))
@@ -51,12 +55,6 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
       
 
       React.useEffect(() => {
-
-        setPost([]);
-        setAttention([]);
-        setTecnico([]);
-        setServicio([]);
-
         (async () => {
            const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
            const config = {
@@ -68,11 +66,19 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
         fetchAttention(`${baseURL}/${ID}`,config)
         fetchTecnico(`${baseURL}/${ID}`,config)
         fetchService(`${baseURL}/${ID}`,config)
-
-
         })();
-    }, [estado]);
+    }, [isModalOpen]);
     ///////////
+
+    function cargar(){
+        if(post.length === 0){
+            return(
+                <View style = {modalStyle}>
+                    <Text style= {styles.titleX}>Cargando...</Text>
+                </View>       
+            )
+        }
+    }
 
     const modalContainerStyle ={
         flex: 1,
@@ -110,7 +116,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
                         
-
+                        {cargar()}
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>Datos del Dispositivo</Card.Title>
                             <Image

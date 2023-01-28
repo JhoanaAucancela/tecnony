@@ -10,11 +10,12 @@ import FormModal from '../components/FormModal';
 import ComentsModal from '../components/ComentsModal';
 import ViewComentsModal from '../components/ViewComentsModal';
 import ViewMoreModal from '../components/ViewMoreModal';
+import { Picker } from 'react-native-form-component';
 
 const MyServices = () => {
 
     
-  const url = "https://tecnony-v1.herokuapp.com/api/v1/hiring/show";
+    const url = "https://tecnony-v1.herokuapp.com/api/v1/hiring/show";
     
     const [characters, setCharacters] = React.useState([]);
     const [error, setError] = React.useState([]);
@@ -119,8 +120,7 @@ const MyServices = () => {
             .catch(error => console.log(error))
             setStd(true);
             Toast.show( 
-                "Acción Exitosa",{} 
-            
+                message,{}
             )
 
         }catch(e){
@@ -216,7 +216,7 @@ const MyServices = () => {
                         ID={numCService}
                     
                     />
-                    <Text> </Text>
+                    <Text> </Text> 
                     <Text style={styles.button} onPress={() => verServiciosC((ID))}>Ver más</Text>
                     <ViewComentsModal 
                         isModalOpen={isModalVOpen} 
@@ -243,33 +243,47 @@ const MyServices = () => {
         }
     }
 
-    if(characters.length===0) return (
-        <View style={styles.container}>
-        <Text style= {styles.titleX}>No hay servicios contratados</Text>
-        </View>
     
-    )
-
-        
+    function cargar(){
+        if(characters.length===0) return (
+            <View style={styles.container}>
+            <Text style= {styles.titleX}>Cargando...</Text>
+            </View>
+        )
+        else if (characters===[]){
+            <View style={styles.container}>
+            <Text style= {styles.titleX}>No hay servicios contratados</Text>
+            </View>
+        }
+    
+    }
     return(
         <View style={styles.container}>
             <Text style= {styles.titleX}>Servicios Contratados</Text>
-            <Input 
-                type = "search"
-                value = {search}
-                onChangeText={(value) => setSearch(value)}
-                style={styles.input}
-                placeholder="Dispositivo"
-                placeholderTextColor="gray"
-                leftIcon={
-                    <Icon name="search" type='ionicon' size={24} color="black" />
-                }
-                        
+
+            <Picker
+                            items={[
+                            { label: 'Todos', value: "" },
+                            { label: 'Pendientes  ', value: "0" },
+                            { label: 'Rechazados  ', value: "1" },
+                            { label: 'Cancelados  ', value: "2" },
+                            { label: 'En Curso    ', value: "3" },
+                            { label: 'Por Pagar   ', value: "4" },
+                            { label: 'Por Calificar', value: "5" },
+                            { label: 'Finalizados', value: "6" },
+                            ]}
+                            label=" "
+                            itemLabelStyle={styles.text}
+                            type="dropdown"
+                            pickerIcon= {<Icon name="caret-down-outline" type="ionicon"size= {20}color= "black"/>}
+                            selectedValueStyle={styles.input}
+                            selectedValue={search}
+                            onSelection={(item) =>  setSearch(item.value)} 
             />
-            
+            {cargar()}
             <ScrollView>
             {
-                characters.filter((item) => item.device.toLowerCase().includes(search.toLowerCase())).map((item, index) => (
+                characters.filter((item) => item.state.toString().includes(search.toString())).map((item, index) =>  (
                     <View key={index} >
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>{item.device}</Card.Title>
@@ -414,6 +428,19 @@ const styles =  EStyleSheet.create({
     buttonTitle: {
         fontFamily: '$400Regular',
         color:"$white",
+    },
+
+    input: {
+        fontFamily: '$400Regular',
+        color:'$black',
+        fontWeight:'bold,',
+        padding: 10,
+        width: '80%',
+        height: 40,
+        marginTop: 10,
+        borderRadius: 15,
+        backgroundColor:'#F5F9FF',
+        borderColor: 'transparent',
     },
     /*Estilo Modal*/
     modalContainerStyle: {

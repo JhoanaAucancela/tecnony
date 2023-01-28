@@ -7,10 +7,11 @@ import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 
 
-const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form";
+
 export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estado}){
     
     ///////////
+    const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form";
     const [post, setPost] = React.useState([]);
     const [attention, setAttention] = React.useState([]);
     const [tecnico, setTecnico] = React.useState([]);
@@ -54,7 +55,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
             fetchAttention(`${baseURL}/${ID}`,config)
             fetchTecnico(`${baseURL}/${ID}`,config)
         })();
-    }, [estado]);
+    }, [isModalOpen]);
     ///////////
 
     const modalContainerStyle ={
@@ -77,10 +78,16 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
         shadowRadius: 4,
         elevation: 5,
     }
+    function cargar(){
+        if(post.length === 0){
+            return(
+                <View style = {modalStyle}>
+                    <Text style= {styles.titleX}>Cargando...</Text>
+                </View>       
+            )
+        }
+    }
 
-
-
-    
     return (
         <>
             <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
@@ -95,7 +102,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                         style={{ marginTop: 2, marginRight: 100 }}
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
-                        
+                        {cargar()}
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>Datos del Dispositivo</Card.Title>
                             <Image

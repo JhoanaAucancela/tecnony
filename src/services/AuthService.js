@@ -33,6 +33,7 @@ export async function signup (data) {
 export async function updateProfile (data) {
     try{
         let res = await axios.post("profile",data);
+       // await setItemAsync(USER_KEY, JSON.stringify(data));
         return res.data.message;
     }catch(e){
         throw errorHandler(e);
@@ -40,7 +41,6 @@ export async function updateProfile (data) {
 }
 
 export async function updateImage (data) {
-console.log("***",data)
     try{
    
         let res = await axios.post("profile/avatar",data,{
@@ -48,6 +48,7 @@ console.log("***",data)
                 'Content-Type': 'multipart/form-data',
               } 
           });
+          
         return res.data.message;
     }catch(e){
         throw errorHandler(e);
@@ -56,7 +57,11 @@ console.log("***",data)
  
 export async function logout () {
     try{
-        let res = await axios.post("logout");
+        let res = await axios.post("logout",{
+            headers: {
+                'Authorization': `Bearer ${USER_TOKEN_KEY}`
+              }
+        });
         await deleteItemAsync(USER_TOKEN_KEY);
         await deleteItemAsync(USER_KEY);
         return res.data;

@@ -165,12 +165,12 @@ export default function FormModal({isModalOpen, setIsModalOpen, ID}){
                             label="Método de pago"
                             itemLabelStyle={styles.text}
                             type="modal"
-                            //selectedValueStyle={styles.input}
+                            pickerIcon= {<Icon name="caret-down-outline" type="ionicon"size= {20}color= "black"/>}
+                            selectedValueStyle={styles.inputpicker}
                             isRequired
                             selectedValue={form.payment_method}
                             asterik
                             onSelection={(item) => setForm({...form, payment_method: item.value})}
-                            
                         />
                         
                         </Form>

@@ -4,11 +4,12 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Icon, Input } from 'react-native-elements';
 import ViewServiceModal from '../components/ViewServiceModal';
 
-const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
 
-export default function Services (props) {
 
+export default function Services () {
+
+    const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
     const [characters, setCharacters] = useState([]); //Hooks servicios
     const [search, setSearch] = useState(""); //Hooks Busqueda
 

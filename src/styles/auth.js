@@ -62,6 +62,19 @@ const styles = EStyleSheet.create({
         borderColor: 'transparent',
     },
 
+    inputpicker: {
+        fontFamily: '$400Regular',
+        color:'$black',
+        fontWeight:'bold,',
+        padding: 10,
+        width: '80%',
+        height: 40,
+        marginTop: 10,
+        borderRadius: 15,
+        backgroundColor:'#F5F9FF',
+        borderColor: 'transparent',
+    },
+
     inputVisible: {
         color:'transparent',
         backgroundColor:'transparent',
