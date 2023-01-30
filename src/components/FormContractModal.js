@@ -17,10 +17,10 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
     const { control, handleSubmit, formState: { errors }} = useForm();
 
 
-    const _contractService = async (data) => {
+    const _contractService = async () => {
         try {
             setLoading(true);
-            const message = await contractService(data, ID);
+            const message = await contractService(form, ID);
             Alert.alert('Tecnony', {message}, [
                 {text: 'OK'},
               ]);
@@ -31,7 +31,8 @@ export default function FormContractModal({isModalOpen, setIsModalOpen, ID}){
                 }
             )
         } catch (e) {
-            setError(message);
+         
+            setError(e.message);
         }finally{
             setLoading(false);
             

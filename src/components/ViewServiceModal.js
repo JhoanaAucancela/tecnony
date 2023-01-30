@@ -23,7 +23,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
         fetch(url)
             .then(response => response.json())
             .then(data => setPost(data.data.service))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewServiceModal post: ",error))
       };
 
       const fetchTecnico = (url) => {
@@ -31,7 +31,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
         fetch(url)
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewServiceModal tecnico: ",error))
       };
 
 
@@ -40,13 +40,17 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
         fetch(url)
               .then(response => response.json())
               .then(data => setTecnicoData(data.data.datos_tecnico))
-              .catch(error => console.log(error))
+              .catch(error => console.log("ViewServiceModal tecnicoData: ",error))
         };
       
     React.useEffect(() => {
-        fetchCharacters(`${baseURL}/${ID}`)
-        fetchTecnico(`${baseURL}/${ID}`)
-        fetchTecnicoData(`${baseURL}/${ID}`)   
+        if(isModalOpen){
+            (async () => {
+                fetchCharacters(`${baseURL}/${ID}`)
+                fetchTecnico(`${baseURL}/${ID}`)
+                fetchTecnicoData(`${baseURL}/${ID}`)  
+             })();
+        } 
     }, [isModalOpen]);
 
     
@@ -61,31 +65,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
             )
         }
     }
-/*
-    if(post.length === 0){
-        return(
-            <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
-                
-                <View style = {modalContainerStyle}>
-                    
-                    <ScrollView style = {modalStyle}>
-                    <Icon
-                        name="close"
-                        type="ionicon"
-                        size= {30}
-                        color= "black"
-                        style={{ marginTop: 2, marginRight: 100 }}
-                        onPress={() => setIsModalOpen(!setIsModalOpen)}
-                    />
-                       
-                       <Text style= {styles.titleX}>Cargando...</Text>
-                        
-                    </ScrollView>
-                </View>
-            </Modal>
-        )
-    }*/
-    ///////////
+
 
     const Local = () => {
         if(post.attention_mode === 1){
@@ -271,8 +251,6 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                             />
                         </View>
                             
-
-                        
                         <Text> </Text>
                         <Text> </Text>
                         <Text> </Text>
@@ -305,6 +283,7 @@ const styles =  EStyleSheet.create({
         fontFamily: '$700Bold',
         fontSize: 24,
         color:'$primary',
+        textAlign:'center'
     },
     descripcion:{
         fontFamily:'$700Bold',

@@ -29,9 +29,7 @@ export default function FormContractModalE({isModalOpen, setIsModalOpen, ID}){
         try {
             setLoading(true);
             const message = await contractService(data, ID);
-            Alert.alert('Tecnony', {message}, [
-                {text: 'OK'},
-              ])
+            alert(message)
             setIsModalOpen(!setIsModalOpen)
             Toast.show(
                 message,
@@ -39,7 +37,7 @@ export default function FormContractModalE({isModalOpen, setIsModalOpen, ID}){
                 }
             )
         } catch (e) {
-            setError(message);
+            setError(e.message);
         }finally{
             setLoading(false);
             

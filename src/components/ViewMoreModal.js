@@ -21,7 +21,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
         fetch(url, config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewMoreModal post: ",error))
       };
 
       const fetchAttention = (url, config) => {// Datos del diagnostico
@@ -29,7 +29,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
         fetch(url, config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewMoreModal attention: ",error))
       };
 
       const fetchTecnico = (url, config) => {//Datos del tecnico
@@ -37,7 +37,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
         fetch(url, config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewMoreModal tecnico: ",error))
       };
 
 
@@ -46,24 +46,27 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
         fetch(url, config)
             .then(response => response.json())
             .then(data => setServicio(data.data.of_service))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewMoreModal Servicio: ",error))
       };
 
       
 
       React.useEffect(() => {
-        (async () => {
-           const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
-           const config = {
-            headers:{
-                Authorization: `Bearer ${_token}`
-            }
-        };
-        fetchCharacters(`${baseURL}/${ID}`,config)
-        fetchAttention(`${baseURL}/${ID}`,config)
-        fetchTecnico(`${baseURL}/${ID}`,config)
-        fetchService(`${baseURL}/${ID}`,config)
-        })();
+        if(isModalOpen){
+            (async () => {
+                const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
+                const config = {
+                 headers:{
+                     Authorization: `Bearer ${_token}`
+                 }
+             };
+             fetchCharacters(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`,config)
+             fetchAttention(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`,config)
+             fetchTecnico(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`,config)
+             fetchService(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`,config)
+             })();
+        }
+        
     }, [isModalOpen]);
     ///////////
 
@@ -89,6 +92,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                             <Text style ={styles.descripcion}>Banco: <Text style ={styles.descripciontext}>{tecnico.banking_entity}</Text></Text>
                             <Text style ={styles.descripcion}>Tipo de cuenta: <Text style ={styles.descripciontext}>{tecnico.account_type}</Text></Text>
                             <Text style ={styles.descripcion}>N° de cuenta: <Text style ={styles.descripciontext}>{tecnico.account_number}</Text></Text>
+                            <Text>  </Text>
                             <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
                             >Subir Comprobante</Text>
 

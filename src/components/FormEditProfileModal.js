@@ -12,6 +12,7 @@ import { Form, FormItem } from 'react-native-form-component';
 
 import ModalUpdateImage from "./ModalUpdateImage";
 
+
 export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     
     const url = "https://tecnony-v1.herokuapp.com/api/v1/profile";
@@ -24,12 +25,14 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     
     const [isModalOpenU, setIsModalOpenU] = React.useState(false);
 
+
+
     const fetchUser = (url, config) => {
         try{
             fetch(url,config)
             .then(response => response.json())
             .then(data => setUser(data.data.user))
-            .catch(error => console.log(error))
+            .catch(error => console.log("Edit Profile: ",error))
         }catch(e){
             setError(e.message);
             
@@ -40,13 +43,16 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     };
 
     const [form, setForm] = useState({
-            username: "",
-            first_name: "",
-            last_name: "",
-            cedula: "",
-            home_phone: "",
-            personal_phone: "",
-            address: ""
+        avatar:"",
+        username: "",
+        first_name: "", 
+        last_name: "",
+        email: "",
+        cedula: "",
+        birthdate: "",
+        home_phone: "",
+        personal_phone: "",
+        address: ""
     });
 
     const _updateProfile = async () => {
@@ -78,10 +84,13 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
             fetchUser(url, config);
             setForm({
                 ...form,
+                avatar:user.avatar,
                 username: user.username,
                 first_name: user.first_name, 
                 last_name: user.last_name,
+                email: user.email,
                 cedula: user.cedula,
+                birthdate: user.birthdate,
                 home_phone: user.home_phone,
                 personal_phone: user.personal_phone,
                 address: user.address
@@ -114,6 +123,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     const first_name = useRef();
     const last_name = useRef();
     const cedula = useRef();
+    //const birthdate = useRef();
     const home_phone = useRef();
     const personal_phone = useRef();
     const address = useRef();
@@ -139,16 +149,11 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                         <View style={{ alignItems: 'center', marginTop:'5%' }}>
                     <View>
                         <Avatar
-                            roundeds
+                            rounded
                             size='xlarge'
                             source={{ uri: user.avatar }}
                         /> 
-                        <Text
-                                onPress={() => setIsModalOpenU(!isModalOpenU)}
-                                style={styles.button}
-                            >
-                            Cambiar foto
-                            </Text>
+                        <Text onPress={() => setIsModalOpenU(!isModalOpenU)} style={styles.button}>Cambiar foto</Text>
 
                             <ModalUpdateImage
                                 isModalOpen={isModalOpenU} 
@@ -204,6 +209,8 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                                 children = {<Icon name="card-outline" type='ionicon' size={24} color="black" />}
                                 ref={cedula} 
                             />
+
+                            
                             <FormItem
                                 label="Teléfono:"
                                 notRequired

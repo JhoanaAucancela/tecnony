@@ -38,14 +38,14 @@ const MyServices = () => {
     const [isModalVOpen, setIsModalVOpen] = React.useState(false);// Ver más comentar
     const [isModalMOpen, setIsModalMOpen] = React.useState(false);//Ver más Servicio Completo
 
-
+ 
 
     const fetchMyServices = (url, config) => {
         try{
             fetch(url,config)
             .then(response => response.json())
             .then(data => setCharacters(data.data.service_requests))
-            .catch(error => console.log(error))
+            .catch(error => console.log("My services:",error))
         }catch(e){
             setError(e.message);
             
@@ -56,13 +56,12 @@ const MyServices = () => {
         (async () => {
             const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
             setToken(_token)
-           /// console.log(_token)
             const config = {
             headers:{
                 Authorization: `Bearer ${_token}`
             }
         }; 
-           fetchMyServices(url, config);
+           fetchMyServices("https://tecnony-v1.herokuapp.com/api/v1/hiring/show", config);
            setStd(false);
         })();
         
@@ -122,10 +121,10 @@ const MyServices = () => {
             fetch(urlCancel,config)
             .then(response => response.json())
             .then(data => setMessage(data.message))
-            .catch(error => console.log(error))
+            .catch(error => console.log("My services: ",error))
             setStd(true);
             Toast.show( 
-                message,{}
+                "Acción Exitosa",{}
             )
 
         }catch(e){
@@ -279,7 +278,7 @@ const MyServices = () => {
                             ]}
                             label=" "
                             itemLabelStyle={styles.text}
-                            type="dropdown"
+                            type="modal"
                             pickerIcon= {<Icon name="caret-down-outline" type="ionicon"size= {20}color= "black"/>}
                             selectedValueStyle={styles.input}
                             selectedValue={search}

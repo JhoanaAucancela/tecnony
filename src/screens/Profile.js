@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { ScrollView, Text, Button} from 'react-native';
+import { ScrollView, Text, Button, View} from 'react-native';
 import { Avatar, Icon } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useAuth, USER_KEY } from "../providers/AuthProvider";
@@ -38,13 +38,13 @@ export default function Profile(){
             {user &&
                 <View>
                     <View style={{ flexDirection:'row-reverse' }}>
-                            <Text onPress={() => _logout()} style={styles.buttonlogout}>🔙 Cerrar sesión</Text>
+                            <Text onPress={() => _logout()} style={styles.buttonlogout}>Cerrar sesión</Text>
                     </View>
                     <Text style={styles.titleX}>Mi Cuenta</Text>
                     
                     <View style={{ alignItems: 'center', marginTop:'5%' }}>
                         <Avatar
-                            roundeds
+                            rounded
                             size='xlarge'
                             source={{ uri: user.avatar }}
                         />
@@ -107,10 +107,16 @@ const styles =  EStyleSheet.create({
     },
 
     buttonlogout: {
+        backgroundColor:'#FF5D73',
         fontFamily: '$400Regular',
-        color:'$black',
-        textDecorationLine: "underline",
-        marginTop:'5%'
+        color:'$white',
+        //textDecorationLine: "underline",
+        marginTop:'2%',
+        padding:'3%', 
+        paddingLeft:'2%',
+        paddingRight:'2%',
+        borderRadius: 15, 
+        //fontWeight: 'bold'
         
     },
 

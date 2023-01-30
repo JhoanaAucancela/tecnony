@@ -9,10 +9,6 @@ export default function ModalInformativa({isModalOpen, setIsModalOpen}){
     
     const [isModalIOpen, setIsModalIOpen] = useState(false);
 
-    const Siguiente = (isModalOpen) => {
-            setIsModalIOpen(!isModalIOpen);
-            //setIsModalOpen(!isModalOpen);
-    }
 
     const modalContainerStyle ={
         flex: 1,

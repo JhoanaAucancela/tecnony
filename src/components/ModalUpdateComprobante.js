@@ -62,7 +62,9 @@ export default function ModalUpdateComprobante ({isModalOpen, setIsModalOpen, ID
             uri: image
           }, "image.jpeg");
         const message = await updateComprobante(data, ID)
+        alert(message)
         setIsModalOpen(!setIsModalOpen)
+        
         Toast.show(
             message,
             {

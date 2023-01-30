@@ -32,8 +32,6 @@ export default function Home(props) {
             {user &&
                 <View style={{ alignItems:'center'}}>
                     <Text style={styles.titleX}>¡ Hola {user.username} !</Text>
-                    <Text style={styles.subtitle}>Menú</Text>
-                    
                     <Text> </Text>
                 </View>
             }
@@ -80,7 +78,7 @@ export default function Home(props) {
                     </View>
                     <Text>  </Text>
                     <View style ={styles.box}>
-                        <Text style = {styles.text} onPress={() => props.navigation.navigate("Opinions")}>Comentarios</Text>
+                        <Text style = {styles.text} onPress={() => props.navigation.navigate("Opinions")}>Calificar</Text>
                         <Icon
                             name="chatbubbles"
                             type="ionicon"

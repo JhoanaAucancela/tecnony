@@ -33,7 +33,7 @@ export async function signup (data) {
 export async function updateProfile (data) {
     try{
         let res = await axios.post("profile",data);
-       // await setItemAsync(USER_KEY, JSON.stringify(data));
+        await setItemAsync(USER_KEY, JSON.stringify(data));
         return res.data.message;
     }catch(e){
         throw errorHandler(e);

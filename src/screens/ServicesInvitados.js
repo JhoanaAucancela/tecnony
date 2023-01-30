@@ -24,7 +24,7 @@ export default function ServicesInvitados (props) {
             fetch(url)
             .then(response => response.json())
             .then(data => setCharacters(data.data.services))
-            .catch(error => console.log(error))
+            .catch(error => console.log("Services Invitados: ",error))
         }catch(e){
             setError(e.message);
             

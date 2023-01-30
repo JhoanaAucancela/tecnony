@@ -26,12 +26,10 @@ const Opinions = () => {
             fetch(url,config)
             .then(response => response.json())
             .then(data => setCharacters(data.data.service_requests))
-            .catch(error => console.log(error))
+            .catch(error => console.log("Opinions: ",error))
         }catch(e){
             setError(e.message);
             
-        }finally{
-            setLoading(false);
         }
             
     };
@@ -44,7 +42,7 @@ const Opinions = () => {
                 Authorization: `Bearer ${_token}`
             }
         };
-           fetchMyServices(url, config);
+           fetchMyServices("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form", config);
         })();
     }, []);
 
@@ -66,7 +64,7 @@ const Opinions = () => {
     )}
     return(
         <View style={styles.container}>
-            <Text style= {styles.titleX}>Servicios por Comentar</Text>
+            <Text style= {styles.titleX}>Servicios por Calificar</Text>
            
             <ScrollView>
             {
@@ -74,8 +72,12 @@ const Opinions = () => {
                     <View key={index}>
                         <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>{item.device}</Card.Title>
+                            <Image
+                                source = {require("../../assets/device.png")}
+                                style={{ width: '100%', height: 170, borderRadius: 15 }}
+                            />
                             <Card.Divider />
-                            <View style={{ flexDirection: "row"}}>
+                            <View style={{ flexDirection:"row"}}>
                                 <View style={{ width:'100%'}}>
                                     <Text style ={styles.descripcion}>Modelo: </Text>
                                     <Text style={styles.descripciontext}>{item.model}</Text>
@@ -87,23 +89,25 @@ const Opinions = () => {
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
                                     <Text>   </Text>
 
-                                     <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                                        <Text style={styles.button} onPress={() => ComentServicios((item.id))}
-                                        >Calificar</Text>
-                                        <ComentsModal 
-                                            isModalOpen={isModalCOpen} 
-                                            setIsModalOpen={setIsModalCOpen} 
-                                            ID={numCService}
-                                        />
-                                        <Text> </Text>
-                                        <Text style={styles.button} onPress={() => verServicios((item.id))}
-                                        >Ver más</Text>
-                                        <ViewComentsModal 
-                                            isModalOpen={isModalVOpen} 
-                                            setIsModalOpen={setIsModalVOpen} 
-                                            ID={numService}
-                                            estado={isModalVOpen}
-                                        />
+                                    <View style = {{ alignItems: "center" }}>
+                                        <View style = {{ flexDirection: "row", alignItems: 'center' }}>
+                                            <Text style={styles.button} onPress={() => ComentServicios((item.id))}
+                                            >Calificar</Text>
+                                            <ComentsModal 
+                                                isModalOpen={isModalCOpen} 
+                                                setIsModalOpen={setIsModalCOpen} 
+                                                ID={numCService}
+                                            />
+                                            <Text> </Text>
+                                            <Text style={styles.button} onPress={() => verServicios((item.id))}
+                                            >Ver más</Text>
+                                            <ViewComentsModal 
+                                                isModalOpen={isModalVOpen} 
+                                                setIsModalOpen={setIsModalVOpen} 
+                                                ID={numService}
+                                                estado={isModalVOpen}
+                                            />
+                                        </View>
                                     </View>
                                 </View>
                             </View>  

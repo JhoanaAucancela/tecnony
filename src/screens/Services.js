@@ -22,7 +22,7 @@ export default function Services () {
             fetch(url)
             .then(response => response.json())
             .then(data => setCharacters(data.data.services))
-            .catch(error => console.log(error))
+            .catch(error => console.log("Services: ",error))
         }catch(e){
             setError(e.message);
             
@@ -31,7 +31,7 @@ export default function Services () {
         };
 
     useEffect(() => {
-        fetchCharacters(baseURL);
+        fetchCharacters("https://tecnony-v1.herokuapp.com/api/v1/view-service");
     }, []) 
 
     const verServicios = (num) => {

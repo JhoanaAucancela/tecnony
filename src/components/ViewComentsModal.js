@@ -23,7 +23,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
         fetch(url, config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewComentesModal post: ",error))
       };
 
       const fetchAttention = (url, config) => {
@@ -31,7 +31,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
         fetch(url, config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewComentesModal attention: ", error))
       };
 
       const fetchTecnico = (url, config) => {
@@ -39,22 +39,26 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
         fetch(url, config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.attended_by))
-            .catch(error => console.log(error))
+            .catch(error => console.log("ViewComentesModal tecnico: ",error))
       };
 
 
       React.useEffect(() => {
-        (async () => {
-           const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
-           const config = {  
-                headers:{
-                    Authorization: `Bearer ${_token}`
-                }
-            };
-            fetchCharacters(`${baseURL}/${ID}`,config)
-            fetchAttention(`${baseURL}/${ID}`,config)
-            fetchTecnico(`${baseURL}/${ID}`,config)
-        })();
+
+        if(isModalOpen){
+            (async () => {
+                const _token = await SecureStore.getItemAsync(USER_TOKEN_KEY);
+                const config = {  
+                     headers:{
+                         Authorization: `Bearer ${_token}`
+                     }
+                 };
+                 fetchCharacters(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`,config)
+                 fetchAttention(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`,config)
+                 fetchTecnico(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`,config)
+             })();
+        }
+        
     }, [isModalOpen]);
     ///////////
 
@@ -112,7 +116,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                             <Card.Divider />
                             <View style={{ flexDirection: "row"}}>
                                 <View style={{ width:'100%'}}>
-                                    <Text>{ID}</Text>
+                                    
                                     <Text style ={styles.descripcion}>Modelo: <Text style={styles.descripciontext}>{post.model}</Text></Text>
                                     
                                     <Text style ={styles.descripcion}>Dispositivo: <Text style={styles.descripciontext}>{post.device}</Text></Text>
