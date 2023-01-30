@@ -21,9 +21,7 @@ export default function FormContractModalE({isModalOpen, setIsModalOpen, ID}){
     ////////////////////////
     const [selectedPago, setSelectedPago] = useState(1);
 
-
     const pickerRef = React.useRef();
-
 
     //////////////////////////
 

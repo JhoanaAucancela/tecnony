@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { View, Text, Button} from 'react-native';
+import { ScrollView, Text, Button} from 'react-native';
 import { Avatar, Icon } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useAuth, USER_KEY } from "../providers/AuthProvider";
@@ -49,7 +49,7 @@ export default function Profile(){
                             source={{ uri: user.avatar }}
                         />
                     </View>
-                    <View >
+                    <ScrollView >
                         <Text style={styles.title}>Nombre de usuario:</Text>
                         <Text style={styles.text}>      {user.username}</Text>
 
@@ -89,7 +89,7 @@ export default function Profile(){
                             />
                         </View>
 
-                    </View>
+                    </ScrollView>
                 </View>
                 
             }

@@ -1,13 +1,10 @@
 import React from 'react';
-import {Text, Modal, View} from 'react-native';
+import {Text, Modal, View,ScrollView} from 'react-native';
 import { Icon, Card, Image } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
-import { ScrollView } from 'react-native-gesture-handler';
-
-
-
+import ModalUpdateComprobante from './ModalUpdateComprobante';
 
 export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado}){
     
@@ -16,7 +13,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
     const [attention, setAttention] = React.useState([]); // Datos del diagnostico
     const [tecnico, setTecnico] = React.useState([]); //Datos del tecnico
     const [servicio, setServicio] = React.useState([]); //Datos del servicio
-
+    const [isModalCOpen, setIsModalCOpen] = React.useState(false);
 
 
     const fetchCharacters = (url, config) => {// Datos del contrato
@@ -78,6 +75,46 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                 </View>       
             )
         }
+    }
+
+    function Pagar(metodoPago, std){
+
+        if (std === 4){
+            if (metodoPago === 2){
+                return(
+                    <View>
+                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                            <Card.Title style={styles.title}>Pagar Servicio</Card.Title>
+                            <Card.Divider />
+                            <Text style ={styles.descripcion}>Banco: <Text style ={styles.descripciontext}>{tecnico.banking_entity}</Text></Text>
+                            <Text style ={styles.descripcion}>Tipo de cuenta: <Text style ={styles.descripciontext}>{tecnico.account_type}</Text></Text>
+                            <Text style ={styles.descripcion}>N° de cuenta: <Text style ={styles.descripciontext}>{tecnico.account_number}</Text></Text>
+                            <Text style={styles.button} onPress={() => setIsModalCOpen(!isModalCOpen)}
+                            >Subir Comprobante</Text>
+
+                            <ModalUpdateComprobante
+                                isModalOpen={isModalCOpen} 
+                                setIsModalOpen={setIsModalCOpen} 
+                                ID={ID}
+                            />
+                        </Card>
+                    </View>
+                )
+            }
+        }
+
+        else if (std === 6){
+            if (metodoPago === 2){
+                return(
+                    <View>
+                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                            <Text>Comprobante</Text>
+                        </Card>
+                    </View>
+                )
+            }
+        }
+        
     }
 
     const modalContainerStyle ={
@@ -185,9 +222,8 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                             <Card.Divider />
                                     <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
                                     <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
-                                
                         </Card>
-
+                        {Pagar(post.payment_method, post.state)}
                         <Text> </Text>
                         <Text> </Text>
                         <Text> </Text>

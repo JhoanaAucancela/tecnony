@@ -20,7 +20,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
     const { control, handleSubmit, formState: { errors }} = useForm();
 
     const [user, setUser] = useState([]); 
-    const [token, setToken] = useState([]);
+
     
     const [isModalOpenU, setIsModalOpenU] = React.useState(false);
 
@@ -74,7 +74,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
                     Authorization: `Bearer ${_token}`
                 }
             }; 
-            setToken(_token);
+            
             fetchUser(url, config);
             setForm({
                 ...form,

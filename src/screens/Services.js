@@ -10,6 +10,7 @@ import ViewServiceModal from '../components/ViewServiceModal';
 export default function Services () {
 
     const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
+
     const [characters, setCharacters] = useState([]); //Hooks servicios
     const [search, setSearch] = useState(""); //Hooks Busqueda
 

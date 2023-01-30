@@ -54,14 +54,25 @@ export async function updateImage (data) {
         throw errorHandler(e);
     }
 }
+
+export async function updateComprobante (data, ID) {
+    try{
+   
+        let res = await axios.post(`hiring/uploadCon/${ID}`,data,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+              } 
+          });
+          
+        return res.data.message;
+    }catch(e){
+        throw errorHandler(e);
+    }
+}
  
 export async function logout () {
     try{
-        let res = await axios.post("logout",{
-            headers: {
-                'Authorization': `Bearer ${USER_TOKEN_KEY}`
-              }
-        });
+        let res = await axios.post("logout");
         await deleteItemAsync(USER_TOKEN_KEY);
         await deleteItemAsync(USER_KEY);
         return res.data;

@@ -6,9 +6,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import FormContractModal from '../components/FormContractModal';
 import FormContractModalE from '../components/FormContractModalE';
 
-
-
-
 export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estado}){
     
     ///////////
@@ -53,7 +50,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     }, [isModalOpen]);
 
     
-    ///////////
+    //////////
    
     function cargar(){
         if(post.length === 0){
@@ -64,6 +61,30 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
             )
         }
     }
+/*
+    if(post.length === 0){
+        return(
+            <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
+                
+                <View style = {modalContainerStyle}>
+                    
+                    <ScrollView style = {modalStyle}>
+                    <Icon
+                        name="close"
+                        type="ionicon"
+                        size= {30}
+                        color= "black"
+                        style={{ marginTop: 2, marginRight: 100 }}
+                        onPress={() => setIsModalOpen(!setIsModalOpen)}
+                    />
+                       
+                       <Text style= {styles.titleX}>Cargando...</Text>
+                        
+                    </ScrollView>
+                </View>
+            </Modal>
+        )
+    }*/
     ///////////
 
     const Local = () => {
@@ -176,8 +197,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                         style={{ marginTop: 2, marginRight: 100 }}
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
+                        
                         {cargar()}
-
                         <View style={{ alignItems: 'center' }}>
                             <Text style= {styles.titleX}>{post.name}</Text>
                             <View style= {styles.lineStyle}></View>

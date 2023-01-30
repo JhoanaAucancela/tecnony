@@ -2,19 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Alert } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Icon, Input } from 'react-native-elements';
-
-import { ErrorText, ActivityLoader } from "../components/Shared";
-
 import ModalInformativa from '../components/ModalInformativa';
 import ModalInformativa2 from '../components/ModalInformativa2';
 import ModalInformativa3 from '../components/ModalInformativa3';
 
 
-const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
-
-
-
 export default function ServicesInvitados (props) {
+    const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
 
     const [characters, setCharacters] = useState([]); //Hooks servicios
     const [loading, setLoading] = useState(true); // Hooks Activity Loaders

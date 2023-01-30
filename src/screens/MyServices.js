@@ -84,13 +84,13 @@ const MyServices = () => {
             return <Text style={styles.descripciontext}>En curso</Text>
         }
         else if(estado === 4){
-            return <Text style={styles.descripciontext}>Finalizado</Text>
+            return <Text style={styles.descripciontext}>Por Pagar</Text>
         }
         else if(estado === 5){
-            return <Text style={styles.descripciontext}>Pagado</Text>
+            return <Text style={styles.descripciontext}>Por Calificar</Text>
         }
         else {
-            return <Text style={styles.descripciontext}>Comentado</Text>
+            return <Text style={styles.descripciontext}>Finalizado</Text>
         }
     }
 
@@ -99,7 +99,12 @@ const MyServices = () => {
             return <Text style={styles.descripciontext}>Efectivo</Text>
         }
         else if(numPago === 2){
-            return <Text style={styles.descripciontext}>Depósito</Text>
+            return (
+                <View>
+                   <Text style={styles.descripciontext}>Depósito</Text>
+                </View>
+            )
+            
         }
         
     }
@@ -201,15 +206,20 @@ const MyServices = () => {
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
                     <Text style={styles.button}>Pendiente de pago</Text>
-                    
+                    <Text style={styles.button} onPress={() => VerMoreService((ID))}>Ver más</Text>
+                    <ViewMoreModal 
+                        isModalOpen={isModalMOpen} 
+                        setIsModalOpen={setIsModalMOpen} 
+                        ID={numServiceMore}
+                        estado={isModalMOpen}
+                    />
                 </View>
             )
         }
         else if(std === 5){
             return (
                 <View style = {{ flexDirection: "row", alignItems: 'center' }}>
-                    <Text style={styles.BtnCalificar} onPress={() => ComentServicios((ID))}
-                    >Calificar</Text>
+                    <Text style={styles.BtnCalificar} onPress={() => ComentServicios((ID))}>Calificar</Text>
                     <ComentsModal 
                         isModalOpen={isModalCOpen} 
                         setIsModalOpen={setIsModalCOpen} 
@@ -250,11 +260,6 @@ const MyServices = () => {
             <Text style= {styles.titleX}>Cargando...</Text>
             </View>
         )
-        else if (characters===[]){
-            <View style={styles.container}>
-            <Text style= {styles.titleX}>No hay servicios contratados</Text>
-            </View>
-        }
     
     }
     return(
@@ -296,8 +301,6 @@ const MyServices = () => {
                                 <View style={{ width:'100%'}}>
                                     <Text style ={styles.descripcion}>Estado de la solicitud: </Text>
                                     {Estado((item.state))}
-                                    <Text style ={styles.descripcion}>Modo de pago: </Text>
-                                    {TipoPago((item.payment_method))}
                                     <Text style ={styles.descripcion}>Modelo: </Text>
                                     <Text style={styles.descripciontext}>{item.model}</Text>
 
@@ -306,6 +309,9 @@ const MyServices = () => {
                                        
                                     <Text style={styles.descripcion}>Fecha: </Text>
                                     <Text style={styles.descripciontext}>{item.date_issue}</Text>
+                                    <Text style ={styles.descripcion}>Modo de pago: </Text>
+                                    {TipoPago((item.payment_method))}
+
                                     <Text>  </Text>
                                     <View style = {{ alignItems: "center" }}>
                                         {Btn(item.state, item.id)} 
