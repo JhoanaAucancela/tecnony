@@ -34,6 +34,12 @@ const styles = EStyleSheet.create({
     text:{
         padding:'2%',
         fontFamily: '$400Regular',
+        
+    },
+    textBold:{
+        padding:'2%',
+        fontFamily: '$400Regular',
+        fontWeight: 'bold'
     },
     buttonTitle: {
         fontFamily: '$400Regular',

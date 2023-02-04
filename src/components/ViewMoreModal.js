@@ -18,7 +18,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
 
     const fetchCharacters = (url, config) => {// Datos del contrato
         setPost([]);
-        fetch(url, config)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
             .catch(error => console.log("ViewMoreModal post: ",error))
@@ -26,7 +26,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
 
       const fetchAttention = (url, config) => {// Datos del diagnostico
         setAttention([]);
-        fetch(url, config)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
             .catch(error => console.log("ViewMoreModal attention: ",error))
@@ -34,7 +34,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
 
       const fetchTecnico = (url, config) => {//Datos del tecnico
         setTecnico([]);
-        fetch(url, config)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
             .catch(error => console.log("ViewMoreModal tecnico: ",error))
@@ -43,7 +43,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
 
       const fetchService = (url, config) => { //Datos del servicio
         setServicio([]);
-        fetch(url, config)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
             .then(data => setServicio(data.data.of_service))
             .catch(error => console.log("ViewMoreModal Servicio: ",error))

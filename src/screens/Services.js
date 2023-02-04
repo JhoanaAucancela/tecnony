@@ -4,9 +4,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { Card, Image, Icon, Input } from 'react-native-elements';
 import ViewServiceModal from '../components/ViewServiceModal';
 
-
-
-
 export default function Services () {
 
     const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
@@ -19,7 +16,7 @@ export default function Services () {
 
     const fetchCharacters = (url) => {
         try{
-            fetch(url)
+            fetch("https://tecnony-v1.herokuapp.com/api/v1/view-service")
             .then(response => response.json())
             .then(data => setCharacters(data.data.services))
             .catch(error => console.log("Services: ",error))
@@ -31,7 +28,7 @@ export default function Services () {
         };
 
     useEffect(() => {
-        fetchCharacters("https://tecnony-v1.herokuapp.com/api/v1/view-service");
+        fetchCharacters(baseURL);
     }, []) 
 
     const verServicios = (num) => {

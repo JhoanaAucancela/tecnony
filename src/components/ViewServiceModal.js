@@ -20,7 +20,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
     const fetchCharacters = (url) => {
         setPost([]);
-        fetch(url)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
             .then(response => response.json())
             .then(data => setPost(data.data.service))
             .catch(error => console.log("ViewServiceModal post: ",error))
@@ -28,7 +28,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
       const fetchTecnico = (url) => {
         setTecnico([]);
-        fetch(url)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
             .catch(error => console.log("ViewServiceModal tecnico: ",error))
@@ -37,7 +37,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
 
       const fetchTecnicoData = (url) => {
         setTecnicoData([]);
-        fetch(url)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
               .then(response => response.json())
               .then(data => setTecnicoData(data.data.datos_tecnico))
               .catch(error => console.log("ViewServiceModal tecnicoData: ",error))
@@ -59,9 +59,10 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     function cargar(){
         if(post.length === 0){
             return(
-                <View style = {modalStyle}>
-                    <Text style= {styles.titleX}>Cargando...</Text>
-                </View>       
+               
+                    <View style = {modalStyle}>
+                        <Text style= {styles.titleX}>Cargando...</Text>
+                    </View>  
             )
         }
     }
@@ -70,8 +71,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     const Local = () => {
         if(post.attention_mode === 1){
             return(
-            <View style = {{ alignItems: 'center' }}>  
-                <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+            <View style={{width: 300 }}>  
+                <Card containerStyle={{borderRadius: 15, width: '100%' }}>
                     <Text style ={styles.descripcion}>Modo de atención: <Text style ={styles.descripciontext}>🏢 En local fisíco</Text></Text>
                     <Text> </Text>
                     <Card.Divider/> 
@@ -86,10 +87,10 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
         }
         else if(post.attention_mode === 2){
             return(
-                <View style = {{ alignItems: 'center' }}>  
-                    <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+                <View style={{width: 300 }}>  
+                    <Card containerStyle={{borderRadius: 15, width: '100%' }}>
                         <Text style ={styles.descripcion}>Modo de atención: <Text style ={styles.descripciontext}>🛺 A domicilio</Text></Text>
-                        <Text style ={styles.descripcion}>Nota: Una vez contratado el servicio el técnico se comunicara con usted.</Text>
+                        <Text style ={styles.descripcion}>Nota: <Text style ={styles.descripciontext}>Una vez contratado el servicio el técnico se comunicara con usted.</Text></Text>
 
                     </Card>
                 </View>
@@ -100,8 +101,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     const Pago = () => {
         if(post.payment_method === 1){
             return(
-            <View style = {{ alignItems: 'center' }}>  
-                <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+            <View >  
+                <Card containerStyle={{borderRadius: 15 }}>
                     <Text style ={styles.descripcion}>Método de pago: <Text style ={styles.descripciontext}>💵 Efectivo</Text></Text>
                 </Card>
             </View>
@@ -109,8 +110,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
         }
         else if (post.payment_method === 2){
             return(
-                <View style = {{ alignItems: 'center' }}>  
-                    <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+                <View style={{width: 500 }}>  
+                    <Card containerStyle={{borderRadius: 15, width: '100%' }}>
                     <Text style ={styles.descripcion}>Métodos de pago: </Text>
                     <Text style ={styles.descripciontext}>💵 Efectivo</Text>
                     <Text style ={styles.descripciontext}>💼 Depósito o Transferencia</Text>
@@ -179,24 +180,26 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                     />
                         
                         {cargar()}
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style= {styles.titleX}>{post.name}</Text>
-                            <View style= {styles.lineStyle}></View>
-                        </View>
-                        <View style = {{ alignItems: 'center' }}> 
-                            <Card containerStyle={{borderRadius: 15,alignItems: 'center', width:'100%'}}>
+                       {post &&
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style= {styles.titleX}>{post.name}</Text>
+                                <View style= {styles.lineStyle}></View>
+                                <Card containerStyle={{borderRadius: 15,alignItems: 'center', width:'100%'}}>
                                     <Image
                                         source={{ uri: post.image }}
                                         style={{ width: '100%', height: 170, borderRadius: 15 }}
                                     />
-                            <Card.Divider/>
+                                <Card.Divider/>
+                                        <Text style ={styles.descripcion}>Categoria: <Text style ={styles.descripciontext}>{post.categories}</Text></Text>
+                                        <Text style ={styles.descripcion}>Descripción: <Text style ={styles.descripciontext}>{post.description}</Text></Text>
+                                        <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>{post.price}</Text></Text>
                                 
-                                    <Text style ={styles.descripcion}>Categoria: <Text style ={styles.descripciontext}>{post.categories}</Text></Text>
-                                    <Text style ={styles.descripcion}>Descripción: <Text style ={styles.descripciontext}>{post.description}</Text></Text>
-                                    <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>{post.price}</Text></Text>
-                            
-                            </Card>
-                        </View>
+                                </Card>
+                            </View>
+                       }
+                        
+                        <ScrollView horizontal={true}>
+
                         
                         <View style = {{ alignItems: 'center' }}>  
                             <Card containerStyle={{borderRadius: 15, width:'100%'}}>
@@ -225,16 +228,11 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                                             />
                                         </View>
                             </Card>
-
-                            {Local()}
-                            {Pago()}
                         </View>
-                        
-
-                        <View style = {{ alignItems: 'center' }}>  
-                            
-                        </View>
-                            
+                                {Local()}
+                                <Text>  </Text>
+                                {Pago()}
+                            </ScrollView>
                         
                         <View style={{ alignItems: 'center', padding:'5%' }}>
                             {ContractED(post.payment_method)}
@@ -253,9 +251,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                             
                         <Text> </Text>
                         <Text> </Text>
-                        <Text> </Text>
-
-                        
+  
                     </ScrollView>
                 </View>
             </Modal>

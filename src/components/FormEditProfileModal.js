@@ -29,7 +29,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
 
     const fetchUser = (url, config) => {
         try{
-            fetch(url,config)
+            fetch("https://tecnony-v1.herokuapp.com/api/v1/profile",config)
             .then(response => response.json())
             .then(data => setUser(data.data.user))
             .catch(error => console.log("Edit Profile: ",error))
@@ -60,6 +60,7 @@ export default function FormEditProfileModal ({isModalOpen, setIsModalOpen}) {
             setLoading(true);
             const message = await updateProfile(form);
             setIsModalOpen(!setIsModalOpen);
+            alert(message)
             Toast.show(
                 message,
                 {

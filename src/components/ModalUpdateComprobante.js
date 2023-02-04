@@ -64,7 +64,6 @@ export default function ModalUpdateComprobante ({isModalOpen, setIsModalOpen, ID
         const message = await updateComprobante(data, ID)
         alert(message)
         setIsModalOpen(!setIsModalOpen)
-        
         Toast.show(
             message,
             {

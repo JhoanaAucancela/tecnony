@@ -20,7 +20,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
 
     const fetchCharacters = (url, config) => {
         setPost([]);
-        fetch(url, config)
+        fetch("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form", config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
             .catch(error => console.log("ViewComentesModal post: ",error))
@@ -28,7 +28,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
 
       const fetchAttention = (url, config) => {
         setAttention([]);
-        fetch(url, config)
+        fetch("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form", config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
             .catch(error => console.log("ViewComentesModal attention: ", error))
@@ -36,7 +36,7 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
 
       const fetchTecnico = (url, config) => {
         setTecnico([]);
-        fetch(url, config)
+        fetch("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form", config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.attended_by))
             .catch(error => console.log("ViewComentesModal tecnico: ",error))

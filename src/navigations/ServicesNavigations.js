@@ -5,8 +5,6 @@ import DrawerContent from "../components/DrawerContent";
 
 import { Icon } from "react-native-elements";
 import EStyleSheet from "react-native-extended-stylesheet";
-import  Constants  from "expo-constants";
-import * as Application from 'expo-application';
 
 import ServicesStack from "./stacks/ServicesStack";
 import ProfileStack from "./stacks/ProfileStack";

@@ -21,7 +21,7 @@ export default function ServicesInvitados (props) {
 
     const fetchCharacters = (url) => {
         try{
-            fetch(url)
+            fetch("https://tecnony-v1.herokuapp.com/api/v1/view-service")
             .then(response => response.json())
             .then(data => setCharacters(data.data.services))
             .catch(error => console.log("Services Invitados: ",error))

@@ -42,7 +42,7 @@ const MyServices = () => {
 
     const fetchMyServices = (url, config) => {
         try{
-            fetch(url,config)
+            fetch("https://tecnony-v1.herokuapp.com/api/v1/hiring/show",config)
             .then(response => response.json())
             .then(data => setCharacters(data.data.service_requests))
             .catch(error => console.log("My services:",error))
@@ -61,7 +61,7 @@ const MyServices = () => {
                 Authorization: `Bearer ${_token}`
             }
         }; 
-           fetchMyServices("https://tecnony-v1.herokuapp.com/api/v1/hiring/show", config);
+           fetchMyServices(url, config);
            setStd(false);
         })();
         

@@ -23,7 +23,7 @@ const Opinions = () => {
 
     const fetchMyServices = (url, config) => {
         try{
-            fetch(url,config)
+            fetch("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form",config)
             .then(response => response.json())
             .then(data => setCharacters(data.data.service_requests))
             .catch(error => console.log("Opinions: ",error))
@@ -42,7 +42,7 @@ const Opinions = () => {
                 Authorization: `Bearer ${_token}`
             }
         };
-           fetchMyServices("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form", config);
+           fetchMyServices(url, config);
         })();
     }, []);
 

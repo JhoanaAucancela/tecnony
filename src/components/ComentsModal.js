@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {Text, Modal, View, Button, TouchableOpacity, Image} from 'react-native';
 import { Icon } from "react-native-elements";
 import Toast from "react-native-root-toast";
 import { ErrorText, ActivityLoader } from "../components/Shared";
 import { useForm } from "react-hook-form";
-import { TextInputValue, TextAreaInput } from "../components/inputs";
 import { comentService } from "../services/AuthService";
 import styles from "../styles/auth";
+
+import { Form, FormItem } from 'react-native-form-component';
 
 
 export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
@@ -16,11 +17,20 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
     const { control, handleSubmit, formState: { errors }} = useForm();
 
     //////
-    const [defaultRating, setDefaultRating] = useState(2)
+
     const [maxRating, setMaxRating] = useState([2,4,6,8,10])
 
     const starImgFilled = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png';
     const starImgCorner = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png';
+
+    const comment = useRef();
+    const suggestion = useRef();
+
+    const [form, setForm] = useState({
+        comment: "",
+        suggestion: "",
+        qualification: 2
+    });
 
     const CustomRatingBar = () => {
         return(
@@ -31,12 +41,12 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                             <TouchableOpacity
                             activeOpacity={0.7}
                             key={item}
-                            onPress={() => setDefaultRating(item)}
+                            onPress={() => setForm({...form, qualification: item})}
                             >
                                 <Image 
                                     style={{ width: 40, height: 40, resizeMode: 'cover' }}
                                     source={
-                                        item <= defaultRating
+                                        item <= form.qualification
                                         ? {uri: starImgFilled}
                                         : {uri: starImgCorner}
                                     }
@@ -50,10 +60,10 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
         )
     }
     //////
-    const _comentService = async (data) => {
+    const _comentService = async () => {
         try {
             setLoading(true);
-            const message = await comentService(data, ID);
+            const message = await comentService(form, ID);
             setIsModalOpen(!setIsModalOpen);
             Toast.show(
                 message,
@@ -67,6 +77,7 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
             setLoading(false);
         }
     }
+    
 
     const modalContainerStyle ={
         flex: 1,
@@ -118,46 +129,39 @@ export default function ComentsModal({isModalOpen, setIsModalOpen, ID}){
                     />
                         <Text h2 style={ styles.title }>Comparte tu opinión</Text>
                         <ErrorText error={error} />
-                        <Text style={styles.text}>Comentario</Text>
-                    <TextAreaInput 
-                        name="comment"
-                        minLength={5}
-                        maxLength={500}
-                        iconName="create"
-                        placeholder="Comentario"
-                        control={control}
-                        errors = {errors}
-                        errorValidationStyle = {styles.errorValidation}
-                        inputStyle={styles.input}
-                    />
-                    <Text style={styles.text}>Sugerencia</Text>
+                        <Form onButtonPress={handleSubmit(_comentService)}  buttonStyle={styles.button} buttonText="Guardar">
+                        <FormItem
+                                label="Comentario"
+                                labelStyle={styles.text}
+                                isRequired
+                                maxLength={500}
+                                textArea = {true}
+                                placeholder="Comentario"
+                                textInputStyle={styles.input}
+                                value={form.comment}
+                                onChangeText={(value) => setForm({...form, comment: value})}
+                                asterik
+                                ref={comment} 
+                                children = {<Icon name="create" type='ionicon' size={24} color="black" />}
+                            />
+                            
 
-                    <TextAreaInput
-                        name="suggestion"
-                        required={false}
-                        minLength={5}
-                        maxLength={500}
-                        iconName="create"
-                        placeholder="Sugerencia"
-                        control={control}
-                        errors = {errors}
-                        errorValidationStyle = {styles.errorValidation}
-                        inputStyle={styles.input}
-                    />
-                    <Text style={styles.text}>Calificación</Text>
-                    <CustomRatingBar/>
-                        <TextInputValue
-                            value={defaultRating.toString()}
-                            name="qualification"
-                            iconName="happy"
-                            placeholder="Calificacion"
-                            control={control}
-                            errors = {errors}
-                            errorValidationStyle = {styles.errorValidation}
-                            inputStyle={styles.input}
-                        />
-                        <Text style={btnStyle} onPress={handleSubmit(_comentService)}>Guardar</Text>
-                        
+                        <FormItem
+                                label="Sugerencias"
+                                labelStyle={styles.text}
+                                notRequired
+                                textArea = {true}
+                                placeholder="Sugerencias"
+                                textInputStyle={styles.input}
+                                value={form.suggestion}
+                                onChangeText={(value) => setForm({...form, suggestion: value})}
+                                ref={suggestion} 
+                                children = {<Icon name="create" type='ionicon' size={24} color="black" />}
+                            />
+                       
+                            <Text style={styles.textBold}>Calificación</Text>
+                            <CustomRatingBar/>
+                        </Form>
                     </View>
                 </View>
             </Modal>
