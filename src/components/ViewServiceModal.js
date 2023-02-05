@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import FormContractModal from '../components/FormContractModal';
 import FormContractModalE from '../components/FormContractModalE';
 
-export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estado}){
+export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID}){
     
     ///////////
     const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/view-service";
@@ -18,7 +18,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     const [isModalCOpenE, setIsModalCOpenE] = React.useState(false);
 
 
-    const fetchCharacters = (url) => {
+    const fetchCharacters = () => {
         setPost([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
             .then(response => response.json())
@@ -26,7 +26,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
             .catch(error => console.log("ViewServiceModal post: ",error))
       };
 
-      const fetchTecnico = (url) => {
+      const fetchTecnico = () => {
         setTecnico([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
             .then(response => response.json())
@@ -35,7 +35,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
       };
 
 
-      const fetchTecnicoData = (url) => {
+      const fetchTecnicoData = () => {
         setTecnicoData([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
               .then(response => response.json())
@@ -46,9 +46,9 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     React.useEffect(() => {
         if(isModalOpen){
             (async () => {
-                fetchCharacters(`${baseURL}/${ID}`)
-                fetchTecnico(`${baseURL}/${ID}`)
-                fetchTecnicoData(`${baseURL}/${ID}`)  
+                fetchCharacters()
+                fetchTecnico()
+                fetchTecnicoData()  
              })();
         } 
     }, [isModalOpen]);
@@ -57,12 +57,74 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
     //////////
    
     function cargar(){
+        
+        
         if(post.length === 0){
             return(
-               
-                    <View style = {modalStyle}>
-                        <Text style= {styles.titleX}>Cargando...</Text>
-                    </View>  
+                <View style={{ height: '100%', justifyContent: 'center' }}>
+                    <Text style= {styles.titleX}>Cargando...</Text>
+                </View>
+                
+                   
+            )
+        }
+        else{
+            return(
+
+            <View>
+                <View style={{ alignItems: 'center' }}>
+                    <Text style= {styles.titleX}>{post.name}</Text>
+                    <View style= {styles.lineStyle}></View>
+                        <Card containerStyle={{borderRadius: 15,alignItems: 'center', width:'100%'}}>
+                            <Image
+                                source={{ uri: post.image }}
+                                style={{ width: '100%', height: 170, borderRadius: 15 }}
+                            />
+                        <Card.Divider/>
+                            <Text style ={styles.descripcion}>Categoria: <Text style ={styles.descripciontext}>{post.categories}</Text></Text>
+                            <Text style ={styles.descripcion}>Descripción: <Text style ={styles.descripciontext}>{post.description}</Text></Text>
+                            <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>${post.price}</Text></Text>   
+                        </Card>
+                </View>
+                <ScrollView horizontal={true}>
+
+                        
+                        <View style = {{ alignItems: 'center' }}>  
+                            <Card containerStyle={{borderRadius: 15, width:'100%'}}>
+                                    <Card.Title  style={styles.title}>🙍🏻‍♂️ Técnico</Card.Title>
+                                    <Card.Divider/> 
+                                        <View style = {{ alignItems: 'center' }}>
+                                            <Avatar
+                                                rounded
+                                                size="medium"
+                                                source={{ uri: tecnicoData.avatar }}
+                                            />
+                                        </View>
+                                        <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
+                                        <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
+                                        <Text style ={styles.descripcion}>Profesión: <Text style ={styles.descripciontext}>{tecnico.profession}</Text></Text>
+                                        <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnicoData.correo}</Text></Text>
+                                        <Text style ={styles.descripcion}>Contacte: </Text>
+                                        <View style={styles.buttonWhatsapp} onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)} }
+                                        >
+                                            <Icon
+                                                name="logo-whatsapp"
+                                                type="ionicon"
+                                                size= {20}
+                                                color= "white"
+                                                onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)} }
+                                            />
+                                        </View>
+                            </Card>
+                        </View>
+                                {Local()}
+                                <Text>  </Text>
+                                {Pago()}
+                            </ScrollView>
+            </View>
+                
+
+                
             )
         }
     }
@@ -110,8 +172,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
         }
         else if (post.payment_method === 2){
             return(
-                <View style={{width: 500 }}>  
-                    <Card containerStyle={{borderRadius: 15, width: '100%' }}>
+                <View style={{width: 300}}>  
+                    <Card containerStyle={{borderRadius: 15, width: '95%' }}>
                     <Text style ={styles.descripcion}>Métodos de pago: </Text>
                     <Text style ={styles.descripciontext}>💵 Efectivo</Text>
                     <Text style ={styles.descripciontext}>💼 Depósito o Transferencia</Text>
@@ -125,6 +187,8 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                         <Text style ={styles.descripcion}>N° de cédula: <Text style ={styles.descripciontext}>{tecnicoData.cedula}</Text></Text>
                 </Card>
                 </View>
+
+                
                 )
         }
     };
@@ -178,61 +242,9 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID, estad
                         style={{ marginTop: 2, marginRight: 100 }}
                         onPress={() => setIsModalOpen(!setIsModalOpen)}
                     />
-                        
                         {cargar()}
-                       {post &&
-                            <View style={{ alignItems: 'center' }}>
-                                <Text style= {styles.titleX}>{post.name}</Text>
-                                <View style= {styles.lineStyle}></View>
-                                <Card containerStyle={{borderRadius: 15,alignItems: 'center', width:'100%'}}>
-                                    <Image
-                                        source={{ uri: post.image }}
-                                        style={{ width: '100%', height: 170, borderRadius: 15 }}
-                                    />
-                                <Card.Divider/>
-                                        <Text style ={styles.descripcion}>Categoria: <Text style ={styles.descripciontext}>{post.categories}</Text></Text>
-                                        <Text style ={styles.descripcion}>Descripción: <Text style ={styles.descripciontext}>{post.description}</Text></Text>
-                                        <Text style ={styles.descripcion}>Precio: <Text style ={styles.descripciontext}>{post.price}</Text></Text>
-                                
-                                </Card>
-                            </View>
-                       }
                         
-                        <ScrollView horizontal={true}>
 
-                        
-                        <View style = {{ alignItems: 'center' }}>  
-                            <Card containerStyle={{borderRadius: 15, width:'100%'}}>
-                                    <Card.Title  style={styles.title}>🙍🏻‍♂️ Técnico</Card.Title>
-                                    <Card.Divider/> 
-                                        <View style = {{ alignItems: 'center' }}>
-                                            <Avatar
-                                                rounded
-                                                size="medium"
-                                                source={{ uri: tecnicoData.avatar }}
-                                            />
-                                        </View>
-                                        <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
-                                        <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
-                                        <Text style ={styles.descripcion}>Profesión: <Text style ={styles.descripciontext}>{tecnico.profession}</Text></Text>
-                                        <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{tecnicoData.correo}</Text></Text>
-                                        <Text style ={styles.descripcion}>Contacte: </Text>
-                                        <View style={styles.buttonWhatsapp} onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)} }
-                                        >
-                                            <Icon
-                                                name="logo-whatsapp"
-                                                type="ionicon"
-                                                size= {20}
-                                                color= "white"
-                                                onPress={ ()=>{ Linking.openURL(`https://${tecnico.whatsapp}`)} }
-                                            />
-                                        </View>
-                            </Card>
-                        </View>
-                                {Local()}
-                                <Text>  </Text>
-                                {Pago()}
-                            </ScrollView>
                         
                         <View style={{ alignItems: 'center', padding:'5%' }}>
                             {ContractED(post.payment_method)}

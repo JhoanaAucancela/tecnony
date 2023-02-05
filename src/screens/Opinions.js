@@ -21,7 +21,7 @@ const Opinions = () => {
     const[numCService, setNumCService] = React.useState();
 
 
-    const fetchMyServices = (url, config) => {
+    const fetchMyServices = (config) => {
         try{
             fetch("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form",config)
             .then(response => response.json())
@@ -42,7 +42,7 @@ const Opinions = () => {
                 Authorization: `Bearer ${_token}`
             }
         };
-           fetchMyServices(url, config);
+           fetchMyServices(config);
         })();
     }, []);
 

@@ -85,7 +85,7 @@ export default function Services () {
                                     <Text style={styles.descripciontext}>{item.description}</Text>
                                     
                                     <Text style={styles.descripcion}>Precio: </Text>
-                                    <Text style={styles.descripciontext}>{item.price}</Text>
+                                    <Text style={styles.descripciontext}>$ {item.price}</Text>
                                     <Text>   </Text>
                              
                                     <Text style={styles.button} onPress={() => verServicios((item.id))}>
@@ -101,7 +101,6 @@ export default function Services () {
                                         isModalOpen={isModalVSOpen} 
                                         setIsModalOpen={setIsModalVSOpen} 
                                         ID={numService}
-                                        estado={isModalVSOpen}
                                     /> 
                                    
         

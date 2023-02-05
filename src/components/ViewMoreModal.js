@@ -8,7 +8,6 @@ import ModalUpdateComprobante from './ModalUpdateComprobante';
 
 export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado}){
     
-    const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/hiring/show";
     const [post, setPost] = React.useState([]); // Datos del contrato
     const [attention, setAttention] = React.useState([]); // Datos del diagnostico
     const [tecnico, setTecnico] = React.useState([]); //Datos del tecnico
@@ -16,7 +15,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
     const [isModalCOpen, setIsModalCOpen] = React.useState(false);
 
 
-    const fetchCharacters = (url, config) => {// Datos del contrato
+    const fetchCharacters = (config) => {// Datos del contrato
         setPost([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
@@ -24,7 +23,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
             .catch(error => console.log("ViewMoreModal post: ",error))
       };
 
-      const fetchAttention = (url, config) => {// Datos del diagnostico
+      const fetchAttention = (config) => {// Datos del diagnostico
         setAttention([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
@@ -32,7 +31,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
             .catch(error => console.log("ViewMoreModal attention: ",error))
       };
 
-      const fetchTecnico = (url, config) => {//Datos del tecnico
+      const fetchTecnico = (config) => {//Datos del tecnico
         setTecnico([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
@@ -41,7 +40,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
       };
 
 
-      const fetchService = (url, config) => { //Datos del servicio
+      const fetchService = (config) => { //Datos del servicio
         setServicio([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
@@ -60,10 +59,10 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                      Authorization: `Bearer ${_token}`
                  }
              };
-             fetchCharacters(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`,config)
-             fetchAttention(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`,config)
-             fetchTecnico(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`,config)
-             fetchService(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`,config)
+             fetchCharacters(config)
+             fetchAttention(config)
+             fetchTecnico(config)
+             fetchService(config)
              })();
         }
         
@@ -73,9 +72,104 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
     function cargar(){
         if(post.length === 0){
             return(
-                <View style = {modalStyle}>
+                <View style={{ height: '100%', justifyContent: 'center', alignItems:'center' }}>
                     <Text style= {styles.titleX}>Cargando...</Text>
                 </View>       
+            )
+        }
+
+        else{
+            return(
+                <View>
+                        <View style={{ alignItems:'center', textAlign:'center' }}>
+                            <Text style= {styles.titleX}>{servicio.name}</Text>
+                        </View>
+                        
+                        
+                        <View>
+                            <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                                
+                                <Card.Title style={styles.title}>Datos del Servicio Contratado</Card.Title>
+                                
+                                <Card.Divider />
+                                <Image
+                                    source = { { uri: servicio.image } }
+                                    style={{ width: '100%', height: 80, borderRadius: 15 }}
+                                />
+                                <Card.Divider />
+                                <View style={{ flexDirection: "row"}}>
+                                    <View style={{ width:'100%'}}>
+                                        <Text style ={styles.descripcion}>Nombre: <Text style={styles.descripciontext}>{servicio.name}</Text></Text>
+                                        
+                                        <Text style ={styles.descripcion}>Categoria: <Text style={styles.descripciontext}>{servicio.categories}</Text></Text>
+                                        
+                                        <Text style={styles.descripcion}>Descripción: <Text style={styles.descripciontext}>{servicio.description}</Text></Text>
+                                                                            
+                                        <Text style={styles.descripcion}>Precio: <Text style={styles.descripciontext}>$ {servicio.price}</Text></Text>
+                                    </View>
+                                </View>  
+                            </Card>
+                        </View>
+                        <ScrollView horizontal={true}>
+                        <View style={{width: 300 }}>
+                            <Card  containerStyle={{borderRadius: 15 , width: '98%' }}>
+                                <Card.Title style={styles.title}>Datos del Dispositivo</Card.Title>
+                                <Card.Divider />
+                                <Image
+                                    source = {require("../../assets/device.png")}
+                                    style={{ width: '100%', height: 80, borderRadius: 15 }}
+                                />
+                                <Card.Divider />
+                                <View>
+                                    <View style={{ width:'100%'}}>
+                                        <Text style ={styles.descripcion}>Modelo: <Text style={styles.descripciontext}>{post.model}</Text></Text>
+                                        
+                                        <Text style ={styles.descripcion}>Dispositivo: <Text style={styles.descripciontext}>{post.device}</Text></Text>
+                                        
+                                        <Text style={styles.descripcion}>Descripción: <Text style={styles.descripciontext}>{post.description_problem}</Text></Text>
+                                                                            
+                                        <Text style={styles.descripcion}>Fecha: <Text style={styles.descripciontext}>{post.date_issue}</Text></Text>
+                                    </View>
+                                </View>  
+                            </Card>
+                        </View>
+
+                        <View style={{width: 300 }}>
+                            <Card  containerStyle={{borderRadius: 15, width: '98%'}}>
+                                <Card.Title style={styles.title}>Diagnostico del técnico</Card.Title>     
+                                <Card.Divider />
+                                <View style={{ flexDirection: "row"}}>
+                                    <View style={{ width:'100%'}}>
+                                        <Text style ={styles.descripcion}>Diagnostico: <Text style={styles.descripciontext}>{attention.diagnosis}</Text></Text>
+                                        
+                                        <Text style ={styles.descripcion}>Resolución: <Text style={styles.descripciontext}>{attention.incident_resolution}</Text></Text>
+                                        
+                                        {attention.spare_parts && <Text style ={styles.descripcion}>Repuestos: <Text style={styles.descripciontext}>{attention.spare_parts}</Text></Text>}
+
+                                        {attention.warranty && <Text style ={styles.descripcion}>Garantia: <Text style={styles.descripciontext}>{attention.warranty}</Text></Text>}
+
+                                        {attention.price_spare_parts && <Text style ={styles.descripcion}>Precio Repuesto: <Text style={styles.descripciontext}>$ {attention.price_spare_parts}</Text></Text>}
+                                        
+                                        <Text style={styles.descripcion}>Precio Final: <Text style={styles.descripciontext}>$ {attention.final_price}</Text></Text>
+                                                                            
+                                        <Text style={styles.descripcion}>Fecha: <Text style={styles.descripciontext}>{attention.end_date}</Text></Text>
+                                    </View>
+                                </View>  
+                            </Card>
+                        </View>
+                        
+                        <View style={{width: 300 }}>
+                            <Card  containerStyle={{borderRadius: 15, width: '95%'}}>
+                                <Card.Title style={styles.title}>Datos del tecnico</Card.Title>
+                                <Card.Divider />
+                                <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
+                                <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
+                            </Card>
+                        </View>
+
+                        
+                        </ScrollView>
+                </View>
             )
         }
     }
@@ -86,7 +180,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
             if (metodoPago === 2){
                 return(
                     <View>
-                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                        <Card  containerStyle={{borderRadius: 15}}>
                             <Card.Title style={styles.title}>Pagar Servicio</Card.Title>
                             <Card.Divider />
                             <Text style ={styles.descripcion}>Banco: <Text style ={styles.descripciontext}>{tecnico.banking_entity}</Text></Text>
@@ -111,7 +205,7 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
             if (metodoPago === 2){
                 return(
                     <View>
-                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+                        <Card  containerStyle={{borderRadius: 15, width: '95%'}}>
                             <Text>Comprobante</Text>
                         </Card>
                     </View>
@@ -158,79 +252,12 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                     />
                         
                         {cargar()}
-                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                            <Card.Title style={styles.title}>Datos del Dispositivo</Card.Title>
-                            <Image
-                                source = {require("../../assets/device.png")}
-                                style={{ width: '100%', height: 80, borderRadius: 15 }}
-                            />
-                            <Card.Divider />
-                            <View style={{ flexDirection: "row"}}>
-                                <View style={{ width:'100%'}}>
-                                    <Text style ={styles.descripcion}>Modelo: <Text style={styles.descripciontext}>{post.model}</Text></Text>
-                                    
-                                    <Text style ={styles.descripcion}>Dispositivo: <Text style={styles.descripciontext}>{post.device}</Text></Text>
-                                    
-                                    <Text style={styles.descripcion}>Descripción: <Text style={styles.descripciontext}>{post.description_problem}</Text></Text>
-                                                                        
-                                    <Text style={styles.descripcion}>Fecha: <Text style={styles.descripciontext}>{post.date_issue}</Text></Text>
-                                </View>
-                            </View>  
-                        </Card>
-
-                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                            <Card.Title style={styles.title}>Datos del Servicio Contratado</Card.Title>
-                            <Image
-                                source = { { uri: servicio.image } }
-                                style={{ width: '100%', height: 80, borderRadius: 15 }}
-                            />
-                            <Card.Divider />
-                            <View style={{ flexDirection: "row"}}>
-                                <View style={{ width:'100%'}}>
-                                    <Text style ={styles.descripcion}>Nombre: <Text style={styles.descripciontext}>{servicio.name}</Text></Text>
-                                    
-                                    <Text style ={styles.descripcion}>Categoria: <Text style={styles.descripciontext}>{servicio.categories}</Text></Text>
-                                    
-                                    <Text style={styles.descripcion}>Descripción: <Text style={styles.descripciontext}>{servicio.description}</Text></Text>
-                                                                        
-                                    <Text style={styles.descripcion}>Precio: <Text style={styles.descripciontext}>{servicio.price}</Text></Text>
-                                </View>
-                            </View>  
-                        </Card>
-
-
-                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                            <Card.Title style={styles.title}>Diagnostico del técnico</Card.Title>     
-                            <Card.Divider />
-                            <View style={{ flexDirection: "row"}}>
-                                <View style={{ width:'100%'}}>
-                                    <Text style ={styles.descripcion}>Diagnostico: <Text style={styles.descripciontext}>{attention.diagnosis}</Text></Text>
-                                    
-                                    <Text style ={styles.descripcion}>Resolución: <Text style={styles.descripciontext}>{attention.incident_resolution}</Text></Text>
-                                    
-                                    <Text style ={styles.descripcion}>Repuestos: <Text style={styles.descripciontext}>{attention.spare_parts}</Text></Text>
-
-                                    <Text style ={styles.descripcion}>Garantia: <Text style={styles.descripciontext}>{attention.warranty}</Text></Text>
-
-                                    <Text style ={styles.descripcion}>Precio Repuesto: <Text style={styles.descripciontext}>{attention.price_spare_parts}</Text></Text>
-                                    
-                                    <Text style={styles.descripcion}>Precio Final: <Text style={styles.descripciontext}>{attention.final_price}</Text></Text>
-                                                                        
-                                    <Text style={styles.descripcion}>Fecha: <Text style={styles.descripciontext}>{attention.end_date}</Text></Text>
-                                </View>
-                            </View>  
-                        </Card>
-                        
-                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
-                            <Card.Title style={styles.title}>Datos del tecnico</Card.Title>
-                            <Card.Divider />
-                                    <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
-                                    <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
-                        </Card>
                         {Pagar(post.payment_method, post.state)}
+                        
+                        
                         <Text> </Text>
                         <Text> </Text>
-                        <Text> </Text>
+        
 
                         
                     </ScrollView>

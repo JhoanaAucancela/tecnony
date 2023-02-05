@@ -107,7 +107,7 @@ export default function ServicesInvitados (props) {
                                     <Text style={styles.descripciontext}>{item.description}</Text>
                                     
                                     <Text style={styles.descripcion}>Precio: </Text>
-                                    <Text style={styles.descripciontext}>{item.price}</Text>
+                                    <Text style={styles.descripciontext}>$ {item.price}</Text>
                                     <Text>   </Text>
                              
                                    

@@ -70,7 +70,7 @@ export default function DrawerContent(props){
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
-                                    name="person-outline"
+                                    name="person"
                                     color={color}
                                     size = {size}
                                     type = "ionicon" 

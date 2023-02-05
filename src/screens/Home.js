@@ -41,7 +41,7 @@ export default function Home(props) {
                     <View style ={styles.box}>
                         <Text style = {styles.text} onPress={() => props.navigation.navigate("Profile")}>Mi cuenta</Text>
                         <Icon
-                            name="person-outline"
+                            name="person"
                             type="ionicon"
                             size= {30}
                             color= "white"

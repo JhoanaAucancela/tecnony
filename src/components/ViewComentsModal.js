@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, Modal, View, Button, TouchableOpacity} from 'react-native';
+import {Text, Modal, View, Button, TouchableOpacity, ScrollView} from 'react-native';
 import { Icon, Card, Image, Avatar } from "react-native-elements";
 import { useForm } from "react-hook-form";
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -11,32 +11,32 @@ import * as SecureStore from "expo-secure-store";
 export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estado}){
     
     ///////////
-    const baseURL = "https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form";
+    
     const [post, setPost] = React.useState([]);
     const [attention, setAttention] = React.useState([]);
     const [tecnico, setTecnico] = React.useState([]);
 
 
 
-    const fetchCharacters = (url, config) => {
+    const fetchCharacters = (config) => {
         setPost([]);
-        fetch("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form", config)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`, config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
             .catch(error => console.log("ViewComentesModal post: ",error))
       };
 
-      const fetchAttention = (url, config) => {
+      const fetchAttention = (config) => {
         setAttention([]);
-        fetch("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form", config)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`, config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
             .catch(error => console.log("ViewComentesModal attention: ", error))
       };
 
-      const fetchTecnico = (url, config) => {
+      const fetchTecnico = (config) => {
         setTecnico([]);
-        fetch("https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form", config)
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`, config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.attended_by))
             .catch(error => console.log("ViewComentesModal tecnico: ",error))
@@ -53,9 +53,9 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                          Authorization: `Bearer ${_token}`
                      }
                  };
-                 fetchCharacters(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`,config)
-                 fetchAttention(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`,config)
-                 fetchTecnico(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`,config)
+                 fetchCharacters(config)
+                 fetchAttention(config)
+                 fetchTecnico(config)
              })();
         }
         
@@ -85,29 +85,15 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
     function cargar(){
         if(post.length === 0){
             return(
-                <View style = {modalStyle}>
+                <View style={{ height: '100%', justifyContent: 'center', alignItems:'center' }}>
                     <Text style= {styles.titleX}>Cargando...</Text>
                 </View>       
             )
         }
-    }
-
-    return (
-        <>
-            <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
-                <View style = {modalContainerStyle}>
-                    
-                    <View style = {modalStyle}>
-                    <Icon
-                        name="close"
-                        type="ionicon"
-                        size= {30}
-                        color= "black"
-                        style={{ marginTop: 2, marginRight: 100 }}
-                        onPress={() => setIsModalOpen(!setIsModalOpen)}
-                    />
-                        {cargar()}
-                        <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
+        else {
+            return(
+                <View>
+                    <Card  containerStyle={{borderRadius: 15,alignItems: 'center'}}>
                             <Card.Title style={styles.title}>Datos del Dispositivo</Card.Title>
                             <Image
                                 source = {require("../../assets/device.png")}
@@ -138,13 +124,13 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                                     
                                     <Text style ={styles.descripcion}>Solución: <Text style={styles.descripciontext}>{attention.incident_resolution}</Text></Text>
                                     
-                                    <Text style ={styles.descripcion}>Garantia: <Text style={styles.descripciontext}>{attention.warranty}</Text></Text>
+                                    {attention.warranty && <Text style ={styles.descripcion}>Garantia: <Text style={styles.descripciontext}>{attention.warranty}</Text></Text>}
 
-                                    <Text style ={styles.descripcion}>Repuestos: <Text style={styles.descripciontext}>{attention.spare_parts}</Text></Text>
+                                    {attention.spare_parts && <Text style ={styles.descripcion}>Repuestos: <Text style={styles.descripciontext}>{attention.spare_parts}</Text></Text>}
 
-                                    <Text style ={styles.descripcion}>Precio de repuestos: <Text style={styles.descripciontext}>{attention.price_spare_parts}</Text></Text>
+                                    {attention.price_spare_parts && <Text style ={styles.descripcion}>Precio de repuestos: <Text style={styles.descripciontext}>{attention.price_spare_parts}</Text></Text>}
                                     
-                                    <Text style={styles.descripcion}>Precio Final: <Text style={styles.descripciontext}>{attention.final_price}</Text></Text>
+                                    <Text style={styles.descripcion}>Precio Final: <Text style={styles.descripciontext}>$ {attention.final_price}</Text></Text>
                                                                         
                                     <Text style={styles.descripcion}>Fecha: <Text style={styles.descripciontext}>{attention.end_date}</Text></Text>
                                 </View>
@@ -158,8 +144,30 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                                     <Text style ={styles.descripcion}>Profesión: <Text style ={styles.descripciontext}>{tecnico.profession}</Text></Text>
                                     <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
                         </Card>
+                </View>
+            )
+        }
+    }
+
+    return (
+        <>
+            <Modal visible={isModalOpen} transparent= {true} animationType={'slide'}>
+                <View style = {modalContainerStyle}>
+                    
+                    <ScrollView style = {modalStyle}>
+                    <Icon
+                        name="close"
+                        type="ionicon"
+                        size= {30}
+                        color= "black"
+                        style={{ marginTop: 2, marginRight: 100 }}
+                        onPress={() => setIsModalOpen(!setIsModalOpen)}
+                    />
+                    
+                        {cargar()}
                         
-                    </View>
+                        
+                    </ScrollView>
                 </View>
             </Modal>
         </>

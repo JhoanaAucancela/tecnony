@@ -117,7 +117,7 @@ const showIcon = (route, focused) => {
             break;
         }
         case "Account": {
-            icon = "person-outline";
+            icon = "person";
             break;
         }
     }

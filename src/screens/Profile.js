@@ -56,17 +56,31 @@ export default function Profile(){
                         <Text style={styles.title}>Nombre completo:</Text>
                         <Text style={styles.text}>      {user.full_name}</Text>
 
-                        <Text style={styles.title}>Cédula:</Text>
-                        <Text style={styles.text}>      {user.cedula}</Text>
+                        {user.cedula &&
+                            <View>
+                                <Text style={styles.title}>Cédula:</Text>
+                                <Text style={styles.text}>      {user.cedula}</Text>
+                            </View>
+                        }
+                        
 
                         <Text style={styles.title}>E-mail:</Text>
                         <Text style={styles.text}>      {user.email}</Text>
 
-                        <Text style={styles.title}>Fecha de nacimiento:</Text>
-                        <Text style={styles.text}>      {user.birthdate}</Text>
+                        {user.birthdate &&
+                            <View>
+                                <Text style={styles.title}>Fecha de nacimiento:</Text>
+                                <Text style={styles.text}>      {user.birthdate}</Text>
+                            </View>
+                        }
 
-                        <Text style={styles.title}>Télefono:</Text>
-                        <Text style={styles.text}>      {user.home_phone}</Text>
+                        {user.home_phone &&
+                            <View>
+                                <Text style={styles.title}>Télefono:</Text>
+                                <Text style={styles.text}>      {user.home_phone}</Text>
+                            </View>
+                        }
+                        
 
                         <Text style={styles.title}>Celular:</Text>
                         <Text style={styles.text}>      {user.personal_phone}</Text>
