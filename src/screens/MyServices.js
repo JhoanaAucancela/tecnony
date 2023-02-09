@@ -40,7 +40,7 @@ const MyServices = () => {
 
  
 
-    const fetchMyServices = (url, config) => {
+    const fetchMyServices = (config) => {
         try{
             fetch("https://tecnony-v1.herokuapp.com/api/v1/hiring/show",config)
             .then(response => response.json())
@@ -61,7 +61,7 @@ const MyServices = () => {
                 Authorization: `Bearer ${_token}`
             }
         }; 
-           fetchMyServices(url, config);
+           fetchMyServices(config);
            setStd(false);
         })();
         

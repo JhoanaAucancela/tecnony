@@ -16,31 +16,30 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
     const [attention, setAttention] = React.useState([]);
     const [tecnico, setTecnico] = React.useState([]);
 
+    
 
 
-    const fetchCharacters = (config) => {
+    const fetchData = (config) => {
         setPost([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`, config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
             .catch(error => console.log("ViewComentesModal post: ",error))
-      };
-
-      const fetchAttention = (config) => {
+        
         setAttention([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`, config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
             .catch(error => console.log("ViewComentesModal attention: ", error))
-      };
-
-      const fetchTecnico = (config) => {
+        
         setTecnico([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/satisfaction-form/${ID}`, config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.attended_by))
             .catch(error => console.log("ViewComentesModal tecnico: ",error))
       };
+
+ 
 
 
       React.useEffect(() => {
@@ -53,9 +52,8 @@ export default function ViewComentsModal({isModalOpen, setIsModalOpen, ID, estad
                          Authorization: `Bearer ${_token}`
                      }
                  };
-                 fetchCharacters(config)
-                 fetchAttention(config)
-                 fetchTecnico(config)
+                 fetchData(config)
+                 
              })();
         }
         

@@ -18,37 +18,42 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID}){
     const [isModalCOpenE, setIsModalCOpenE] = React.useState(false);
 
 
-    const fetchCharacters = () => {
+    const fetchData = () => {
         setPost([]);
+        
+
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
             .then(response => response.json())
             .then(data => setPost(data.data.service))
             .catch(error => console.log("ViewServiceModal post: ",error))
-      };
 
-      const fetchTecnico = () => {
         setTecnico([]);
+            
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
             .catch(error => console.log("ViewServiceModal tecnico: ",error))
-      };
-
-
-      const fetchTecnicoData = () => {
         setTecnicoData([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/view-service/${ID}`)
-              .then(response => response.json())
-              .then(data => setTecnicoData(data.data.datos_tecnico))
-              .catch(error => console.log("ViewServiceModal tecnicoData: ",error))
-        };
+            .then(response => response.json())
+            .then(data => setTecnicoData(data.data.datos_tecnico))
+            .catch(error => console.log("ViewServiceModal tecnicoData: ",error))
+        
+    }
+    
+    
       
     React.useEffect(() => {
         if(isModalOpen){
+            
             (async () => {
-                fetchCharacters()
-                fetchTecnico()
-                fetchTecnicoData()  
+                
+
+                fetchData();
+                
+                //fetchCharacters()
+                //fetchTecnico()
+                //fetchTecnicoData()  
              })();
         } 
     }, [isModalOpen]);
@@ -152,7 +157,7 @@ export default function ViewServiceModal({isModalOpen, setIsModalOpen, ID}){
                 <View style={{width: 300 }}>  
                     <Card containerStyle={{borderRadius: 15, width: '100%' }}>
                         <Text style ={styles.descripcion}>Modo de atención: <Text style ={styles.descripciontext}>🛺 A domicilio</Text></Text>
-                        <Text style ={styles.descripcion}>Nota: <Text style ={styles.descripciontext}>Una vez contratado el servicio el técnico se comunicara con usted.</Text></Text>
+                        <Text style ={styles.descripcion}>Nota: <Text style ={styles.descripciontext}>Una vez contratado el servicio el técnico se comunicará con usted.</Text></Text>
 
                     </Card>
                 </View>

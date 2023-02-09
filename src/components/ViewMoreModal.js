@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Modal, View,ScrollView} from 'react-native';
-import { Icon, Card, Image } from "react-native-elements";
+import { Icon, Card, Image, Avatar } from "react-native-elements";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { USER_TOKEN_KEY } from "../providers/AuthProvider";
 import * as SecureStore from "expo-secure-store";
@@ -12,41 +12,44 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
     const [attention, setAttention] = React.useState([]); // Datos del diagnostico
     const [tecnico, setTecnico] = React.useState([]); //Datos del tecnico
     const [servicio, setServicio] = React.useState([]); //Datos del servicio
+    const [datatecnico, setDatatecnico] = React.useState([]); //Datos del servicio
+
     const [isModalCOpen, setIsModalCOpen] = React.useState(false);
 
 
-    const fetchCharacters = (config) => {// Datos del contrato
+    const fetchData =  (config) => {
         setPost([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
             .then(data => setPost(data.data.service_request))
             .catch(error => console.log("ViewMoreModal post: ",error))
-      };
-
-      const fetchAttention = (config) => {// Datos del diagnostico
+        
         setAttention([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
             .then(data => setAttention(data.data.attention))
             .catch(error => console.log("ViewMoreModal attention: ",error))
-      };
-
-      const fetchTecnico = (config) => {//Datos del tecnico
+        
         setTecnico([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
             .then(data => setTecnico(data.data.created_by))
             .catch(error => console.log("ViewMoreModal tecnico: ",error))
-      };
-
-
-      const fetchService = (config) => { //Datos del servicio
+        
         setServicio([]);
         fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
             .then(response => response.json())
             .then(data => setServicio(data.data.of_service))
             .catch(error => console.log("ViewMoreModal Servicio: ",error))
-      };
+
+            
+        setDatatecnico([]);
+        fetch(`https://tecnony-v1.herokuapp.com/api/v1/hiring/show/${ID}`, config)
+              .then(response => response.json())
+              .then(data => setDatatecnico(data.data.datos_tecnico))
+              .catch(error => console.log("ViewMoreModal datos_tecnico: ",error))
+    }
+
 
       
 
@@ -59,10 +62,8 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                      Authorization: `Bearer ${_token}`
                  }
              };
-             fetchCharacters(config)
-             fetchAttention(config)
-             fetchTecnico(config)
-             fetchService(config)
+             fetchData(config)
+           
              })();
         }
         
@@ -122,12 +123,12 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                                 <Card.Divider />
                                 <View>
                                     <View style={{ width:'100%'}}>
-                                        <Text style ={styles.descripcion}>Modelo: <Text style={styles.descripciontext}>{post.model}</Text></Text>
-                                        
                                         <Text style ={styles.descripcion}>Dispositivo: <Text style={styles.descripciontext}>{post.device}</Text></Text>
-                                        
+                                        <Text style ={styles.descripcion}>Modelo: <Text style={styles.descripciontext}>{post.model}</Text></Text>
+                                        <Text style={styles.descripcion}>Marca: <Text style={styles.descripciontext}>{post.brand}</Text></Text>
+                                        {post.serie && <Text style={styles.descripcion}>Serie: <Text style={styles.descripciontext}>{post.serie}</Text></Text>}
                                         <Text style={styles.descripcion}>Descripción: <Text style={styles.descripciontext}>{post.description_problem}</Text></Text>
-                                                                            
+                                        {metodoPago(post.payment_method)}
                                         <Text style={styles.descripcion}>Fecha: <Text style={styles.descripciontext}>{post.date_issue}</Text></Text>
                                     </View>
                                 </View>  
@@ -162,8 +163,17 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                             <Card  containerStyle={{borderRadius: 15, width: '95%'}}>
                                 <Card.Title style={styles.title}>Datos del tecnico</Card.Title>
                                 <Card.Divider />
+                                    <View style = {{ alignItems: 'center' }}>
+                                            <Avatar
+                                                rounded
+                                                size="medium"
+                                                source={{ uri: datatecnico.avatar }}
+                                            />
+                                        </View>
                                 <Text style ={styles.descripcion}>Nombre: <Text style ={styles.descripciontext}>{tecnico.full_name}</Text></Text>
                                 <Text style ={styles.descripcion}>Teléfono: <Text style ={styles.descripciontext}>{tecnico.work_phone}</Text></Text>
+                                <Text style ={styles.descripcion}>E-mail: <Text style ={styles.descripciontext}>{datatecnico.correo}</Text></Text>
+
                             </Card>
                         </View>
 
@@ -171,6 +181,15 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                         </ScrollView>
                 </View>
             )
+        }
+    }
+
+    function metodoPago(metodoPago){
+        if (metodoPago === 1){
+            return <Text style={styles.descripcion}>Tipo de pago: <Text style={styles.descripciontext}>Efectivo</Text></Text>
+        }
+        else{
+            return <Text style={styles.descripcion}>Tipo de pago: <Text style={styles.descripciontext}>Depósito o Transferencia</Text></Text>
         }
     }
 
