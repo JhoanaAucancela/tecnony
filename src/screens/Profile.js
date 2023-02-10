@@ -53,8 +53,14 @@ export default function Profile(){
                         <Text style={styles.title}>Nombre de usuario:</Text>
                         <Text style={styles.text}>      {user.username}</Text>
 
-                        <Text style={styles.title}>Nombre completo:</Text>
-                        <Text style={styles.text}>      {user.full_name}</Text>
+                        {user.full_name &&
+                            <View>
+                                <Text style={styles.title}>Nombre completo:</Text>
+                                <Text style={styles.text}>      {user.full_name}</Text>
+                            </View>
+                        }
+
+                        
 
                         {user.cedula &&
                             <View>

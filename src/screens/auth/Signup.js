@@ -7,11 +7,12 @@ import { ErrorText, ActivityLoader } from "../../components/Shared";
 import { useForm } from "react-hook-form";
 import { EmailInput, PasswordInput, TextInput, DateInput } from "../../components/inputs";
 import { signup } from "../../services/AuthService";
-
+import ModalTerminos from "../../components/ModalTerminos";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Signup = ({ navigation }) => {
+    const [isModalVSOpen, setIsModalVSOpen] = React.useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [secureEntry, setSecureEntry] = useState(true);
@@ -46,6 +47,7 @@ const Signup = ({ navigation }) => {
             )
         } catch (e) {
             setError(e.message);
+            alert(error);
         }finally{
             setLoading(false);
         }
@@ -231,7 +233,7 @@ const Signup = ({ navigation }) => {
         )}
  
         
- 
+            <Text style={styles.text}>Al registrarse usted está aceptando los <Text style={styles.textBtn} onPress={() => setIsModalVSOpen(!isModalVSOpen)}>terminos y condiciones</Text> de Tecnony.</Text>
             <Button 
                 titleStyle={styles.buttonTitle}
                 buttonStyle={styles.button}
@@ -239,6 +241,11 @@ const Signup = ({ navigation }) => {
                 type="outline"
                 onPress={handleSubmit(_signup)}
             />
+
+            <ModalTerminos 
+                isModalOpen={isModalVSOpen} 
+                setIsModalOpen={setIsModalVSOpen} 
+            /> 
 
                     <Text>  </Text>           
         </ScrollView>

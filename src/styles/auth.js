@@ -36,6 +36,14 @@ const styles = EStyleSheet.create({
         fontFamily: '$400Regular',
         
     },
+
+    textBtn:{
+        padding:'2%',
+        fontFamily: '$400Regular',
+        color:'$primary',
+        textDecorationLine: "underline",
+    },
+
     textBold:{
         padding:'2%',
         fontFamily: '$400Regular',

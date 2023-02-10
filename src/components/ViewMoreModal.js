@@ -219,18 +219,6 @@ export default function ViewMoreModal({isModalOpen, setIsModalOpen, ID, estado})
                 )
             }
         }
-
-        else if (std === 6){
-            if (metodoPago === 2){
-                return(
-                    <View>
-                        <Card  containerStyle={{borderRadius: 15, width: '95%'}}>
-                            <Text>Comprobante</Text>
-                        </Card>
-                    </View>
-                )
-            }
-        }
         
     }
 
