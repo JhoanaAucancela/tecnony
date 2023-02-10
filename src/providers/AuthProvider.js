@@ -18,7 +18,7 @@ const AuthProvider = () => {
             try{
                 userToken = await getItemAsync(USER_TOKEN_KEY);
             } catch (e) {
-                alert("El token no se ha podido restaurar, cierre la APP");
+                alert("El token no se ha podido restaurar, cierre la APP y borre los datos de la aplicación.");
             }
 
             dispatch({ type: RESTORE_TOKEN, token: userToken });
