@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { View, Text } from "react-native";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { Avatar, Icon, Image } from "react-native-elements";
+import { DrawerItem } from "@react-navigation/drawer";
+import { Icon, Image } from "react-native-elements";
 import EStyleSheet from "react-native-extended-stylesheet";
 
 

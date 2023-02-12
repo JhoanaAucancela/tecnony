@@ -256,7 +256,7 @@ const MyServices = () => {
     function cargar(){
         if(characters.length===0) return (
             <View style={styles.container}>
-            <Text style= {styles.titleX}>No tienes servicios contratados</Text>
+            <Text style= {styles.titleX}>No tienes servicios contratados.</Text>
             </View>
         )
     
