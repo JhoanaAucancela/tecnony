@@ -1,5 +1,6 @@
 export default {
     expo: {
+        
         extra: {
             eas: {
                 projectId: "da044388-8e36-47d8-9cf0-76a0c1d64e2f"
@@ -27,6 +28,7 @@ export default {
           supportsTablet: true
         },
         android: {
+            versionCode: 2,
             package:'com.tecnony',
           adaptiveIcon: {
             foregroundImage: "./assets/adaptive-icon.png",
