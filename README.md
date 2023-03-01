@@ -1,4 +1,4 @@
-# tecnony
+# Tecnony
 expo install expo-secure-store 
 expo install expo-font @expo-google-fonts/lato 
 expo install react-native-gesture-handler react-native-reanimated 
