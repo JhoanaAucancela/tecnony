@@ -24,7 +24,7 @@ La documentación está disponible en los siguientes enlaces:
 La aplicación móvil está disponible en el siguiente enlace:
 # [![Video](https://github.com/JhoanaAucancela/img/blob/main/es-419_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.tecnony)
 
-## Entorno de desarrollo
+## 🖥️ Entorno de desarrollo
 Para la ejecución del proyecto se debe instalar
 
 1. Yarn
