@@ -7,7 +7,13 @@ El presente trabajo de Integración Curricular propone desarrollar una aplicaci�
 
 ## ⏯️ Manual de usuario:
 
-[![Alt text](https://github.com/JhoanaAucancela/img/blob/main/Blue%20Whale%20And%20Gull%20Grey%20Modern%20Technology%20Project%20Proposal%20Presentation.png)](https://youtu.be/HFS2TcoJXvg)
+[![Video](https://github.com/JhoanaAucancela/img/blob/main/banner.png)](https://youtu.be/HFS2TcoJXvg)
+
+## 📄 Documentos:
+
+#### Tesis    |   Formulario 233A     |    Formulario 234A
+# [📑](https://github.com/JhoanaAucancela/tecnony/blob/Documentos/Tesis-Jhoana.pdf)   |   [📑](https://github.com/JhoanaAucancela/tecnony/blob/Documentos/F_AA_233A.pdf)   |  [📑](https://github.com/JhoanaAucancela/tecnony/blob/Documentos/F_AA_234A.pdf)
+
 
 # 💻 Tech Stack:
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
