@@ -2,8 +2,26 @@
 
 ![Image text](https://res.cloudinary.com/dlzylh5f6/image/upload/v1675559741/logo/Group_135_ixamwq.png)
 
+## Descripción General:
+el presente trabajo de Integración Curricular propone desarrollar una aplicación móvil, en donde los usuarios tengan la posibilidad de visualizar un catálogo de servicios de asistencia técnica especializada en el área de informática y que dependiendo de sus necesidades y requerimientos puedan contratar dichos servicios desde la comodidad de su hogar de una manera fácil, segura y en tiempo real.
+
+## ⏯️ Manual de usuario:
+
+[![Alt text](https://img.youtube.com/vi/configuroweb/0.jpg)](https://youtu.be/HFS2TcoJXvg)
+
+# 💻 Tech Stack:
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
 
 
+# 📊 GitHub Stats:
+![](https://github-readme-stats.vercel.app/api?username=JhoanaAucancela&theme=dark&hide_border=false&include_all_commits=false&count_private=false)<br/>
+![](https://github-readme-streak-stats.herokuapp.com/?user=JhoanaAucancela&theme=dark&hide_border=false)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=JhoanaAucancela&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+
+---
+[![](https://epnecuador-my.sharepoint.com/:i:/g/personal/jhoana_aucancela_epn_edu_ec/EWl08WYo9lxMtbeGvwZeMXMB8qEL68O2_pO7jfWEd4gj0w?e=sZadbn)](https://visitcount.itsvg.in)
+
+<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
 
 
 
