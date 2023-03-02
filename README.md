@@ -24,11 +24,34 @@ La documentación está disponible en los siguientes enlaces:
 La aplicación móvil está disponible en el siguiente enlace:
 # [![Video](https://github.com/JhoanaAucancela/img/blob/main/es-419_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.tecnony)
 
-## 📲 Clonar Repositorio
+## Entorno de desarrollo
+Para la ejecución del proyecto se debe instalar
 
-Para clonar se debe ejecutar el siguiente comando en la ruta donde se desea descargar el proyecto 
+1. Yarn
 ```
-git clone 
+npm install --global yarn
+```
+2. Expo
+```
+npm install -g expo-cli exp
+```
+
+## 📲 Iniciar Proyecto
+
+Para clonar se debe ejecutar el siguiente comando en la ruta donde se desea descargar el proyecto:
+```
+git clone https://github.com/JhoanaAucancela/tecnony.git
+```
+Para descargar las dependencias ejecutar el siguiente comando:
+```
+cd ruta_del_proyecto
+```
+```
+yarn install
+```
+Para ejecutar la aplicación se debe usar el siguiente comando:
+```
+yarn start -c
 ```
 
 ## 💻 Tecnologías
