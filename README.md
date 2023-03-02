@@ -3,7 +3,7 @@
 ![Image text](https://res.cloudinary.com/dlzylh5f6/image/upload/v1675559741/logo/Group_135_ixamwq.png)
 
 ## Descripción General:
-el presente trabajo de Integración Curricular propone desarrollar una aplicación móvil, en donde los usuarios tengan la posibilidad de visualizar un catálogo de servicios de asistencia técnica especializada en el área de informática y que dependiendo de sus necesidades y requerimientos puedan contratar dichos servicios desde la comodidad de su hogar de una manera fácil, segura y en tiempo real.
+El presente trabajo de Integración Curricular propone desarrollar una aplicación móvil, en donde los usuarios tengan la posibilidad de visualizar un catálogo de servicios de asistencia técnica especializada en el área de informática y que dependiendo de sus necesidades y requerimientos puedan contratar dichos servicios desde la comodidad de su hogar de una manera fácil, segura y en tiempo real.
 
 ## ⏯️ Manual de usuario:
 
