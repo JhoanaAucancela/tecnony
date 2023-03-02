@@ -7,7 +7,7 @@ el presente trabajo de Integración Curricular propone desarrollar una aplicaci�
 
 ## ⏯️ Manual de usuario:
 
-[![Alt text](https://img.youtube.com/vi/configuroweb/0.jpg)](https://youtu.be/HFS2TcoJXvg)
+[![Alt text](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)](https://youtu.be/HFS2TcoJXvg)
 
 # 💻 Tech Stack:
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
