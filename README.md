@@ -42,7 +42,7 @@ Para clonar se debe ejecutar el siguiente comando en la ruta donde se desea desc
 ```
 git clone https://github.com/JhoanaAucancela/tecnony.git
 ```
-Para descargar las dependencias ejecutar el siguiente comando:
+Para descargar las dependencias ejecutar los siguientes comandos:
 ```
 cd ruta_del_proyecto
 ```
