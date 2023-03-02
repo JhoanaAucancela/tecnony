@@ -1,4 +1,12 @@
 # Tecnony
+
+![Image text](https://res.cloudinary.com/dlzylh5f6/image/upload/v1675559741/logo/Group_135_ixamwq.png)
+
+
+
+
+
+
 expo install expo-secure-store 
 expo install expo-font @expo-google-fonts/lato 
 expo install react-native-gesture-handler react-native-reanimated 
